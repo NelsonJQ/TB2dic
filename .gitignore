@@ -1,0 +1,66 @@
+# Ignore the entire dataRetro folder (Dofus game files)
+dataRetro/
+dofus1langextractor/
+lang/
+output/
+Retro_json_dialog_data/
+
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore virtual environment directories
+venv/
+env/
+ENV/
+.venv/
+
+# Ignore IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Ignore log files
+*.log
+
+# Ignore temporary files
+*.tmp
+*.temp
+
+# Ignore compiled Python files
+*.pyc
+*.pyo
+
+# Ignore specific files
+npc_dialog_mapping - Copy.html
+npc_dialog_mapping.html
+
+# Ignore distribution/packaging files
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg

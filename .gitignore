@@ -6,6 +6,8 @@ output/
 Retro_json_dialog_data/
 TB_ANK_202507/
 dics/
+ANK_dic/
+
 
 # Ignore Python cache files
 __pycache__/

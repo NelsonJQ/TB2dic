@@ -4,6 +4,8 @@ dofus1langextractor/
 lang/
 output/
 Retro_json_dialog_data/
+TB_ANK_202507/
+dics/
 
 # Ignore Python cache files
 __pycache__/
@@ -46,6 +48,7 @@ desktop.ini
 # Ignore specific files
 npc_dialog_mapping - Copy.html
 npc_dialog_mapping.html
+
 
 # Ignore distribution/packaging files
 .Python

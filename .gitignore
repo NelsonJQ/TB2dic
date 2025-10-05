@@ -69,3 +69,5 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+npc_dialog_mapping_xliff.html
+sample_filter_test.xlsx

@@ -2725,7 +2725,7 @@ class StatisticsWindow:
         self.stats = stats
         self.window = tk.Toplevel(parent)
         self.window.title("Generation Statistics")
-        self.window.geometry("900x700")
+        self.window.geometry("1200x800")
         self.window.resizable(True, True)
         
         # Make window modal
@@ -2744,72 +2744,88 @@ class StatisticsWindow:
     
     def setup_ui(self):
         """Setup the statistics UI"""
-        # Create notebook for tabs
-        notebook = ttk.Notebook(self.window)
-        notebook.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        # Create main container with scrollable area
+        main_canvas = tk.Canvas(self.window)
+        scrollbar = ttk.Scrollbar(self.window, orient="vertical", command=main_canvas.yview)
+        scrollable_main_frame = ttk.Frame(main_canvas)
         
-        # Basic Statistics Tab
-        basic_frame = ttk.Frame(notebook)
-        notebook.add(basic_frame, text="📊 Basic Statistics")
-        self.create_basic_stats_tab(basic_frame)
+        scrollable_main_frame.bind(
+            "<Configure>",
+            lambda e: main_canvas.configure(scrollregion=main_canvas.bbox("all"))
+        )
         
-        # Translation Quality Tab
-        translation_frame = ttk.Frame(notebook)
-        notebook.add(translation_frame, text="🌐 Translation Progress")
-        self.create_translation_quality_tab(translation_frame)
+        main_canvas.create_window((0, 0), window=scrollable_main_frame, anchor="nw")
+        main_canvas.configure(yscrollcommand=scrollbar.set)
         
-        # XLIFF Mapping Tab (if applicable)
+        # Title
+        title_label = ttk.Label(scrollable_main_frame, text="📊 Comprehensive Statistics Report", 
+                               font=("Arial", 14, "bold"))
+        title_label.pack(pady=(10, 20))
+        
+        # Create horizontal layout for stats
+        top_frame = ttk.Frame(scrollable_main_frame)
+        top_frame.pack(fill=tk.X, padx=10, pady=5)
+        
+        # Left side - Basic Statistics and Metadata
+        left_frame = ttk.Frame(top_frame)
+        left_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=(0, 5))
+        
+        self.create_basic_and_metadata_stats(left_frame)
+        
+        # Right side - XLIFF Mapping (if available)
         if 'xliff_mapping' in self.stats:
-            xliff_frame = ttk.Frame(notebook)
-            notebook.add(xliff_frame, text="📄 XLIFF Mapping")
-            self.create_xliff_mapping_tab(xliff_frame)
+            right_frame = ttk.Frame(top_frame)
+            right_frame.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True, padx=(5, 0))
+            self.create_xliff_mapping_section(right_frame)
         
-        # Close button
+        # Bottom - Translation Progress Summary
+        bottom_frame = ttk.Frame(scrollable_main_frame)
+        bottom_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        
+        self.create_translation_summary(bottom_frame)
+        
+        # Button frame
         button_frame = ttk.Frame(self.window)
         button_frame.pack(fill=tk.X, padx=10, pady=(0, 10))
         
         ttk.Button(button_frame, text="Close", command=self.window.destroy).pack(side=tk.RIGHT)
         ttk.Button(button_frame, text="Export to CSV", command=self.export_to_csv).pack(side=tk.RIGHT, padx=(0, 10))
+        
+        # Pack canvas and scrollbar
+        main_canvas.pack(side="left", fill="both", expand=True)
+        scrollbar.pack(side="right", fill="y")
+        
+        # Bind mousewheel to canvas
+        def _on_mousewheel(event):
+            main_canvas.yview_scroll(int(-1*(event.delta/120)), "units")
+        main_canvas.bind_all("<MouseWheel>", _on_mousewheel)
     
-    def create_basic_stats_tab(self, parent):
-        """Create basic statistics tab"""
-        # Create scrollable frame
-        canvas = tk.Canvas(parent)
-        scrollbar = ttk.Scrollbar(parent, orient="vertical", command=canvas.yview)
-        scrollable_frame = ttk.Frame(canvas)
-        
-        scrollable_frame.bind(
-            "<Configure>",
-            lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
-        )
-        
-        canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
-        canvas.configure(yscrollcommand=scrollbar.set)
-        
-        # General Information
-        info_frame = ttk.LabelFrame(scrollable_frame, text="General Information", padding=10)
-        info_frame.pack(fill=tk.X, padx=10, pady=5)
+    def create_basic_and_metadata_stats(self, parent):
+        """Create basic statistics and metadata in a compact format"""
+        # Basic Statistics
+        basic_frame = ttk.LabelFrame(parent, text="� Basic Statistics", padding=10)
+        basic_frame.pack(fill=tk.BOTH, expand=True, pady=(0, 5))
         
         basic = self.stats['basic']
         metadata = self.stats['metadata']
         
-        # Create table
-        tree = ttk.Treeview(info_frame, columns=("Value", "Percentage"), show="tree headings", height=10)
+        # Create a more compact table without scrollbars
+        tree = ttk.Treeview(basic_frame, columns=("Value", "Percentage"), show="tree headings", height=14)
         tree.pack(fill=tk.BOTH, expand=True)
         
         tree.heading("#0", text="Metric")
         tree.heading("Value", text="Count")
         tree.heading("Percentage", text="Percentage")
         
-        tree.column("#0", width=250)
-        tree.column("Value", width=100, anchor=tk.CENTER)
-        tree.column("Percentage", width=100, anchor=tk.CENTER)
+        tree.column("#0", width=200)
+        tree.column("Value", width=80, anchor=tk.CENTER)
+        tree.column("Percentage", width=80, anchor=tk.CENTER)
         
         # Insert data
         tree.insert("", "end", text="Data Source", values=(basic['data_source'], ""))
         tree.insert("", "end", text="", values=("", ""))  # Separator
         
-        tree.insert("", "end", text="📋 BASIC COUNTS", values=("", ""), tags=("header",))
+        tree.insert("", "end", text="📊 BASIC COUNTS", values=("", ""), tags=("header",))
         tree.insert("", "end", text="Total NPCs loaded", values=(basic['total_npcs'], "100.0%"))
         tree.insert("", "end", text="NPCs with dialogs", values=(basic['npcs_with_dialogs'], f"{(basic['npcs_with_dialogs']/basic['total_npcs']*100):.1f}%"))
         tree.insert("", "end", text="Total messages", values=(basic['total_messages'], ""))
@@ -2825,85 +2841,16 @@ class StatisticsWindow:
         
         # Configure tags
         tree.tag_configure("header", background="#e6f3ff", font=("Arial", 9, "bold"))
-        
-        canvas.pack(side="left", fill="both", expand=True)
-        scrollbar.pack(side="right", fill="y")
     
-    def create_translation_quality_tab(self, parent):
-        """Create translation quality tab"""
-        # Create notebook for NPC names, messages and replies
-        quality_notebook = ttk.Notebook(parent)
-        quality_notebook.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
-        
-        # NPC Names tab
-        names_frame = ttk.Frame(quality_notebook)
-        quality_notebook.add(names_frame, text="🧙‍♂️ NPC Names")
-        self.create_translation_table(names_frame, self.stats['translation_quality']['npc_names'], "NPC Names")
-        
-        # Messages tab
-        messages_frame = ttk.Frame(quality_notebook)
-        quality_notebook.add(messages_frame, text="💬 Messages")
-        self.create_translation_table(messages_frame, self.stats['translation_quality']['messages'], "Messages")
-        
-        # Replies tab
-        replies_frame = ttk.Frame(quality_notebook)
-        quality_notebook.add(replies_frame, text="↪️ Replies")
-        self.create_translation_table(replies_frame, self.stats['translation_quality']['replies'], "Replies")
-    
-    def create_translation_table(self, parent, data, title):
-        """Create translation quality table"""
-        frame = ttk.LabelFrame(parent, text=f"{title} Translation Progress", padding=10)
-        frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=5)
-        
-        # Create table
-        tree = ttk.Treeview(frame, columns=("EN_Count", "EN_Pct", "ES_Count", "ES_Pct", "PT_Count", "PT_Pct"), show="tree headings", height=8)
-        tree.pack(fill=tk.BOTH, expand=True)
-        
-        tree.heading("#0", text="Status")
-        tree.heading("EN_Count", text="EN Count")
-        tree.heading("EN_Pct", text="EN %")
-        tree.heading("ES_Count", text="ES Count")
-        tree.heading("ES_Pct", text="ES %")
-        tree.heading("PT_Count", text="PT Count")
-        tree.heading("PT_Pct", text="PT %")
-        
-        tree.column("#0", width=100)
-        for col in ["EN_Count", "EN_Pct", "ES_Count", "ES_Pct", "PT_Count", "PT_Pct"]:
-            tree.column(col, width=80, anchor=tk.CENTER)
-        
-        # Insert data
-        tree.insert("", "end", text="✅ Valid", values=(
-            data['en']['valid'], f"{data['en']['valid_percentage']:.1f}%",
-            data['es']['valid'], f"{data['es']['valid_percentage']:.1f}%",
-            data['pt']['valid'], f"{data['pt']['valid_percentage']:.1f}%"
-        ), tags=("valid",))
-        
-        tree.insert("", "end", text="❌ NULL", values=(
-            data['en']['null'], f"{data['en']['null_percentage']:.1f}%",
-            data['es']['null'], f"{data['es']['null_percentage']:.1f}%",
-            data['pt']['null'], f"{data['pt']['null_percentage']:.1f}%"
-        ), tags=("null",))
-        
-        tree.insert("", "end", text="❔ Just 'x'", values=(
-            data['en']['x'], f"{data['en']['x_percentage']:.1f}%",
-            data['es']['x'], f"{data['es']['x_percentage']:.1f}%",
-            data['pt']['x'], f"{data['pt']['x_percentage']:.1f}%"
-        ), tags=("x_only",))
-        
-        # Configure tags
-        tree.tag_configure("valid", background="#d4edda")
-        tree.tag_configure("null", background="#f8d7da")
-        tree.tag_configure("x_only", background="#fff3cd")
-    
-    def create_xliff_mapping_tab(self, parent):
-        """Create XLIFF mapping statistics tab"""
+    def create_xliff_mapping_section(self, parent):
+        """Create XLIFF mapping section"""
         xliff_stats = self.stats['xliff_mapping']
         
-        frame = ttk.LabelFrame(parent, text="XLIFF Translation Mapping", padding=10)
-        frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        frame = ttk.LabelFrame(parent, text="📄 XLIFF Translation Mapping", padding=10)
+        frame.pack(fill=tk.BOTH, expand=True, pady=(0, 5))
         
         # Create table
-        tree = ttk.Treeview(frame, columns=("Total", "Mapped", "Unmapped", "Mapped_Pct"), show="tree headings", height=6)
+        tree = ttk.Treeview(frame, columns=("Total", "Mapped", "Unmapped", "Mapped_Pct"), show="tree headings", height=4)
         tree.pack(fill=tk.BOTH, expand=True)
         
         tree.heading("#0", text="Type")
@@ -2912,9 +2859,9 @@ class StatisticsWindow:
         tree.heading("Unmapped", text="Unmapped")
         tree.heading("Mapped_Pct", text="Mapping %")
         
-        tree.column("#0", width=150)
+        tree.column("#0", width=100)
         for col in ["Total", "Mapped", "Unmapped", "Mapped_Pct"]:
-            tree.column(col, width=120, anchor=tk.CENTER)
+            tree.column(col, width=90, anchor=tk.CENTER)
         
         # Insert data
         tree.insert("", "end", text="💬 Messages", values=(
@@ -2933,10 +2880,70 @@ class StatisticsWindow:
         
         # Add explanation
         explanation = ttk.Label(frame, text=
-            "Note: Unmapped entries are translations in XLIFF files that don't appear in the dialog relationship mapping.\n"
-            "This typically means they are unused strings or from different game contexts.",
-            font=("Arial", 9), foreground="gray")
-        explanation.pack(pady=10)
+            "Note: Unmapped entries are translations that don't appear\nin the dialog relationship mapping.",
+            font=("Arial", 8), foreground="gray", justify=tk.CENTER)
+        explanation.pack(pady=(10, 0))
+    
+    def create_translation_summary(self, parent):
+        """Create translation quality summary table"""
+        frame = ttk.LabelFrame(parent, text="🌐 Translation Progress Summary", padding=10)
+        frame.pack(fill=tk.BOTH, expand=True)
+        
+        # Create a comprehensive table showing all translation types
+        # Use a more compact format that fits in single lines
+        tree = ttk.Treeview(frame, columns=("EN_Valid", "EN_Null", "EN_X", "ES_Valid", "ES_Null", "ES_X", "PT_Valid", "PT_Null", "PT_X"), 
+                           show="tree headings", height=6)
+        tree.pack(fill=tk.BOTH, expand=True, pady=(0, 10))
+        
+        tree.heading("#0", text="Type")
+        tree.heading("EN_Valid", text="EN ✅")
+        tree.heading("EN_Null", text="EN ❌")
+        tree.heading("EN_X", text="EN ❔")
+        tree.heading("ES_Valid", text="ES ✅")
+        tree.heading("ES_Null", text="ES ❌")
+        tree.heading("ES_X", text="ES ❔")
+        tree.heading("PT_Valid", text="PT ✅")
+        tree.heading("PT_Null", text="PT ❌")
+        tree.heading("PT_X", text="PT ❔")
+        
+        tree.column("#0", width=120)
+        for col in ["EN_Valid", "EN_Null", "EN_X", "ES_Valid", "ES_Null", "ES_X", "PT_Valid", "PT_Null", "PT_X"]:
+            tree.column(col, width=70, anchor=tk.CENTER)
+        
+        # Insert data for each type
+        translation_data = self.stats['translation_quality']
+        
+        for type_name, display_name in [('npc_names', '🧙‍♂️ NPC Names'), ('messages', '💬 Messages'), ('replies', '↪️ Replies')]:
+            data = translation_data[type_name]
+            tree.insert("", "end", text=display_name, values=(
+                f"{data['en']['valid']} ({data['en']['valid_percentage']:.1f}%)",
+                f"{data['en']['null']} ({data['en']['null_percentage']:.1f}%)",
+                f"{data['en']['x']} ({data['en']['x_percentage']:.1f}%)",
+                f"{data['es']['valid']} ({data['es']['valid_percentage']:.1f}%)",
+                f"{data['es']['null']} ({data['es']['null_percentage']:.1f}%)",
+                f"{data['es']['x']} ({data['es']['x_percentage']:.1f}%)",
+                f"{data['pt']['valid']} ({data['pt']['valid_percentage']:.1f}%)",
+                f"{data['pt']['null']} ({data['pt']['null_percentage']:.1f}%)",
+                f"{data['pt']['x']} ({data['pt']['x_percentage']:.1f}%)"
+            ), tags=(type_name,))
+        
+        # Configure row colors
+        tree.tag_configure("npc_names", background="#f8f9fa")
+        tree.tag_configure("messages", background="#e9ecef")
+        tree.tag_configure("replies", background="#dee2e6")
+        
+        # Configure tag properties to increase row height if needed
+        style = ttk.Style()
+        style.configure("Treeview", rowheight=25)  # Increase row height slightly
+        
+        # Add legend
+        legend_frame = ttk.Frame(frame)
+        legend_frame.pack(fill=tk.X)
+        
+        ttk.Label(legend_frame, text="Legend:", font=("Arial", 9, "bold")).pack(side=tk.LEFT)
+        ttk.Label(legend_frame, text="✅ Valid translations", foreground="green").pack(side=tk.LEFT, padx=(10, 0))
+        ttk.Label(legend_frame, text="❌ NULL/Empty", foreground="red").pack(side=tk.LEFT, padx=(10, 0))
+        ttk.Label(legend_frame, text="❔ Just 'x'", foreground="orange").pack(side=tk.LEFT, padx=(10, 0))
     
     def export_to_csv(self):
         """Export statistics to CSV file"""

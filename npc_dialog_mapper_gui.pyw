@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-RETRO NPC Dialog Mapper - Tkinter GUI Application
-Responsive GUI for generating NPC dialogs HTML files from JSON or XLIFF sources.
+Enhanced Dialog Mapper - Tkinter GUI Application
+Responsive GUI for generating NPC dialogs and Quest HTML files from JSON or XLIFF sources.
 Author: NelsonJQ
 Last Updated: 2025-10-06
 Usage: This tool can be used by anyone for personal, educational, or commercial purposes.
@@ -18,6 +18,43 @@ import xml.etree.ElementTree as ET
 from typing import Dict, List, Optional, Any, Union
 from dataclasses import dataclass, field
 from collections import defaultdict
+
+# New data classes for Quests
+@dataclass
+class QuestObjective:
+    objective_id: int
+    text_fr: str
+    text_en: Optional[str]
+    text_es: Optional[str]
+    text_pt: Optional[str]
+    context: Optional[str]
+
+@dataclass
+class QuestStep:
+    step_id: int
+    text_fr: str
+    text_en: Optional[str]
+    text_es: Optional[str]
+    text_pt: Optional[str]
+    context: Optional[str]
+    objectives: List[QuestObjective] = field(default_factory=list)
+
+@dataclass
+class Quest:
+    quest_id: int
+    name_fr: str
+    name_en: Optional[str]
+    name_es: Optional[str]
+    name_pt: Optional[str]
+    description_fr: str
+    description_en: Optional[str]
+    description_es: Optional[str]
+    description_pt: Optional[str]
+    context: Optional[str]
+    is_repeatable: bool = False
+    is_daily: bool = False
+    is_active: bool = True
+    steps: List[QuestStep] = field(default_factory=list)
 
 # Import the core classes and functionality from the notebook
 @dataclass
@@ -76,50 +113,188 @@ class NPC:
 class NPCDialogMapper:
     """Core mapping class from the notebook - corrected version"""
     
-    def __init__(self, folder_path: str, use_xliff: bool = False, xliff_folder: str = "", xliff_files: Optional[dict] = None):
+    def __init__(self, folder_path: str, use_xliff: bool = False, xliff_folder: str = "", 
+                 xliff_files: Optional[dict] = None, quest_json_path: str = ""):
         self.folder_path = folder_path
         self.use_xliff = use_xliff
         self.xliff_folder = xliff_folder
         self.xliff_files = xliff_files or {}
+        self.quest_json_path = quest_json_path
+        
+        # NPC data (existing)
         self.npcs: Dict[int, NPC] = {}
         self.messages: Dict[int, NPCMessage] = {}
         self.replies: Dict[int, NPCReply] = {}
         self.dialogs: List[NPCDialog] = []
         self.metadata: List[NPCMetadata] = []
         
+        # Quest data (new)
+        self.quests: Dict[int, Quest] = {}
+        self.quest_steps: Dict[int, QuestStep] = {}
+        self.quest_objectives: Dict[int, QuestObjective] = {}
+        
         # For XLIFF mode, we store translations separately
         self.xliff_translations = {
             'npc_names': {},    # npc_id -> {fr, en, es, pt}
             'messages': {},     # message_id -> {fr, en, es, pt}
-            'replies': {}       # reply_id -> {fr, en, es, pt}
+            'replies': {},      # reply_id -> {fr, en, es, pt}
+            'quest_names': {},  # quest_id -> {fr, en, es, pt}
+            'quest_descriptions': {},  # quest_id -> {fr, en, es, pt}
+            'quest_steps': {},  # step_id -> {fr, en, es, pt}
+            'quest_objectives': {}  # objective_id -> {fr, en, es, pt}
         }
     
-    def load_data(self):
-        """Load all data files"""
-        print("Loading NPC metadata...")
-        self._load_metadata()
-        
-        if self.use_xliff:
-            print("Loading translations from XLIFF files...")
-            self._load_xliff_translations()
-            print("Loading structure from JSON files...")
-            self._load_structure_from_json()
-            print("Merging XLIFF translations with JSON structure...")
-            self._merge_xliff_with_structure()
-        else:
-            print("Loading NPC data...")
-            self._load_npcs()
-            print("Loading messages...")
-            self._load_messages()
-            print("Loading replies...")
-            self._load_replies()
-            print("Loading dialogs...")
-            self._load_dialogs()
+    def load_data(self, data_type: str = "npcs"):
+        """Load data files based on type: 'npcs', 'quests', or 'both'"""
+        if data_type in ["npcs", "both"]:
+            print("Loading NPC metadata...")
+            self._load_metadata()
             
-        print("Building relationships...")
-        self._build_relationships()
-        print("Matching metadata with NPCs...")
-        self._match_metadata_with_npcs()
+            if self.use_xliff:
+                print("Loading translations from XLIFF files...")
+                self._load_xliff_translations()
+                print("Loading structure from JSON files...")
+                self._load_structure_from_json()
+                print("Merging XLIFF translations with JSON structure...")
+                self._merge_xliff_with_structure()
+            else:
+                print("Loading NPC data...")
+                self._load_npcs()
+                print("Loading messages...")
+                self._load_messages()
+                print("Loading replies...")
+                self._load_replies()
+                print("Loading dialogs...")
+                self._load_dialogs()
+                
+            print("Building relationships...")
+            self._build_relationships()
+            print("Matching metadata with NPCs...")
+            self._match_metadata_with_npcs()
+        
+        if data_type in ["quests", "both"]:
+            print("Loading quest data...")
+            self._load_quest_data()
+            if self.use_xliff:
+                print("Merging quest XLIFF translations...")
+                self._merge_quest_xliff_with_structure()
+    
+    def _load_quest_data(self):
+        """Load quest data from custom JSON file"""
+        if not self.quest_json_path or not os.path.exists(self.quest_json_path):
+            print(f"Quest JSON file not found: {self.quest_json_path}")
+            return
+        
+        try:
+            with open(self.quest_json_path, 'r', encoding='utf-8') as f:
+                quest_data = json.load(f)
+            
+            # Parse quest data structure based on the attached example
+            if "CQ.q" in quest_data:
+                quest_list = quest_data["CQ.q"]
+                for i, quest_item in enumerate(quest_list):
+                    quest_id = i + 1  # Assuming 1-based indexing
+                    
+                    # Create quest object
+                    quest = Quest(
+                        quest_id=quest_id,
+                        name_fr=f"Quest {quest_id}",  # Placeholder, will be filled from XLIFF
+                        name_en=None,
+                        name_es=None,
+                        name_pt=None,
+                        description_fr=f"Description for Quest {quest_id}",  # Placeholder
+                        description_en=None,
+                        description_es=None,
+                        description_pt=None,
+                        context=None,
+                        is_repeatable=quest_item.get("r", False),
+                        is_daily=quest_item.get("d", False),
+                        is_active=quest_item.get("a", True)
+                    )
+                    
+                    self.quests[quest_id] = quest
+            
+            # Parse quest steps if available
+            if "CQ.s" in quest_data:
+                steps_list = quest_data["CQ.s"]
+                for i, step_item in enumerate(steps_list):
+                    step_id = i + 1
+                    quest_id = step_id  # Assuming 1:1 mapping for now
+                    
+                    step = QuestStep(
+                        step_id=step_id,
+                        text_fr=f"Step {step_id}",  # Placeholder
+                        text_en=None,
+                        text_es=None,
+                        text_pt=None,
+                        context=None
+                    )
+                    
+                    # Handle objectives if present
+                    if "o" in step_item and step_item["o"]:
+                        for j, obj in enumerate(step_item["o"]):
+                            obj_id = step_id * 1000 + j + 1  # Create unique objective ID
+                            objective = QuestObjective(
+                                objective_id=obj_id,
+                                text_fr=f"Objective {obj_id}",  # Placeholder
+                                text_en=None,
+                                text_es=None,
+                                text_pt=None,
+                                context=None
+                            )
+                            step.objectives.append(objective)
+                            self.quest_objectives[obj_id] = objective
+                    
+                    self.quest_steps[step_id] = step
+                    
+                    # Link step to quest
+                    if quest_id in self.quests:
+                        self.quests[quest_id].steps.append(step)
+            
+            print(f"Loaded {len(self.quests)} quests")
+            print(f"Loaded {len(self.quest_steps)} quest steps")
+            print(f"Loaded {len(self.quest_objectives)} quest objectives")
+            
+        except Exception as e:
+            print(f"Error loading quest data: {e}")
+    
+    def _merge_quest_xliff_with_structure(self):
+        """Merge XLIFF translations with quest structure"""
+        # Update quest names
+        for quest_id, translations in self.xliff_translations['quest_names'].items():
+            if quest_id in self.quests:
+                quest = self.quests[quest_id]
+                quest.name_fr = translations.get('fr', quest.name_fr)
+                quest.name_en = translations.get('en')
+                quest.name_es = translations.get('es')
+                quest.name_pt = translations.get('pt')
+        
+        # Update quest descriptions
+        for quest_id, translations in self.xliff_translations['quest_descriptions'].items():
+            if quest_id in self.quests:
+                quest = self.quests[quest_id]
+                quest.description_fr = translations.get('fr', quest.description_fr)
+                quest.description_en = translations.get('en')
+                quest.description_es = translations.get('es')
+                quest.description_pt = translations.get('pt')
+        
+        # Update quest steps
+        for step_id, translations in self.xliff_translations['quest_steps'].items():
+            if step_id in self.quest_steps:
+                step = self.quest_steps[step_id]
+                step.text_fr = translations.get('fr', step.text_fr)
+                step.text_en = translations.get('en')
+                step.text_es = translations.get('es')
+                step.text_pt = translations.get('pt')
+        
+        # Update quest objectives
+        for obj_id, translations in self.xliff_translations['quest_objectives'].items():
+            if obj_id in self.quest_objectives:
+                objective = self.quest_objectives[obj_id]
+                objective.text_fr = translations.get('fr', objective.text_fr)
+                objective.text_en = translations.get('en')
+                objective.text_es = translations.get('es')
+                objective.text_pt = translations.get('pt')
     
     def _load_xliff_translations(self):
         """Load all XLIFF files and extract translations only"""
@@ -186,14 +361,66 @@ class NPCDialogMapper:
                                     if entity_id_int not in self.xliff_translations['replies']:
                                         self.xliff_translations['replies'][entity_id_int] = {'fr': source_text}
                                     self.xliff_translations['replies'][entity_id_int][target_lang] = target_text
+                    
+                    # Check for quest-related entries
+                    elif unit_id.startswith('quest.'):
+                        source_elem = trans_unit.find('.//xliff:source', ns)
+                        target_elem = trans_unit.find('.//xliff:target', ns)
+                        
+                        if source_elem is not None and target_elem is not None:
+                            source_text = source_elem.text or ""
+                            target_text = target_elem.text or ""
+                            
+                            # Clean the source text
+                            source_text = self._clean_source_text(source_text)
+                            
+                            # Parse quest ID structure
+                            parts = unit_id.split('.')
+                            if len(parts) >= 3:
+                                entity_id = parts[1]
+                                entry_type = parts[2]  # name, description, step, objective
+                                
+                                try:
+                                    entity_id_int = int(entity_id)
+                                except ValueError:
+                                    continue
+                                
+                                # Store quest translations
+                                if entry_type == 'name':
+                                    if entity_id_int not in self.xliff_translations['quest_names']:
+                                        self.xliff_translations['quest_names'][entity_id_int] = {'fr': source_text}
+                                    self.xliff_translations['quest_names'][entity_id_int][target_lang] = target_text
+                                    
+                                elif entry_type == 'description':
+                                    if entity_id_int not in self.xliff_translations['quest_descriptions']:
+                                        self.xliff_translations['quest_descriptions'][entity_id_int] = {'fr': source_text}
+                                    self.xliff_translations['quest_descriptions'][entity_id_int][target_lang] = target_text
+                                    
+                                elif entry_type == 'step':
+                                    if entity_id_int not in self.xliff_translations['quest_steps']:
+                                        self.xliff_translations['quest_steps'][entity_id_int] = {'fr': source_text}
+                                    self.xliff_translations['quest_steps'][entity_id_int][target_lang] = target_text
+                                    
+                                elif entry_type == 'objective':
+                                    if entity_id_int not in self.xliff_translations['quest_objectives']:
+                                        self.xliff_translations['quest_objectives'][entity_id_int] = {'fr': source_text}
+                                    self.xliff_translations['quest_objectives'][entity_id_int][target_lang] = target_text
                 
                 npc_count = len(self.xliff_translations['npc_names'])
                 msg_count = len(self.xliff_translations['messages'])
                 reply_count = len(self.xliff_translations['replies'])
+                quest_name_count = len(self.xliff_translations['quest_names'])
+                quest_desc_count = len(self.xliff_translations['quest_descriptions'])
+                quest_step_count = len(self.xliff_translations['quest_steps'])
+                quest_obj_count = len(self.xliff_translations['quest_objectives'])
                 
                 print(f"    Extracted {npc_count} NPC name translations")
                 print(f"    Extracted {msg_count} message translations")
                 print(f"    Extracted {reply_count} reply translations")
+                print(f"    Extracted {quest_name_count} quest name translations")
+                print(f"    Extracted {quest_desc_count} quest description translations")
+                print(f"    Extracted {quest_step_count} quest step translations")
+                print(f"    Extracted {quest_obj_count} quest objective translations")
                 
             except ET.ParseError as e:
                 print(f"    Error parsing {filename}: {e}")
@@ -486,6 +713,501 @@ class NPCDialogMapper:
             f.write(html_content)
         
         print(f"HTML file generated successfully: {output_filename}")
+    
+    def generate_quest_html(self, output_filename: str):
+        """Generate HTML file with all quest mappings"""
+        print(f"Generating Quest HTML file: {output_filename}")
+        
+        html_content = self._generate_quest_html_content()
+        
+        with open(output_filename, 'w', encoding='utf-8') as f:
+            f.write(html_content)
+        
+        print(f"Quest HTML file generated successfully: {output_filename}")
+    
+    def _generate_quest_html_content(self) -> str:
+        """Generate the complete HTML content for quests"""
+        from datetime import datetime
+        
+        # Get current date for the report
+        current_date = datetime.now().strftime("%Y-%m-%d")
+        
+        html_content = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quest Dialog Mapping Report</title>
+    <style>
+        {self._get_quest_css_styles()}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🗡️ Quest Dialog Mapping Report</h1>
+            <div class="report-info">
+                <p><strong>Generated on:</strong> {current_date}</p>
+                <p><strong>Total Quests:</strong> {len(self.quests)}</p>
+                <p><strong>Data Source:</strong> {'XLIFF Bilingual Files' if self.use_xliff else 'JSON Database Export'}</p>
+            </div>
+        </header>
+        
+        <div class="controls">
+            <input type="text" id="searchInput" placeholder="Search quests, steps, or objectives..." />
+            <div class="filter-options">
+                <label><input type="checkbox" id="showRepeatable" checked> Show Repeatable Quests</label>
+                <label><input type="checkbox" id="showDaily" checked> Show Daily Quests</label>
+                <label><input type="checkbox" id="showActive" checked> Show Active Quests</label>
+            </div>
+        </div>
+        
+        <div class="quest-grid">
+"""
+        
+        # Generate quest cards
+        for quest in sorted(self.quests.values(), key=lambda q: q.quest_id):
+            html_content += self._generate_quest_card(quest)
+        
+        html_content += f"""
+        </div>
+    </div>
+    
+    <script>
+        {self._get_quest_javascript()}
+    </script>
+</body>
+</html>"""
+        
+        return html_content
+    
+    def _generate_quest_card(self, quest: Quest) -> str:
+        """Generate HTML card for a single quest"""
+        
+        # Determine quest status classes
+        status_classes = []
+        if quest.is_repeatable:
+            status_classes.append("repeatable")
+        if quest.is_daily:
+            status_classes.append("daily")
+        if not quest.is_active:
+            status_classes.append("inactive")
+        
+        status_class = " ".join(status_classes)
+        
+        # Format quest name and description
+        name_display = self._format_multilingual_text({
+            'fr': quest.name_fr,
+            'en': quest.name_en,
+            'es': quest.name_es,
+            'pt': quest.name_pt
+        })
+        
+        desc_display = self._format_multilingual_text({
+            'fr': quest.description_fr,
+            'en': quest.description_en,
+            'es': quest.description_es,
+            'pt': quest.description_pt
+        })
+        
+        # Generate steps content
+        steps_html = ""
+        for i, step in enumerate(quest.steps, 1):
+            step_text = self._format_multilingual_text({
+                'fr': step.text_fr,
+                'en': step.text_en,
+                'es': step.text_es,
+                'pt': step.text_pt
+            })
+            
+            objectives_html = ""
+            if step.objectives:
+                objectives_html = "<ul class='objectives-list'>"
+                for objective in step.objectives:
+                    obj_text = self._format_multilingual_text({
+                        'fr': objective.text_fr,
+                        'en': objective.text_en,
+                        'es': objective.text_es,
+                        'pt': objective.text_pt
+                    })
+                    objectives_html += f"<li class='objective'>{obj_text}</li>"
+                objectives_html += "</ul>"
+            
+            steps_html += f"""
+            <div class="quest-step">
+                <h4>Step {i}</h4>
+                <div class="step-text">{step_text}</div>
+                {objectives_html}
+            </div>
+            """
+        
+        return f"""
+        <div class="quest-card {status_class}" data-quest-id="{quest.quest_id}">
+            <div class="quest-header">
+                <h2>Quest #{quest.quest_id}</h2>
+                <div class="quest-badges">
+                    {'<span class="badge repeatable">Repeatable</span>' if quest.is_repeatable else ''}
+                    {'<span class="badge daily">Daily</span>' if quest.is_daily else ''}
+                    {'<span class="badge inactive">Inactive</span>' if not quest.is_active else ''}
+                </div>
+            </div>
+            
+            <div class="quest-content">
+                <div class="quest-name">
+                    <h3>Quest Name</h3>
+                    {name_display}
+                </div>
+                
+                <div class="quest-description">
+                    <h3>Description</h3>
+                    {desc_display}
+                </div>
+                
+                {f'<div class="quest-steps"><h3>Steps ({len(quest.steps)})</h3>{steps_html}</div>' if quest.steps else ''}
+            </div>
+        </div>
+        """
+    
+    def _format_multilingual_text(self, texts: Dict[str, Optional[str]]) -> str:
+        """Format multilingual text with language labels"""
+        html = ""
+        languages = [('fr', '🇫🇷 French'), ('en', '🇬🇧 English'), ('es', '🇪🇸 Spanish'), ('pt', '🇵🇹 Portuguese')]
+        
+        for lang_code, lang_name in languages:
+            text = texts.get(lang_code)
+            if text:
+                formatted_text = text.replace('\n', '<br>').replace('\r', '')
+                html += f"""
+                <div class="lang-text lang-{lang_code}">
+                    <span class="lang-label">{lang_name}:</span>
+                    <span class="text-content">{formatted_text}</span>
+                </div>
+                """
+            else:
+                html += f"""
+                <div class="lang-text lang-{lang_code} missing">
+                    <span class="lang-label">{lang_name}:</span>
+                    <span class="text-content missing-text">Not translated</span>
+                </div>
+                """
+        
+        return html
+    
+    def _get_quest_css_styles(self) -> str:
+        """Get CSS styles for quest HTML"""
+        return """
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .report-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .report-info p {
+            font-size: 1.1rem;
+            color: #555;
+        }
+        
+        .controls {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        #searchInput {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .filter-options {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-options label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+        .quest-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 20px;
+        }
+        
+        .quest-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 5px solid #3498db;
+        }
+        
+        .quest-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .quest-card.repeatable {
+            border-left-color: #f39c12;
+        }
+        
+        .quest-card.daily {
+            border-left-color: #e74c3c;
+        }
+        
+        .quest-card.inactive {
+            opacity: 0.6;
+            border-left-color: #95a5a6;
+        }
+        
+        .quest-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+        
+        .quest-header h2 {
+            color: #2c3e50;
+            font-size: 1.4rem;
+        }
+        
+        .quest-badges {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .badge.repeatable {
+            background: #f39c12;
+            color: white;
+        }
+        
+        .badge.daily {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .badge.inactive {
+            background: #95a5a6;
+            color: white;
+        }
+        
+        .quest-content h3 {
+            color: #34495e;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .quest-name, .quest-description, .quest-steps {
+            margin-bottom: 20px;
+        }
+        
+        .lang-text {
+            margin: 8px 0;
+            padding: 8px;
+            border-radius: 6px;
+            background: #f8f9fa;
+        }
+        
+        .lang-text.missing {
+            background: #ffeaa7;
+        }
+        
+        .lang-label {
+            font-weight: bold;
+            margin-right: 8px;
+            color: #2c3e50;
+        }
+        
+        .text-content {
+            color: #34495e;
+        }
+        
+        .missing-text {
+            font-style: italic;
+            color: #e17055;
+        }
+        
+        .quest-step {
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 3px solid #3498db;
+        }
+        
+        .quest-step h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .objectives-list {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+        
+        .objective {
+            margin: 5px 0;
+            padding: 5px;
+            background: white;
+            border-radius: 4px;
+        }
+        
+        @media (max-width: 768px) {
+            .quest-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .quest-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .report-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+        }
+        """
+    
+    def _get_quest_javascript(self) -> str:
+        """Get JavaScript for quest HTML interactivity"""
+        return """
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const repeatableFilter = document.getElementById('showRepeatable');
+            const dailyFilter = document.getElementById('showDaily');
+            const activeFilter = document.getElementById('showActive');
+            const questCards = document.querySelectorAll('.quest-card');
+            
+            function filterQuests() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const showRepeatable = repeatableFilter.checked;
+                const showDaily = dailyFilter.checked;
+                const showActive = activeFilter.checked;
+                
+                questCards.forEach(card => {
+                    const isRepeatable = card.classList.contains('repeatable');
+                    const isDaily = card.classList.contains('daily');
+                    const isInactive = card.classList.contains('inactive');
+                    
+                    // Check filter conditions
+                    const passesFilter = (
+                        (showRepeatable || !isRepeatable) &&
+                        (showDaily || !isDaily) &&
+                        (showActive || isInactive)
+                    );
+                    
+                    // Check search term
+                    const cardText = card.textContent.toLowerCase();
+                    const passesSearch = searchTerm === '' || cardText.includes(searchTerm);
+                    
+                    // Show/hide card
+                    if (passesFilter && passesSearch) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                // Update visible count
+                const visibleCards = Array.from(questCards).filter(card => 
+                    card.style.display !== 'none'
+                );
+                console.log(`Showing ${visibleCards.length} of ${questCards.length} quests`);
+            }
+            
+            // Add event listeners
+            searchInput.addEventListener('input', filterQuests);
+            repeatableFilter.addEventListener('change', filterQuests);
+            dailyFilter.addEventListener('change', filterQuests);
+            activeFilter.addEventListener('change', filterQuests);
+            
+            // Highlight search terms
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                questCards.forEach(card => {
+                    const textElements = card.querySelectorAll('.text-content');
+                    textElements.forEach(element => {
+                        const originalText = element.dataset.originalText || element.textContent;
+                        element.dataset.originalText = originalText;
+                        
+                        if (searchTerm && originalText.toLowerCase().includes(searchTerm)) {
+                            const regex = new RegExp(`(${searchTerm})`, 'gi');
+                            element.innerHTML = originalText.replace(regex, '<mark>$1</mark>');
+                        } else {
+                            element.textContent = originalText;
+                        }
+                    });
+                });
+            });
+        });
+        """
     
     def _format_text_with_null_check(self, text: Optional[str]) -> str:
         """Format text with null checking"""
@@ -3044,19 +3766,21 @@ class StatisticsWindow:
 
 
 class NPCDialogMapperGUI:
-    """Main GUI Application"""
+    """Enhanced GUI Application for NPCs and Quests"""
     
     def __init__(self, root):
         self.root = root
-        self.root.title("RETRO - NPC Dialog Mapper")
-        self.root.geometry("800x700")
-        self.root.minsize(600, 500)
+        self.root.title("Enhanced Dialog Mapper - NPCs & Quests")
+        self.root.geometry("900x800")
+        self.root.minsize(700, 600)
         
         # Variables
         self.json_folder_var = tk.StringVar()
+        self.quest_json_var = tk.StringVar()  # New variable for quest JSON
         self.xliff_folder_var = tk.StringVar()
         self.output_folder_var = tk.StringVar()
         self.data_source_var = tk.StringVar(value="json")
+        self.content_type_var = tk.StringVar(value="both")  # New variable for content type
         
         # XLIFF file variables
         self.xliff_fr_en_var = tk.StringVar()
@@ -3087,8 +3811,19 @@ class NPCDialogMapperGUI:
         main_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
         
         # Title
-        title_label = ttk.Label(main_frame, text="RETRO NPC Dialog Mapper", font=("Arial", 16, "bold"))
+        title_label = ttk.Label(main_frame, text="Enhanced Dialog Mapper - NPCs & Quests", font=("Arial", 16, "bold"))
         title_label.pack(pady=(0, 20))
+        
+        # Content type selection
+        content_frame = ttk.LabelFrame(main_frame, text="Content Type", padding=10)
+        content_frame.pack(fill=tk.X, pady=(0, 10))
+        
+        ttk.Radiobutton(content_frame, text="NPCs Only", 
+                       variable=self.content_type_var, value="npcs").pack(side=tk.LEFT, padx=(0, 20))
+        ttk.Radiobutton(content_frame, text="Quests Only", 
+                       variable=self.content_type_var, value="quests").pack(side=tk.LEFT, padx=(0, 20))
+        ttk.Radiobutton(content_frame, text="Both NPCs & Quests", 
+                       variable=self.content_type_var, value="both").pack(side=tk.LEFT)
         
         # Data source selection
         source_frame = ttk.LabelFrame(main_frame, text="Data Source", padding=10)
@@ -3102,15 +3837,24 @@ class NPCDialogMapperGUI:
                        command=self.on_data_source_changed).pack(anchor=tk.W)
         
         # JSON folder selection
-        self.json_frame = ttk.LabelFrame(main_frame, text="JSON Data Folder", padding=10)
+        self.json_frame = ttk.LabelFrame(main_frame, text="JSON Data Configuration", padding=10)
         self.json_frame.pack(fill=tk.X, pady=(0, 10))
         
+        # NPC JSON folder
         json_folder_frame = ttk.Frame(self.json_frame)
-        json_folder_frame.pack(fill=tk.X)
+        json_folder_frame.pack(fill=tk.X, pady=(0, 5))
         
-        ttk.Label(json_folder_frame, text="Folder:").pack(side=tk.LEFT)
+        ttk.Label(json_folder_frame, text="NPC JSON Folder:").pack(side=tk.LEFT)
         ttk.Entry(json_folder_frame, textvariable=self.json_folder_var, width=50).pack(side=tk.LEFT, padx=(5, 5), fill=tk.X, expand=True)
         ttk.Button(json_folder_frame, text="Browse", command=self.browse_json_folder).pack(side=tk.RIGHT)
+        
+        # Quest JSON file
+        quest_json_frame = ttk.Frame(self.json_frame)
+        quest_json_frame.pack(fill=tk.X, pady=(5, 0))
+        
+        ttk.Label(quest_json_frame, text="Quest JSON File:").pack(side=tk.LEFT)
+        ttk.Entry(quest_json_frame, textvariable=self.quest_json_var, width=50).pack(side=tk.LEFT, padx=(5, 5), fill=tk.X, expand=True)
+        ttk.Button(quest_json_frame, text="Browse", command=self.browse_quest_json).pack(side=tk.RIGHT)
         
         # JSON files info - will be updated dynamically
         self.json_info = ttk.Label(self.json_frame, 
@@ -3165,10 +3909,21 @@ class NPCDialogMapperGUI:
         button_frame = ttk.Frame(main_frame)
         button_frame.pack(fill=tk.X, pady=(20, 10))
         
-        self.generate_button = ttk.Button(button_frame, text="Generate HTML", 
-                                         command=self.generate_html_threaded, 
-                                         style="Accent.TButton")
-        self.generate_button.pack(side=tk.LEFT, padx=(0, 10))
+        # Generation buttons
+        self.generate_npc_button = ttk.Button(button_frame, text="Generate NPC HTML", 
+                                             command=self.generate_npc_html_threaded, 
+                                             style="Accent.TButton")
+        self.generate_npc_button.pack(side=tk.LEFT, padx=(0, 10))
+        
+        self.generate_quest_button = ttk.Button(button_frame, text="Generate Quest HTML", 
+                                               command=self.generate_quest_html_threaded, 
+                                               style="Accent.TButton")
+        self.generate_quest_button.pack(side=tk.LEFT, padx=(0, 10))
+        
+        self.generate_both_button = ttk.Button(button_frame, text="Generate Both", 
+                                              command=self.generate_both_html_threaded, 
+                                              style="Accent.TButton")
+        self.generate_both_button.pack(side=tk.LEFT, padx=(0, 10))
         
         ttk.Button(button_frame, text="Open Output Folder", 
                   command=self.open_output_folder).pack(side=tk.LEFT, padx=(0, 10))
@@ -3226,6 +3981,15 @@ class NPCDialogMapperGUI:
         folder = filedialog.askdirectory(title="Select JSON Data Folder")
         if folder:
             self.json_folder_var.set(folder)
+    
+    def browse_quest_json(self):
+        """Browse for quest JSON file"""
+        file_path = filedialog.askopenfilename(
+            title="Select Quest JSON File",
+            filetypes=[("JSON files", "*.json"), ("All files", "*.*")]
+        )
+        if file_path:
+            self.quest_json_var.set(file_path)
     
     def browse_xliff_folder(self):
         """Browse for XLIFF folder"""
@@ -3580,20 +4344,54 @@ class NPCDialogMapperGUI:
         self.log_text.see(tk.END)
         self.root.update()
     
-    def validate_inputs(self):
-        """Validate user inputs"""
+    def validate_inputs(self, generation_type=None):
+        """Validate user inputs based on generation type"""
         use_xliff = self.data_source_var.get() == "xliff"
         
-        self.log_message(f"Validating inputs for {'XLIFF' if use_xliff else 'JSON'} mode...")
+        # Determine generation type if not specified
+        if generation_type is None:
+            generation_type = self.content_type_var.get()
         
-        # Check JSON folder (always needed for structure)
+        self.log_message(f"Validating inputs for {generation_type} generation using {'XLIFF' if use_xliff else 'JSON'} mode...")
+        
+        # Check output folder first (always required)
+        output_folder = self.output_folder_var.get()
+        self.log_message(f"Output folder: {output_folder}")
+        
+        if not output_folder:
+            raise ValueError("Output folder is required")
+        
+        # Create output folder if it doesn't exist
+        if not os.path.exists(output_folder):
+            try:
+                os.makedirs(output_folder)
+                self.log_message(f"✅ Created output folder: {output_folder}")
+            except Exception as e:
+                raise ValueError(f"Failed to create output folder: {output_folder}\nError: {e}")
+        
+        # Validate based on generation type
+        if generation_type in ["npcs", "both"]:
+            self._validate_npc_requirements(use_xliff)
+        
+        if generation_type in ["quests", "both"]:
+            self._validate_quest_requirements(use_xliff)
+        
+        self.log_message("✅ All validation checks passed!")
+        
+        return True
+    
+    def _validate_npc_requirements(self, use_xliff):
+        """Validate requirements for NPC generation"""
+        self.log_message("Validating NPC requirements...")
+        
+        # Check JSON folder (always needed for NPC structure)
         json_folder = self.json_folder_var.get()
-        self.log_message(f"JSON folder: {json_folder}")
+        self.log_message(f"NPC JSON folder: {json_folder}")
         
         if not json_folder or not os.path.exists(json_folder):
-            raise ValueError(f"JSON data folder is required and must exist. Current path: {json_folder}")
+            raise ValueError(f"NPC JSON data folder is required and must exist. Current path: {json_folder}")
         
-        # Check JSON files
+        # Check required JSON files for NPCs
         required_json_files = [
             "export_npc_dialog_json.json",
             "npcs_Dofus3-03_202508.json"
@@ -3609,65 +4407,310 @@ class NPCDialogMapperGUI:
             # For XLIFF mode, we still need reply structure
             required_json_files.append("export_npc_reply_json.json")
         
-        self.log_message(f"Checking {len(required_json_files)} required JSON files...")
+        self.log_message(f"Checking {len(required_json_files)} required NPC JSON files...")
         for filename in required_json_files:
             file_path = os.path.join(json_folder, filename)
             self.log_message(f"  Checking: {filename}")
             if not os.path.exists(file_path):
                 self.log_message(f"  ❌ NOT FOUND: {file_path}")
-                raise ValueError(f"Required file not found: {filename}\nFull path: {file_path}")
+                raise ValueError(f"Required NPC file not found: {filename}\nFull path: {file_path}")
             else:
                 self.log_message(f"  ✅ Found: {filename}")
         
-        # Check XLIFF configuration if using XLIFF mode
+        # Check XLIFF configuration if using XLIFF mode for NPCs
         if use_xliff:
-            xliff_folder = self.xliff_folder_var.get()
-            self.log_message(f"XLIFF folder: {xliff_folder}")
-            
-            if not xliff_folder or not os.path.exists(xliff_folder):
-                raise ValueError(f"XLIFF folder is required and must exist when using XLIFF mode.\nCurrent path: {xliff_folder}")
-            
-            xliff_files = {
-                'fr-en': self.xliff_fr_en_var.get(),
-                'fr-es': self.xliff_fr_es_var.get(),
-                'fr-pt': self.xliff_fr_pt_var.get()
-            }
-            
-            # Remove empty entries
-            xliff_files = {k: v for k, v in xliff_files.items() if v}
-            
-            if not xliff_files:
-                self.log_message("Warning: No XLIFF files specified, continuing anyway...")
-            else:
-                self.log_message(f"Checking {len(xliff_files)} XLIFF files...")
-                for lang_pair, filename in xliff_files.items():
-                    file_path = os.path.join(xliff_folder, filename)
-                    self.log_message(f"  Checking {lang_pair}: {filename}")
-                    if not os.path.exists(file_path):
-                        self.log_message(f"  ❌ NOT FOUND: {file_path}")
-                        raise ValueError(f"XLIFF file not found: {filename}\nFull path: {file_path}")
-                    else:
-                        self.log_message(f"  ✅ Found: {filename}")
-        
-        # Check output folder
-        output_folder = self.output_folder_var.get()
-        self.log_message(f"Output folder: {output_folder}")
-        
-        if not output_folder:
-            raise ValueError("Output folder is required.")
-        
-        # Create output folder if it doesn't exist
-        os.makedirs(output_folder, exist_ok=True)
-        self.log_message("✅ All validation checks passed!")
-        
-        return True
+            self._validate_xliff_requirements("NPCs")
     
-    def generate_html_threaded(self):
-        """Generate HTML in a separate thread"""
+    def _validate_quest_requirements(self, use_xliff):
+        """Validate requirements for Quest generation"""
+        self.log_message("Validating Quest requirements...")
+        
+        # For quests, we ALWAYS need the quest JSON file
+        quest_json = self.quest_json_var.get()
+        self.log_message(f"Quest JSON file: {quest_json}")
+        
+        if not quest_json:
+            raise ValueError("Quest JSON file is required for quest generation. Please select a quest JSON file.")
+        
+        if not os.path.exists(quest_json):
+            raise ValueError(f"Quest JSON file not found: {quest_json}")
+        
+        self.log_message("  ✅ Quest JSON file found")
+        
+        # For quests, we ALWAYS need XLIFF files for translations
+        # (since quest JSON only contains structure, not the actual text)
+        if not use_xliff:
+            raise ValueError("Quest generation requires XLIFF bilingual files for translations.\n" +
+                           "Quest JSON file only contains structure (repeatable, daily, active flags).\n" +
+                           "Please switch to 'XLIFF Bilingual Files' data source and configure XLIFF files.")
+        
+        # Validate XLIFF requirements specifically for quests
+        self._validate_xliff_requirements("Quests")
+        
+        # Optional: Check if JSON folder is provided for potential NPC structure (when generating both)
+        json_folder = self.json_folder_var.get()
+        if json_folder and os.path.exists(json_folder):
+            self.log_message(f"  ✅ NPC JSON folder also available: {json_folder}")
+        else:
+            self.log_message("  ⚠️  NPC JSON folder not set (only needed if generating both NPCs and Quests)")
+    
+    def _validate_xliff_requirements(self, content_type):
+        """Validate XLIFF file requirements"""
+        self.log_message(f"Validating XLIFF requirements for {content_type}...")
+        
+        xliff_folder = self.xliff_folder_var.get()
+        self.log_message(f"XLIFF folder: {xliff_folder}")
+        
+        if not xliff_folder or not os.path.exists(xliff_folder):
+            raise ValueError(f"XLIFF folder is required and must exist when using XLIFF mode.\nCurrent path: {xliff_folder}")
+        
+        xliff_files = {
+            'fr-en': self.xliff_fr_en_var.get(),
+            'fr-es': self.xliff_fr_es_var.get(),
+            'fr-pt': self.xliff_fr_pt_var.get()
+        }
+        
+        # Remove empty entries
+        xliff_files = {k: v for k, v in xliff_files.items() if v}
+        
+        if not xliff_files:
+            raise ValueError(f"At least one XLIFF file is required for {content_type} generation.\n" +
+                           "Please configure at least one language pair (FR-EN, FR-ES, or FR-PT).")
+        
+        self.log_message(f"Checking {len(xliff_files)} XLIFF files for {content_type}...")
+        for lang_pair, filename in xliff_files.items():
+            file_path = os.path.join(xliff_folder, filename)
+            self.log_message(f"  Checking {lang_pair}: {filename}")
+            if not os.path.exists(file_path):
+                self.log_message(f"  ❌ NOT FOUND: {file_path}")
+                raise ValueError(f"XLIFF file not found: {filename}\nFull path: {file_path}")
+            else:
+                self.log_message(f"  ✅ Found: {filename}")
+    
+    def generate_npc_html_threaded(self):
+        """Generate NPC HTML in a separate thread"""
         def run_generation():
             try:
-                self.validate_inputs()
-                self.generate_button.config(state=tk.DISABLED)
+                self.validate_inputs("npcs")
+                self.generate_npc_button.config(state=tk.DISABLED)
+                self.generate_quest_button.config(state=tk.DISABLED)
+                self.generate_both_button.config(state=tk.DISABLED)
+                self.progress.start()
+                
+                use_xliff = self.data_source_var.get() == "xliff"
+                
+                self.log_message("="*50)
+                self.log_message(f"Starting NPC generation with {'XLIFF' if use_xliff else 'JSON'} data source...")
+                self.log_message("="*50)
+                
+                # Prepare configuration
+                json_folder = self.json_folder_var.get()
+                quest_json = self.quest_json_var.get()
+                output_folder = self.output_folder_var.get()
+                
+                xliff_folder = ""
+                xliff_files = {}
+                
+                if use_xliff:
+                    xliff_folder = self.xliff_folder_var.get()
+                    xliff_files = {
+                        'fr-en': self.xliff_fr_en_var.get(),
+                        'fr-es': self.xliff_fr_es_var.get(),
+                        'fr-pt': self.xliff_fr_pt_var.get()
+                    }
+                    xliff_files = {k: v for k, v in xliff_files.items() if v}
+                
+                # Create mapper
+                mapper = NPCDialogMapper(
+                    folder_path=json_folder,
+                    use_xliff=use_xliff,
+                    xliff_folder=xliff_folder,
+                    xliff_files=xliff_files,
+                    quest_json_path=quest_json
+                )
+                
+                # Load NPC data
+                mapper.load_data("npcs")
+                
+                # Generate output filename
+                from datetime import datetime
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                output_filename = os.path.join(output_folder, f"npc_dialogs_{timestamp}.html")
+                
+                # Generate HTML
+                mapper.generate_html(output_filename)
+                
+                self.log_message("="*50)
+                self.log_message("✅ NPC HTML generation completed successfully!")
+                self.log_message(f"📁 Output file: {output_filename}")
+                self.log_message("="*50)
+                
+                messagebox.showinfo("Success", f"NPC HTML generated successfully!\n\nOutput: {output_filename}")
+                
+            except Exception as e:
+                self.log_message(f"❌ Error during NPC generation: {str(e)}")
+                messagebox.showerror("Error", f"Generation failed:\n{str(e)}")
+            finally:
+                self.progress.stop()
+                self.generate_npc_button.config(state=tk.NORMAL)
+                self.generate_quest_button.config(state=tk.NORMAL)
+                self.generate_both_button.config(state=tk.NORMAL)
+        
+        threading.Thread(target=run_generation, daemon=True).start()
+    
+    def generate_quest_html_threaded(self):
+        """Generate Quest HTML in a separate thread"""
+        def run_generation():
+            try:
+                self.validate_inputs("quests")
+                self.generate_npc_button.config(state=tk.DISABLED)
+                self.generate_quest_button.config(state=tk.DISABLED)
+                self.generate_both_button.config(state=tk.DISABLED)
+                self.progress.start()
+                
+                use_xliff = self.data_source_var.get() == "xliff"
+                
+                self.log_message("="*50)
+                self.log_message(f"Starting Quest generation with {'XLIFF' if use_xliff else 'JSON'} data source...")
+                self.log_message("="*50)
+                
+                # Prepare configuration
+                json_folder = self.json_folder_var.get()
+                quest_json = self.quest_json_var.get()
+                output_folder = self.output_folder_var.get()
+                
+                xliff_folder = ""
+                xliff_files = {}
+                
+                if use_xliff:
+                    xliff_folder = self.xliff_folder_var.get()
+                    xliff_files = {
+                        'fr-en': self.xliff_fr_en_var.get(),
+                        'fr-es': self.xliff_fr_es_var.get(),
+                        'fr-pt': self.xliff_fr_pt_var.get()
+                    }
+                    xliff_files = {k: v for k, v in xliff_files.items() if v}
+                
+                # Create mapper
+                mapper = NPCDialogMapper(
+                    folder_path=json_folder,
+                    use_xliff=use_xliff,
+                    xliff_folder=xliff_folder,
+                    xliff_files=xliff_files,
+                    quest_json_path=quest_json
+                )
+                
+                # Load Quest data
+                mapper.load_data("quests")
+                
+                # Generate output filename
+                from datetime import datetime
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                output_filename = os.path.join(output_folder, f"quest_dialogs_{timestamp}.html")
+                
+                # Generate HTML
+                mapper.generate_quest_html(output_filename)
+                
+                self.log_message("="*50)
+                self.log_message("✅ Quest HTML generation completed successfully!")
+                self.log_message(f"📁 Output file: {output_filename}")
+                self.log_message("="*50)
+                
+                messagebox.showinfo("Success", f"Quest HTML generated successfully!\n\nOutput: {output_filename}")
+                
+            except Exception as e:
+                self.log_message(f"❌ Error during Quest generation: {str(e)}")
+                messagebox.showerror("Error", f"Generation failed:\n{str(e)}")
+            finally:
+                self.progress.stop()
+                self.generate_npc_button.config(state=tk.NORMAL)
+                self.generate_quest_button.config(state=tk.NORMAL)
+                self.generate_both_button.config(state=tk.NORMAL)
+        
+        threading.Thread(target=run_generation, daemon=True).start()
+    
+    def generate_both_html_threaded(self):
+        """Generate both NPC and Quest HTML in a separate thread"""
+        def run_generation():
+            try:
+                self.validate_inputs("both")
+                self.generate_npc_button.config(state=tk.DISABLED)
+                self.generate_quest_button.config(state=tk.DISABLED)
+                self.generate_both_button.config(state=tk.DISABLED)
+                self.progress.start()
+                
+                use_xliff = self.data_source_var.get() == "xliff"
+                
+                self.log_message("="*50)
+                self.log_message(f"Starting combined generation with {'XLIFF' if use_xliff else 'JSON'} data source...")
+                self.log_message("="*50)
+                
+                # Prepare configuration
+                json_folder = self.json_folder_var.get()
+                quest_json = self.quest_json_var.get()
+                output_folder = self.output_folder_var.get()
+                
+                xliff_folder = ""
+                xliff_files = {}
+                
+                if use_xliff:
+                    xliff_folder = self.xliff_folder_var.get()
+                    xliff_files = {
+                        'fr-en': self.xliff_fr_en_var.get(),
+                        'fr-es': self.xliff_fr_es_var.get(),
+                        'fr-pt': self.xliff_fr_pt_var.get()
+                    }
+                    xliff_files = {k: v for k, v in xliff_files.items() if v}
+                
+                # Create mapper
+                mapper = NPCDialogMapper(
+                    folder_path=json_folder,
+                    use_xliff=use_xliff,
+                    xliff_folder=xliff_folder,
+                    xliff_files=xliff_files,
+                    quest_json_path=quest_json
+                )
+                
+                # Load both types of data
+                mapper.load_data("both")
+                
+                # Generate output filenames
+                from datetime import datetime
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                npc_output = os.path.join(output_folder, f"npc_dialogs_{timestamp}.html")
+                quest_output = os.path.join(output_folder, f"quest_dialogs_{timestamp}.html")
+                
+                # Generate HTML files
+                mapper.generate_html(npc_output)
+                mapper.generate_quest_html(quest_output)
+                
+                self.log_message("="*50)
+                self.log_message("✅ Both HTML files generated successfully!")
+                self.log_message(f"📁 NPC Output: {npc_output}")
+                self.log_message(f"📁 Quest Output: {quest_output}")
+                self.log_message("="*50)
+                
+                messagebox.showinfo("Success", f"Both HTML files generated successfully!\n\nNPC Output: {npc_output}\nQuest Output: {quest_output}")
+                
+            except Exception as e:
+                self.log_message(f"❌ Error during generation: {str(e)}")
+                messagebox.showerror("Error", f"Generation failed:\n{str(e)}")
+            finally:
+                self.progress.stop()
+                self.generate_npc_button.config(state=tk.NORMAL)
+                self.generate_quest_button.config(state=tk.NORMAL)
+                self.generate_both_button.config(state=tk.NORMAL)
+        
+        threading.Thread(target=run_generation, daemon=True).start()
+    
+    def generate_html_threaded(self):
+        """Generate HTML in a separate thread (legacy method)"""
+        def run_generation():
+            try:
+                self.validate_inputs("npcs")  # Default to NPCs for legacy compatibility
+                self.generate_npc_button.config(state=tk.DISABLED)
+                self.generate_quest_button.config(state=tk.DISABLED)
+                self.generate_both_button.config(state=tk.DISABLED)
                 self.progress.start()
                 
                 use_xliff = self.data_source_var.get() == "xliff"
@@ -3797,7 +4840,9 @@ class NPCDialogMapperGUI:
             
             finally:
                 self.progress.stop()
-                self.generate_button.config(state=tk.NORMAL)
+                self.generate_npc_button.config(state=tk.NORMAL)
+                self.generate_quest_button.config(state=tk.NORMAL)
+                self.generate_both_button.config(state=tk.NORMAL)
         
         # Run in thread
         thread = threading.Thread(target=run_generation, daemon=True)

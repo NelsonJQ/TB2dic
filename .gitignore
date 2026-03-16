@@ -7,6 +7,15 @@ Retro_json_dialog_data/
 TB_ANK_202507/
 dics/
 ANK_dic/
+i18n/
+processing_dics/
+others/
+output_dics/Full_dics/
+output_dics/output_dics.7z
+output_dics/Tuto*
+output_dics/Compressed_dics/*_ANKANIMATION/
+output_dics/Compressed_dics/*_ONE_MORE_GATE/
+output_dics/Compressed_dics/*_WAVEN/
 
 
 # Ignore Python cache files
@@ -91,15 +100,6 @@ RetroViewer_Plus_v6_2025-10-06 - Copy (2).pyw
 RetroViewer_Plus_v7_2025-10-15 - Copy (3).pyw
 tb_injection_v0.ipynb
 term_correction_TM.ipynb
-i18n/DOFUS/de.json
-i18n/DOFUS/en.json
-i18n/DOFUS/es.json
-i18n/DOFUS/fr.json
-i18n/DOFUS/pt.json
-i18n/WAKFU/texts_en.properties
-i18n/WAKFU/texts_es.properties
-i18n/WAKFU/texts_fr.properties
-i18n/WAKFU/texts_pt.properties
 Ignore_Retro_json_dialog_data/export_npc_json.json
 Ignore_Retro_json_dialog_data/export_npc_message_json.json
 Ignore_Retro_json_dialog_data/npc_dialog_mapping_xliff_stats.html
@@ -111,3 +111,4 @@ retro-complet-2025-09-29/export.2025-09-29_12-26-00.fr-fr.es-es.xliff
 retro-complet-2025-09-29/export.2025-09-29_12-26-05.fr-fr.pt-br.xliff
 retro-complet-2025-09-29/quest_dialogs_20251006_080205.html
 retro-complet-2025-09-29/quest_dialogs_20251006_080915.html
+TB2dic - Copy NoCompoundsDE.ipynb

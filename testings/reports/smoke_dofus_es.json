@@ -1,0 +1,86 @@
+{
+  "runs": [
+    {
+      "game": "DOFUS",
+      "language_input": "es",
+      "language": "es",
+      "status": "ok",
+      "error": "",
+      "timings": {
+        "step_1_tokenize": 56.406,
+        "step_2_3_filter": 4.89,
+        "step_4_wordforms": 32.322,
+        "step_5_munch": 0.355,
+        "total": 201.807
+      },
+      "artifacts": {
+        "token_txt": "processing_dics\\DOFUS_es_tokens.txt",
+        "filtered_dic": "processing_dics\\DOFUS_es_filtered_tokens.dic",
+        "propernoun_sidecar": "processing_dics\\DOFUS_es_propernoun_tokens.json",
+        "wordforms_csv": "processing_dics\\DOFUS_es_missing_wordforms.csv",
+        "flat_dic": "output_dics\\Flatlists\\DOFUS_es.DIC",
+        "compressed_dic": "output_dics\\Compressed_dics\\es_DOFUS\\es_DOFUS.dic",
+        "compressed_aff": "output_dics\\Compressed_dics\\es_DOFUS\\es_DOFUS.aff",
+        "full_dic_dir": "output_dics\\Full_dics\\es_DOFUS",
+        "full_dic": "output_dics\\Full_dics\\es_DOFUS\\es_DOFUS.dic",
+        "full_aff": "output_dics\\Full_dics\\es_DOFUS\\es_DOFUS.aff",
+        "casing_csv": "processing_dics\\DOFUS_es_casing_inference.csv"
+      },
+      "metrics": {
+        "dictionary_preflight": {
+          "language": "es",
+          "ok": true,
+          "dic": "dics\\es_dic\\es\\es_ES.dic",
+          "aff": "dics\\es_dic\\es\\es_ES.aff",
+          "checks": [
+            {
+              "dic": "dics\\es_dic\\es\\es_ES.dic",
+              "aff": "dics\\es_dic\\es\\es_ES.aff",
+              "dic_exists": true,
+              "aff_exists": true
+            }
+          ]
+        },
+        "stale_removed": 0,
+        "i18n_status": "prewarmed",
+        "token_count": 33952,
+        "batch_filter_results": [
+          {
+            "language": "es",
+            "input_file": "DOFUS_es_tokens.txt",
+            "output_file": "DOFUS_es_filtered_tokens.dic",
+            "original_tokens": 33952,
+            "removed_tokens": 15696,
+            "remaining_tokens": 18256,
+            "processing_time": 4.857889652252197,
+            "removal_rate": 46.22997172478794
+          }
+        ],
+        "wordform_rows": 23,
+        "munch_stats": {
+          "base_words": 18259,
+          "flat_words": 18293,
+          "compressed_entries": 18274,
+          "compressed_pruned_redundant": 19,
+          "flags_used": [
+            "G",
+            "S"
+          ],
+          "casing_inferences": 3,
+          "elapsed": 0.3519566059112549
+        }
+      }
+    }
+  ],
+  "summary": {
+    "status": "ok",
+    "total_pairs": 1,
+    "processed_pairs": 1,
+    "ok_pairs": 1,
+    "failed_pairs": [],
+    "failed_pairs_count": 0,
+    "elapsed_seconds": 201.811
+  },
+  "report_type": "smoke",
+  "timestamp": "20260316T234630Z"
+}

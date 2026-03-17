@@ -16,7 +16,7 @@ output_dics/Tuto*
 output_dics/Compressed_dics/*_ANKANIMATION/
 output_dics/Compressed_dics/*_ONE_MORE_GATE/
 output_dics/Compressed_dics/*_WAVEN/
-
+testings/smoke*
 
 # Ignore Python cache files
 __pycache__/

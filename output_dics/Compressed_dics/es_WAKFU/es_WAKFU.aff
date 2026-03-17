@@ -1,0 +1,83 @@
+SET UTF-8
+FLAG UTF-8
+TRY aeroinsctldumpbgfvhzóíjáqéñxyúükwAEROINSCTLDUMPBGFVHZÓÍJÁQÉÑXYÚÜKW-'
+REP 20
+REP ás az
+REP az ás
+REP cc x
+REP és ez
+REP ez és
+REP güe hue
+REP güi hui
+REP hue güe
+REP hui güi
+REP ís iz
+REP ío ido
+REP ke que
+REP ki qui
+REP ll y
+REP mb nv
+REP nv mb
+REP seci cesi
+REP x cc
+REP y ll
+REP vámonos vayámonos
+MAP 6
+MAP aáAÁ
+MAP eéEÉ
+MAP iíIÍ
+MAP oóOÓ
+MAP uúüUÚÜ
+MAP nñNÑ
+WORDCHARS '-0123456789
+SFX G Y 18
+SFX G e a [^u]e
+SFX G que ca que
+SFX G o a o
+SFX G 0 a [dlrz]
+SFX G án ana án
+SFX G ín ina ín
+SFX G ón ona ón
+SFX G és esa és
+SFX G ós osa ós
+SFX G e as [^u]e
+SFX G que cas que
+SFX G o as o
+SFX G 0 as [dlrz]
+SFX G án anas án
+SFX G ín inas ín
+SFX G ón onas ón
+SFX G és esas és
+SFX G ós osas ós
+SFX S Y 31
+SFX S 0 s [aáceéfgiíkmoóptuúw]
+SFX S 0 es [bdhíjlrúxy]
+SFX S 0 es [^áeéíóú]n
+SFX S 0 es [^áéíóú]s
+SFX S án anes án
+SFX S én enes én
+SFX S ín ines ín
+SFX S ón ones ón
+SFX S ún unes ún
+SFX S ás ases ás
+SFX S és eses és
+SFX S ís ises ís
+SFX S ós oses ós
+SFX S ús uses ús
+SFX S 0 es [^dgmv]en
+SFX S orden órdenes orden
+SFX S agen ágenes agen
+SFX S argen árgenes argen
+SFX S igen ígenes igen
+SFX S irgen írgenes irgen
+SFX S amen ámenes amen
+SFX S armen ármenes armen
+SFX S emen émenes emen
+SFX S ermen érmenes ermen
+SFX S imen ímenes imen
+SFX S omen ómenes omen
+SFX S olmen ólmenes olmen
+SFX S umen úmenes umen
+SFX S ulmen úlmenes ulmen
+SFX S oven óvenes oven
+SFX S z ces z

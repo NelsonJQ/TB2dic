@@ -280,7 +280,7 @@ Quick contrast so reviewers do not mix concepts:
 | `token` | string | Exact final token surface form as exported. | `Xelors` |
 | `token_lower` | string | Lowercased token used for cross-artifact key matching. | `xelors` |
 | `origin_class` | enum string | High-level lineage bucket for quick triage: `tb_and_corpus` (base from TB plus corpus support), `tb_only` (TB lineage only), `corpus_only` (added from corpus lineage, not TB base), `generated_casing_inference` (introduced by casing heuristics), `generated_unknown` (kept output token without stronger matched bucket). | `tb_and_corpus` |
-| `lineage_tags` | pipe-delimited string | Source-family tags that explain path(s) into final output: `tb_filtered_base`, `corpus_aff_form`, `corpus_ghost_form` (proper-noun ghost path), `casing_inference`. Multiple tags can co-exist. | `tb_filtered_base|corpus_aff_form` |
+| `lineage_tags` | pipe-delimited string | Source-family tags that explain path(s) into final output: `tb_filtered_base`, `corpus_aff_form`, `corpus_ghost_form` (proper-noun ghost path), `casing_inference`. Multiple tags can co-exist. | `tb_filtered_base\|corpus_aff_form` |
 | `in_tb_tokens` | boolean | `True` if token appears in Step 1 TB token list (direct or lowercase match). | `True` |
 | `in_filtered_dic_base` | boolean | `True` if token appears as base in filtered neologism `.dic`. | `False` |
 | `is_corpus_form` | boolean | `True` if token was found as corpus evidence from AFF-derived forms. | `True` |
@@ -289,12 +289,12 @@ Quick contrast so reviewers do not mix concepts:
 | `source_base_words` | pipe-delimited string | Base word(s) that contributed to this token lineage. | `Xelor` |
 | `assigned_flags` | pipe-delimited string | Flags actually assigned to this token in compressed output entry. | `S` |
 | `mandatory_flags_assigned` | pipe-delimited string | Subset of assigned flags coming from mandatory policy. | `S` |
-| `validated_flags_assigned` | pipe-delimited string | Subset of assigned flags validated by Step 4 quorum evidence. | `G|R` |
-| `validated_flags_candidates` | pipe-delimited string | Candidate validated flags linked to source base words before final assignment split. | `S|G` |
+| `validated_flags_assigned` | pipe-delimited string | Subset of assigned flags validated by Step 4 quorum evidence. | `G\|R` |
+| `validated_flags_candidates` | pipe-delimited string | Candidate validated flags linked to source base words before final assignment split. | `S\|G` |
 | `filter_status` | enum string | Step 2-3 filtering status when audit row exists: `removed_known_word` or `kept_neologism`; empty when unavailable. | `kept_neologism` |
 | `filter_match_type` | enum string | Filtering match class: `dictionary_form` or `compound_word`; empty when not applicable. | `dictionary_form` |
 | `flag_evidence_summary` | semicolon-delimited string | Compact Step 4 evidence tuples using `base:flag:hits/derived`. | `xelor:S:3/4;xelor:G:0/3` |
-| `step4_related_bases` | pipe-delimited string | Base words whose Step 4 found forms (including ghost-form matches) include this token by lowercase matching. | `Xelor|Xelorian` |
+| `step4_related_bases` | pipe-delimited string | Base words whose Step 4 found forms (including ghost-form matches) include this token by lowercase matching. | `Xelor\|Xelorian` |
 
 ### 6.3 Consolidated JSONL keys (`*_token_provenance_report.jsonl`)
 

@@ -370,6 +370,45 @@ For one token row, read in this order:
 4. `flag_evidence_summary` (or JSONL `flag_evidence`) to inspect quorum support.
 5. `filter_status` / `filter_match_type` to trace earlier dictionary filtering decisions.
 
+### 6.6 Token lifecycle decision tree (Mermaid)
+
+This diagram summarizes how one token can move across the pipeline and how the consolidated report captures each branch through lineage and audit fields.
+
+```mermaid
+flowchart TD
+    A[Step 1: TB extraction\nToken observed in source files] --> B{Step 2-3 Hunspell filtering\nKnown dictionary form or compound?}
+    B -->|Yes| B1[Removed from candidate path\nfilter_status=removed_known_word\nfilter_match_type=dictionary_form/compound_word]
+    B -->|No| C[Kept as neologism candidate\nfilter_status=kept_neologism]
+
+    C --> D[Step 4 corpus discovery per base word\nGenerate forms from flags + ghost fallback]
+    D --> E{Any corpus attestations?}
+    E -->|No| E1[TB-only survival possible\nlineage_tags may keep tb_filtered_base]
+    E -->|Yes| F[Attach corpus evidence\ncorpus_aff_form and/or corpus_ghost_form]
+
+    D --> G{Flag quorum passed?\nhit_count/derived_count >= quorum}
+    G -->|Yes| G1[validated_flags_assigned updated\nflag_evidence passed=true]
+    G -->|No| G2[Flag remains candidate-only\nvalidated_flags_candidates only]
+
+    C --> H[Step 5 munch assembly\nAssign mandatory + validated flags]
+    F --> H
+    G1 --> H
+    G2 --> H
+    E1 --> H
+
+    H --> I{Token included in compressed output?\nin_compressed_output}
+    I -->|No| I1[Pruned or covered by generated forms\ndropped_generated_by records provenance]
+    I -->|Yes| J[Final token in consolidated report\n*_token_provenance_report.csv/.jsonl]
+
+    J --> K[Consolidated lineage view\norigin_class + lineage_tags +\nsource_base_words + assigned_flags +\nfilter_status/filter_match_type +\nstep4_related_bases]
+```
+
+Reading tip:
+
+- Start from `origin_class` + `lineage_tags` to identify branch family (TB, corpus, ghost, casing).
+- Use `filter_status` / `filter_match_type` to trace Step 2-3 decisions.
+- Use `flag_evidence_summary` or JSONL `flag_evidence` to validate Step 4 quorum outcomes.
+- Use `dropped_generated_by` and assigned/validated flag fields to understand Step 5 keep vs prune behavior.
+
 ## 7. 🧭 External Tool Guides (Official)
 
 For adding custom dictionaries in CAT/office tools, use the official documentation:

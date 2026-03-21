@@ -8,6 +8,7 @@
 #   - file I/O: flat .dic, compressed .dic + .aff
 
 import os
+import re
 from time import time as _time_now
 from typing import Dict, List, Optional, Set
 
@@ -21,6 +22,14 @@ from .params import (
     OUTPUT_FULL_DIR,
 )
 from .prepro import _apply_ankanimation_token_overrides
+
+
+_EN_POSSESSIVE_RE = re.compile(r".*(?:'|’)s$", re.IGNORECASE)
+
+
+def _is_english_possessive_form(token: str) -> bool:
+    text = str(token or '').strip()
+    return bool(text) and bool(_EN_POSSESSIVE_RE.match(text))
 
 
 # ── Helper: extract raw AFF text blocks ──────────────────────────────────────
@@ -213,8 +222,10 @@ def munch_to_compressed_dic(
     games: List[str],
     wordform_results: List[dict],
     propernoun_sidecar: str | None = None,
+    filter_audit_csv_path: str | None = None,
     provenance_level: str = 'off',
     provenance_output_folder: str | None = None,
+    final_output_folder: str | None = None,
 ) -> Dict:
     """
     Assemble filtered_tokens.dic + corpus-confirmed wordform results into:
@@ -234,6 +245,9 @@ def munch_to_compressed_dic(
         games:              List of game tags (for file naming)
         wordform_results:   The list returned by find_corpus_wordforms()
         propernoun_sidecar: Path to propernoun sidecar JSON (for casing context)
+        filter_audit_csv_path: Optional Step 2-3 audit CSV path used to
+            suppress tokens marked as removed_known_word from re-entering
+            outputs via Step 4 corpus-derived forms.
 
     Returns:
         Dict with keys: flat_dic_path, compressed_dic_path, compressed_aff_path,
@@ -303,14 +317,68 @@ def munch_to_compressed_dic(
     if propernoun_sidecar and os.path.isfile(propernoun_sidecar):
         with open(propernoun_sidecar, 'r', encoding='utf-8') as fh:
             sidecar_data = _json.load(fh)
-        for key_type, tokens in sidecar_data.items():
-            propernoun_tokens.update(tokens)
+        if isinstance(sidecar_data, dict) and isinstance(sidecar_data.get('by_category'), dict):
+            category_map = sidecar_data.get('by_category', {})
+        else:
+            category_map = sidecar_data
+        if isinstance(category_map, dict):
+            for _, tokens in category_map.items():
+                if isinstance(tokens, list):
+                    propernoun_tokens.update(str(tok).strip().lower() for tok in tokens if str(tok).strip())
         print(f"  Loaded {len(propernoun_tokens):,} propernoun tokens from sidecar")
 
     # ── 4. Build the flat confirmed-forms set ─────────────────────────────────
     all_confirmed: Set[str] = set(base_words_set)
     for forms in family_map.values():
         all_confirmed.update(forms)
+
+    # Defense-in-depth for English: block trailing apostrophe-s forms from
+    # leaking into Step 5 outputs even if upstream artifacts contain them.
+    removed_possessive_count = 0
+    if lang == 'en':
+        blocked = {tok for tok in all_confirmed if _is_english_possessive_form(tok)}
+        if blocked:
+            all_confirmed -= blocked
+            base_words_set -= blocked
+            base_words_original -= blocked
+            for tok in blocked:
+                form_lineage.pop(tok, None)
+                form_parents.pop(tok, None)
+            removed_possessive_count = len(blocked)
+            print(f"  English possessive guard removed: {removed_possessive_count:,}")
+
+    # Language-agnostic known-word rebound guard:
+    # if Step 2-3 explicitly removed a token as a known dictionary word,
+    # keep it out of Step 5 outputs even when Step 4 sees corpus-attested forms.
+    removed_known_word_lowers: Set[str] = set()
+    if filter_audit_csv_path and os.path.isfile(filter_audit_csv_path):
+        try:
+            with open(filter_audit_csv_path, 'r', encoding='utf-8-sig', newline='') as _fh:
+                _reader = _csv.DictReader(_fh)
+                for _row in _reader:
+                    _status = str(_row.get('status', '')).strip()
+                    if _status != 'removed_known_word':
+                        continue
+                    _tok_lower = str(_row.get('token_lower', '')).strip().lower()
+                    if not _tok_lower:
+                        _tok_lower = str(_row.get('token', '')).strip().lower()
+                    if _tok_lower:
+                        removed_known_word_lowers.add(_tok_lower)
+        except Exception as audit_err:
+            print(f"  WARNING: failed loading filter audit for known-word guard: {audit_err}")
+
+    removed_known_word_rebound_count = 0
+    if removed_known_word_lowers:
+        rebound_tokens = {tok for tok in all_confirmed if tok.lower() in removed_known_word_lowers}
+        if rebound_tokens:
+            all_confirmed -= rebound_tokens
+            base_words_set -= rebound_tokens
+            base_words_original -= rebound_tokens
+            for tok in rebound_tokens:
+                form_lineage.pop(tok, None)
+                form_parents.pop(tok, None)
+            removed_known_word_rebound_count = len(rebound_tokens)
+            print(f"  Known-word rebound guard removed: {removed_known_word_rebound_count:,}")
     print(f"  Total confirmed forms (base + inflected): {len(all_confirmed):,}")
 
     # ── 5. Casing inference ───────────────────────────────────────────────────
@@ -389,19 +457,29 @@ def munch_to_compressed_dic(
         print(f"      {fl!r:>6}  →  {flag_usage_count.get(fl, 0):>6,} words")
 
     # ── 8. Output files ──────────────────────────────────────────────────────
-    os.makedirs(OUTPUT_FLATLISTS_DIR, exist_ok=True)
-    os.makedirs(OUTPUT_COMPRESSED_DIR, exist_ok=True)
-    os.makedirs(OUTPUT_FULL_DIR, exist_ok=True)
+    final_root = str(final_output_folder).strip() if final_output_folder else ''
+    if final_root:
+        out_flatlists_dir = os.path.join(final_root, 'Flatlists')
+        out_compressed_dir = os.path.join(final_root, 'Compressed_dics')
+        out_full_dir = os.path.join(final_root, 'Full_dics')
+    else:
+        out_flatlists_dir = OUTPUT_FLATLISTS_DIR
+        out_compressed_dir = OUTPUT_COMPRESSED_DIR
+        out_full_dir = OUTPUT_FULL_DIR
+
+    os.makedirs(out_flatlists_dir, exist_ok=True)
+    os.makedirs(out_compressed_dir, exist_ok=True)
+    os.makedirs(out_full_dir, exist_ok=True)
     os.makedirs(INTERMEDIARY_DIR, exist_ok=True)
 
-    compressed_bundle_dir = os.path.join(OUTPUT_COMPRESSED_DIR, lang_game_key)
-    full_bundle_dir = os.path.join(OUTPUT_FULL_DIR, lang_game_key)
+    compressed_bundle_dir = os.path.join(out_compressed_dir, lang_game_key)
+    full_bundle_dir = os.path.join(out_full_dir, lang_game_key)
     os.makedirs(compressed_bundle_dir, exist_ok=True)
     os.makedirs(full_bundle_dir, exist_ok=True)
 
     # 8a. Flat consolidated .DIC (Word-compatible by default)
     flat_words = sorted(all_confirmed, key=str.lower)
-    flat_dic_path = os.path.join(OUTPUT_FLATLISTS_DIR, f"{game_lang_key}.DIC")
+    flat_dic_path = os.path.join(out_flatlists_dir, f"{game_lang_key}.DIC")
     _flat_lines = [str(w).strip() for w in flat_words if str(w).strip()]
     _flat_text = "\r\n".join(_flat_lines).rstrip("\r\n") + "\r\n"
     with open(flat_dic_path, 'wb') as fh:
@@ -600,6 +678,8 @@ def munch_to_compressed_dic(
             'flat_words':        len(flat_words),
             'compressed_entries': len(compressed_lines),
             'compressed_pruned_redundant': len(dropped_redundant_words),
+            'english_possessive_removed': removed_possessive_count,
+            'known_word_rebound_removed': removed_known_word_rebound_count,
             'flags_used':        sorted(used_flags_all),
             'casing_inferences': len(casing_inferences),
             'elapsed':           elapsed,

@@ -1,0 +1,271 @@
+# this is the affix file of the de_DE Hunspell dictionary
+# derived from the igerman98 dictionary
+#
+# Version: 20161207+frami20170109
+#
+# Copyright (C) 1998-2016 Björn Jacke <bjoern@j3e.de>
+#
+# License: GPLv2, GPLv3
+# There should be a copy of both of this licenses included
+# with every distribution of this dictionary. Modified
+# versions using the GPL may only include the GPL
+
+SET ISO8859-1
+TRY esijanrtolcdugmphbyfvkwqxzäüößáéêàâñESIJANRTOLCDUGMPHBYFVKWQXZÄÜÖÉ-.'
+
+
+
+#SFX F   en    innen        en
+#SFX F   en    Innen        en
+
+
+
+
+#SFX H N 2
+#SFX H   0       heit       .
+#SFX H   0       heiten     .
+
+
+#SFX K N 2
+#SFX K   0       keit       .
+#SFX K   0       keiten     .
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# last ...oss rules are for swiss de_CH only - but do not affect de_DE
+
+
+
+
+
+
+
+
+#SFX Q   0       se        s
+#SFX Q   0       sen       s
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# last two ...ss rules only used for swiss de_CH - but de_DE is unaffected
+
+
+
+REP 28
+REP f ph
+REP ph f
+REP ß ss
+REP ss ß
+REP s ss
+REP ss s
+REP i ie
+REP ie i
+REP ee e
+REP o oh
+REP oh o
+REP a ah
+REP ah a
+REP e eh
+REP eh e
+REP ae ä
+REP oe ö
+REP ue ü
+REP Ae Ä
+REP Oe Ö
+REP Ue Ü
+REP d t
+REP t d
+REP th t
+REP t th
+REP r rh
+REP ch k
+REP k ch
+#REP eee ee-E
+
+MAP 7
+MAP (ss)ß
+MAP (ue)ü
+MAP (Ue)Ü
+MAP (oe)ö
+MAP (Oe)Ö
+MAP (ae)ä
+MAP (Ae)Ä
+
+# this one will allow "-Eltern" - Hunspell 1.1.5 bug, but CHECKSHARPS obsoletes LANG de_DE
+#LANG de_DE
+CHECKSHARPS
+
+
+COMPOUNDBEGIN x
+COMPOUNDMIDDLE y
+COMPOUNDEND z
+FORBIDDENWORD d
+
+# Prefixes are allowed at the beginning of compounds,
+# suffixes are allowed at the end of compounds by default:
+# (prefix)?(root)+(affix)?
+# Affixes with COMPOUNDPERMITFLAG may be inside of compounds.
+COMPOUNDPERMITFLAG c
+
+ONLYINCOMPOUND o
+
+# my PSEUDOROOT h(elper) flag
+NEEDAFFIX h
+
+# forbid uppercase characters at compound word bounds
+# BUT I want to take care about it myself ;-)
+# CHECKCOMPOUNDCASE
+KEEPCASE w
+
+# Affixes  signed  with CIRCUMFIX flag may be on a word when this word also has a prefix with CIRCUMFIX flag and vice versa.
+# for decapitalizing nouns with fogemorphemes
+CIRCUMFIX f
+
+# this one would make a separate dict entry "Denkmalsschutz" invalidate the
+# compound of "Denkmal"+"schutz". We do not want this feature here...
+# CHECKCOMPOUNDREP
+
+# make not all possible suggestions for typos of Flicken or some rare words
+NOSUGGEST n
+
+WORDCHARS üÜß-.'0123456789
+
+# - setting this to 2 decreases performance by 1/10 but is needed for "öl" and "ei"
+# - setting this to 1 for handling Fuge-elements with dashes (Arbeits-) dash will 
+#   be a special word but - is handled as a affix now
+COMPOUNDMIN 2
+
+# this ones are for Duden R36 (old orthography)
+#CHECKCOMPOUNDPATTERN 2  #oldspell
+#CHECKCOMPOUNDPATTERN ee e #oldspell
+#CHECKCOMPOUNDPATTERN oo o #oldspell
+# also need oo o
+
+# this one needs to be flagable to be used for old orthography
+#CHECKCOMPOUNDTRIPLE
+
+
+
+
+# Female forms for compound/Compound words:
+# attention: [^e][^n] does also filter out "...er" !
+
+
+
+
+# for Uppercased end-words to prepend - and lowercase: (Tier/EPSm) (EX: Bettbezüge und *-laken*)
+# AND
+# for lowercased end-words to prepend - and re-uppercase : (tier/EPSozm) (EX: Arbeits*-Tier*)
+#PFX m A -a/co A
+#PFX m a -/ a
+
+
+# Decapitalizing: (not used ATM... )
+# /co(f) : compound permit, in coumpount only, (decapitalizing with fogemorphemes)
+#PFX l Y 29
+#PFX l A a/co A
+#PFX l Ä ä/co Ä
+#PFX l B b/co B
+#PFX l C c/co C
+#PFX l D d/co D
+#PFX l E e/co E
+#PFX l F f/co F
+#PFX l G g/co G
+#PFX l H h/co H
+#PFX l I i/co I
+#PFX l J j/co J
+#PFX l K k/co K
+#PFX l L l/co L
+#PFX l M m/co M
+#PFX l N n/co N
+#PFX l O o/co O
+#PFX l Ö ö/co Ö
+#PFX l P p/co P
+#PFX l Q q/co Q
+#PFX l R r/co R
+#PFX l S s/co S
+#PFX l T t/co T
+#PFX l U u/co U
+#PFX l Ü ü/co Ü
+#PFX l V v/co V
+#PFX l W w/co W
+#PFX l X x/co X
+#PFX l Y y/co Y
+#PFX l Z z/co Z
+
+# private hunspell flags:
+# --x : not for capmain (rare words)
+
+# With "BREAK -" some wrong forms are accepted but that is needed for US-Wirtschaft etc.
+# So enabling this is the lesser evil. No perfect solution found so far...
+BREAK 2
+BREAK -
+BREAK .
+
+SFX E Y 1
+SFX E   0       e          .
+SFX N Y 1
+SFX N   0       n          .
+SFX P Y 1
+SFX P   0       en         .
+SFX p Y 26
+SFX p   auf     äufe      auf
+SFX p   auf     äufen     auf
+SFX p   aus     äuser     [hH]aus
+SFX p   aus     äusern    [hH]aus
+SFX p   arkt    ärkte     [mM]arkt
+SFX p   arkt    ärkten    [mM]arkt
+SFX p   ang     änge      ang
+SFX p   ang     ängen     ang
+SFX p   uß      üße       uß
+SFX p   uß      üßen      uß
+SFX p   oß      öße       oß
+SFX p   oß      ößen      oß
+SFX p   aum     äume      aum
+SFX p   aum     äumen     aum
+SFX p   ag      äge       ag
+SFX p   ag      ägen      ag
+SFX p   ug      üge       ug
+SFX p   ug      ügen      ug
+SFX p   all     älle      all
+SFX p   all     ällen     all
+SFX p   ass     ässe      ass
+SFX p   ass     ässen     ass
+SFX p   uss     üsse      uss
+SFX p   uss     üssen     uss
+SFX p   oss     össe      oss
+SFX p   oss     össen     oss
+SFX R Y 3
+SFX R   0       er         [^e]
+SFX R   0       ern        [^e]
+SFX R   0       r          e
+SFX S Y 1
+SFX S   0       s          .

@@ -84,9 +84,15 @@ def run_pipeline_batch(
     pair_workers: int = 1,             # parallelisme externe sur les paires (game/lang)
     skip_step_corpusforms: bool = False,         # True = saute find_corpus_wordforms, Step 5 reste active
     output_folder: str | None = None,  # dossier de travail (None => INTERMEDIARY_DIR)
+    final_output_folder: str | None = None,  # dossier final export (None => OUTPUT_DIR)
     prewarm_i18n: bool = True,         # precharge i18n filtre seulement si pas deja warm
     provenance_level: str = "detailed",  # off | light | detailed
     provenance_formats: List[str] | None = None,  # csv/jsonl
+    step4_compact_corpus_map: bool = False,  # True = one true-case form/token in Step 4 corpus map
+    step4_std_dic_mode: str = "expanded",  # expanded | headwords | off
+    step4_retain_known_forms: bool = True,  # False = only keep NEW forms from Step 4 to save RAM
+    step4_wordform_cache_max: int | None = None,  # optional cache cap override for generate_word_forms
+    step4_clear_wordform_cache_every_batches: int = 0,  # periodic cache clear during Step 4
 ) -> Dict[str, Any]:
     """
     Run the full Steps 1-5 pipeline for each (game, language) pair.
@@ -143,7 +149,11 @@ def run_pipeline_batch(
         f"add_verb_flags={add_verb_flags}, quorum={quorum}, "
         f"cleanup_stale={cleanup_stale}, strict_mode={strict_mode}, pair_workers={pair_workers}, "
         f"skip_step_corpusforms={skip_step_corpusforms}, "
-        f"provenance_level={provenance_level}, provenance_formats={provenance_formats or ['csv', 'jsonl']}"
+        f"provenance_level={provenance_level}, provenance_formats={provenance_formats or ['csv', 'jsonl']}, "
+        f"step4_compact_corpus_map={step4_compact_corpus_map}, step4_std_dic_mode={step4_std_dic_mode}, "
+        f"step4_retain_known_forms={step4_retain_known_forms}, "
+        f"step4_wordform_cache_max={step4_wordform_cache_max}, "
+        f"step4_clear_wordform_cache_every_batches={step4_clear_wordform_cache_every_batches}"
     )
     print("=" * 80)
 
@@ -319,12 +329,22 @@ def run_pipeline_batch(
             run_result["timings"]["step_1_tokenize"] = round(time.time() - step_t0, 3)
             run_result["metrics"]["token_count"] = len(tokens_list)
 
+            # load_and_tokenize_terminology_base currently writes sidecar in
+            # INTERMEDIARY_DIR; when running with custom output_folder, keep a
+            # fallback so Step 2/3 can still consume token->TB key lineage.
+            propernoun_sidecar_for_filter = paths["propernoun_sidecar"]
+            if not os.path.isfile(propernoun_sidecar_for_filter):
+                sidecar_fallback = os.path.join(INTERMEDIARY_DIR, os.path.basename(paths["propernoun_sidecar"]))
+                if os.path.isfile(sidecar_fallback):
+                    propernoun_sidecar_for_filter = sidecar_fallback
+
             step_t0 = time.time()
             batch_results = batch_filter_tokens_by_dictionary(
                 input_folder=work_dir,
                 target_languages=[lang],
                 dic_folder=DIC_FOLDER,
                 output_folder=work_dir,
+                propernoun_sidecar_path=propernoun_sidecar_for_filter,
             )
             run_result["timings"]["step_2_3_filter"] = round(time.time() - step_t0, 3)
 
@@ -336,7 +356,7 @@ def run_pipeline_batch(
             run_result["artifacts"]["token_txt"] = paths["token_txt"]
             run_result["artifacts"]["filtered_dic"] = paths["filtered_dic"]
             run_result["artifacts"]["propernoun_sidecar"] = (
-                paths["propernoun_sidecar"] if os.path.isfile(paths["propernoun_sidecar"]) else None
+                propernoun_sidecar_for_filter if os.path.isfile(propernoun_sidecar_for_filter) else None
             )
             run_result["metrics"]["batch_filter_results"] = batch_results
             for batch_row in batch_results:
@@ -367,6 +387,11 @@ def run_pipeline_batch(
                     quorum=quorum,
                     provenance_level=provenance_level,
                     provenance_output_folder=work_dir,
+                    compact_corpus_map=step4_compact_corpus_map,
+                    std_dic_mode=step4_std_dic_mode,
+                    retain_known_forms=step4_retain_known_forms,
+                    wordform_cache_max=step4_wordform_cache_max,
+                    clear_wordform_cache_every_batches=step4_clear_wordform_cache_every_batches,
                 )
                 run_result["timings"]["step_4_wordforms"] = round(time.time() - step_t0, 3)
                 run_result["metrics"]["wordform_rows"] = len(wordform_results)
@@ -380,8 +405,10 @@ def run_pipeline_batch(
                 games=[game],
                 wordform_results=wordform_results,
                 propernoun_sidecar=run_result["artifacts"]["propernoun_sidecar"],
+                filter_audit_csv_path=run_result["artifacts"].get("filter_audit_csv", ""),
                 provenance_level=provenance_level,
                 provenance_output_folder=work_dir,
+                final_output_folder=final_output_folder,
             )
             run_result["timings"]["step_5_munch"] = round(time.time() - step_t0, 3)
 

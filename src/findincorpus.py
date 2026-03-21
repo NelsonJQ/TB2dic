@@ -4,7 +4,7 @@ import json
 import csv
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from time import time as _time_now
-from typing import Any, Dict, List, Set, Tuple, cast
+from typing import Any, Dict, Iterable, List, Set, Tuple, cast
 
 from . import filtering as _filtering
 from .filtering import _expand_chunk, generate_word_forms, parse_aff_file
@@ -71,6 +71,12 @@ GENDER_GHOST_SUFFIXES: Dict[str, dict] = {
 # Spanish stems that repeatedly generate verb-like false positives in
 # brute-force AFF expansion and should be excluded from ghost/noise paths.
 SPANISH_GHOST_NOISE_BASES: Set[str] = {'tar', 'star', 'sir', 'over'}
+_EN_POSSESSIVE_RE = re.compile(r".*(?:'|’)s$", re.IGNORECASE)
+
+
+def _is_english_possessive_form(token: str) -> bool:
+    text = str(token or '').strip()
+    return bool(text) and bool(_EN_POSSESSIVE_RE.match(text))
 
 
 def _generate_gender_ghosts(base_lower: str, lang: str) -> Set[str]:
@@ -161,7 +167,8 @@ def load_i18n_corpus(
     min_words       : int   = 7,
     min_confidence  : float = 0.12,
     short_confidence: float = 0.9,
-) -> Dict[str, Set[str]]:
+    compact_case_map: bool  = False,
+) -> Dict[str, Any]:
     """
     Load and tokenize i18n strings for the given lang/games.
 
@@ -238,7 +245,7 @@ def load_i18n_corpus(
         if isinstance(_paths, dict) and _g not in _i18n_PATHS_original:
             _i18n_PATHS_original[_g] = dict(_paths)
 
-    corpus_map: Dict[str, Set[str]] = {}
+    corpus_map: Dict[str, Any] = {}
     total_strings  = 0
     skipped_wip    = 0
     skipped_lang   = 0
@@ -246,12 +253,17 @@ def load_i18n_corpus(
     lang_detector_calls = 0
     removed_entries: List[dict] = []   # {game, key, raw_val, demorphed_val, confidence, word_count}
 
-    def _add_tokens(tokens):
+    def _add_tokens(tokens: Iterable[str]):
         for tok in tokens:
             key = tok.lower()
-            if key not in corpus_map:
-                corpus_map[key] = set()
-            corpus_map[key].add(tok)
+            if compact_case_map:
+                # Keep only one representative true-case form per lowercase token.
+                if key not in corpus_map:
+                    corpus_map[key] = tok
+            else:
+                if key not in corpus_map:
+                    corpus_map[key] = set()
+                corpus_map[key].add(tok)
 
     # ── Build lingua detector (session singleton) ───────────────────────────
     _lingua_detector  = None
@@ -560,6 +572,48 @@ def load_i18n_corpus(
 _std_dic_forms_cache: Dict[str, Set[str]] = {}
 
 
+def build_std_dic_headwords(lang: str) -> Set[str]:
+    """
+    Return lowercase headwords from the standard Hunspell dictionary for *lang*.
+
+    This is much lighter than full AFF expansion and is useful for low-memory runs.
+    """
+    std_dic_path = HUNSPELL_PATHS.get(lang, "")
+    if not std_dic_path:
+        raise ValueError(f"No HUNSPELL_PATHS entry for lang={lang!r}")
+    aff_path = std_dic_path.replace(".dic", ".aff")
+    affixes = parse_aff_file(aff_path)
+
+    _dic_enc = affixes.get('encoding', 'utf-8')
+    if isinstance(_dic_enc, str) and _dic_enc.lower() in ('utf-8', 'utf8'):
+        _dic_enc = 'utf-8-sig'
+
+    headwords: Set[str] = set()
+    with open(std_dic_path, 'r', encoding=_dic_enc, errors='replace') as fh:
+        for ln in fh.readlines()[1:]:  # skip count header
+            ln = ln.strip()
+            if not ln:
+                continue
+            base = ln.split('/', 1)[0].split('\t')[0].rstrip('.').strip().lower()
+            if base:
+                headwords.add(base)
+
+    print(f"  Standard dic headwords ({lang}) : {len(headwords):,}  [low-memory]")
+    return headwords
+
+
+def _iter_corpus_truecase_values(value: Any) -> Iterable[str]:
+    """Yield true-case forms from either compact (str) or full (set/list) corpus map entries."""
+    if isinstance(value, str):
+        if value:
+            yield value
+        return
+    if isinstance(value, (set, list, tuple, frozenset)):
+        for token in value:
+            if isinstance(token, str) and token:
+                yield token
+
+
 def build_std_dic_forms(lang: str, num_threads: int = 4) -> Set[str]:
     """
     Return every surface form (lowercase) that the standard Hunspell dictionary for *lang*
@@ -646,13 +700,16 @@ def build_std_dic_forms(lang: str, num_threads: int = 4) -> Set[str]:
 def _wordform_match_worker(
     batch: List[str],
     affixes: Dict,
-    corpus_map: Dict[str, Set[str]],
+    corpus_map: Dict[str, Any],
     all_flags: List[str],
     propernoun_lower: frozenset = frozenset(),
     lang: str = "es",
     candidate_flags: List[str] | None = None,
     quorum: float = 0.5,
     collect_flag_evidence: bool = False,
+    retain_known_forms: bool = True,
+    custom_known_lowers: Set[str] | None = None,
+    std_known_lowers: Set[str] | None = None,
 ) -> List[dict]:
     """
     Thread worker — brute-forces all SFX+PFX flags against each base word,
@@ -699,24 +756,59 @@ def _wordform_match_worker(
         except Exception:
             forms_lower = set()
 
+        custom_known_lowers = custom_known_lowers or set()
+        std_known_lowers = std_known_lowers or set()
+
         # Collect all true-case variants for each matching lowercase form,
         # excluding the base word itself.
         true_case_hits: Set[str] = set()
+        new_true_case_hits: Set[str] = set()
         matched_lower = (forms_lower - {base_lower}) & _corpus_keys
-        for form_lower in matched_lower:
-            true_case_hits.update(corpus_map[form_lower])
+        if lang == 'en':
+            matched_lower = {
+                form for form in matched_lower
+                if not _is_english_possessive_form(form)
+            }
+        if retain_known_forms:
+            for form_lower in matched_lower:
+                for true_case_form in _iter_corpus_truecase_values(corpus_map.get(form_lower)):
+                    if lang == 'en' and _is_english_possessive_form(true_case_form):
+                        continue
+                    true_case_hits.add(true_case_form)
+        else:
+            for form_lower in matched_lower:
+                if form_lower in custom_known_lowers or form_lower in std_known_lowers:
+                    continue
+                for true_case_form in _iter_corpus_truecase_values(corpus_map.get(form_lower)):
+                    if lang == 'en' and _is_english_possessive_form(true_case_form):
+                        continue
+                    new_true_case_hits.add(true_case_form)
 
         # ── Gender ghost forms for proper nouns ───────────────────────────
         ghost_true_case_hits: Set[str] = set()
+        new_ghost_true_case_hits: Set[str] = set()
         if base_lower in propernoun_lower:
             ghost_forms_lower = _generate_gender_ghosts(base_lower, lang)
             # Exclude forms already found via AFF (avoid double-counting)
             ghost_forms_lower -= forms_lower
             ghost_forms_lower.discard(base_lower)
-            for gf in (ghost_forms_lower & _corpus_keys):
-                ghost_true_case_hits.update(corpus_map[gf])
-            # Also remove any ghost hits that were already AFF hits
-            ghost_true_case_hits -= true_case_hits
+            if retain_known_forms:
+                for gf in (ghost_forms_lower & _corpus_keys):
+                    for true_case_form in _iter_corpus_truecase_values(corpus_map.get(gf)):
+                        if lang == 'en' and _is_english_possessive_form(true_case_form):
+                            continue
+                        ghost_true_case_hits.add(true_case_form)
+                # Also remove any ghost hits that were already AFF hits
+                ghost_true_case_hits -= true_case_hits
+            else:
+                for gf in (ghost_forms_lower & _corpus_keys):
+                    if gf in custom_known_lowers or gf in std_known_lowers:
+                        continue
+                    for true_case_form in _iter_corpus_truecase_values(corpus_map.get(gf)):
+                        if lang == 'en' and _is_english_possessive_form(true_case_form):
+                            continue
+                        new_ghost_true_case_hits.add(true_case_form)
+                new_ghost_true_case_hits -= new_true_case_hits
 
         # ── Per-flag attribution for munch ────────────────────────────────
         validated: List[str] = []
@@ -730,7 +822,10 @@ def _wordform_match_worker(
                 derived = flag_forms - {base_lower}
                 if not derived:
                     continue
-                hit_forms_lower = sorted(f for f in derived if f in _corpus_keys)
+                hit_forms_lower = sorted(
+                    f for f in derived
+                    if f in _corpus_keys and not (lang == 'en' and _is_english_possessive_form(f))
+                )
                 hits = len(hit_forms_lower)
                 ratio = (hits / len(derived)) if derived else 0.0
                 passed = bool(hits > 0 and ratio >= quorum)
@@ -739,7 +834,10 @@ def _wordform_match_worker(
                 if collect_flag_evidence:
                     true_case_hit_forms: Set[str] = set()
                     for hf in hit_forms_lower:
-                        true_case_hit_forms.update(corpus_map.get(hf, set()))
+                        for true_case_form in _iter_corpus_truecase_values(corpus_map.get(hf)):
+                            if lang == 'en' and _is_english_possessive_form(true_case_form):
+                                continue
+                            true_case_hit_forms.add(true_case_form)
                     flag_evidence.append({
                         'flag': flag,
                         'derived_count': len(derived),
@@ -750,13 +848,19 @@ def _wordform_match_worker(
                         'hit_forms_truecase': sorted(true_case_hit_forms, key=str.lower),
                     })
 
-        if true_case_hits or ghost_true_case_hits or validated:
+        has_aff_hits = bool(true_case_hits or ghost_true_case_hits)
+        has_new_hits = bool(new_true_case_hits or new_ghost_true_case_hits)
+        if has_aff_hits or has_new_hits or validated:
             results_batch.append({
                 'base_word'       : base_word,
                 'found_forms'     : sorted(true_case_hits, key=str.lower),
                 'count'           : len(true_case_hits),
                 'ghost_forms'     : sorted(ghost_true_case_hits, key=str.lower),
                 'ghost_count'     : len(ghost_true_case_hits),
+            'new_found_forms' : sorted(new_true_case_hits, key=str.lower),
+            'new_count'       : len(new_true_case_hits),
+            'new_ghost_forms' : sorted(new_ghost_true_case_hits, key=str.lower),
+            'new_ghost_count' : len(new_ghost_true_case_hits),
                 'validated_flags' : validated,
                 'flag_evidence'   : flag_evidence,
             })
@@ -776,6 +880,11 @@ def find_corpus_wordforms(
     quorum: float = 0.5,
     provenance_level: str = 'off',
     provenance_output_folder: str | None = None,
+    compact_corpus_map: bool = False,
+    std_dic_mode: str = 'expanded',
+    retain_known_forms: bool = True,
+    wordform_cache_max: int | None = None,
+    clear_wordform_cache_every_batches: int = 0,
 ) -> List[dict]:
     """
     For each token in the custom .dic, generate every Hunspell word form via
@@ -840,6 +949,13 @@ def find_corpus_wordforms(
     _cache_hits_before = _filtering._word_form_cache_hits
     _cache_misses_before = _filtering._word_form_cache_misses
 
+    if wordform_cache_max is not None:
+        try:
+            _filtering._WORD_FORM_CACHE_MAX = max(0, int(wordform_cache_max))
+            print(f"  Word-form cache max       : {_filtering._WORD_FORM_CACHE_MAX:,}")
+        except Exception:
+            pass
+
     # ── Resolve AFF file ──────────────────────────────────────────────────────
     aff_template = HUNSPELL_PATHS.get(lang, "")
     if not aff_template:
@@ -877,11 +993,17 @@ def find_corpus_wordforms(
     if os.path.exists(propernoun_sidecar):
         with open(propernoun_sidecar, 'r', encoding='utf-8') as _fh:
             _pn_data = json.load(_fh)
+        if isinstance(_pn_data, dict) and isinstance(_pn_data.get('by_category'), dict):
+            _pn_source = _pn_data.get('by_category', {})
+        else:
+            _pn_source = _pn_data
         # Merge all key_types from the sidecar
         # (every category present was already filtered by PROPER_NOUN_KEY_PATTERNS at tokenize time)
         _pn_tokens: Set[str] = set()
-        for tok_list in _pn_data.values():
-            _pn_tokens.update(tok_list)
+        if isinstance(_pn_source, dict):
+            for tok_list in _pn_source.values():
+                if isinstance(tok_list, list):
+                    _pn_tokens.update(str(tok).strip().lower() for tok in tok_list if str(tok).strip())
         _propernoun_lower = frozenset(_pn_tokens)
         print(f"  [ghost] Proper-noun tokens loaded: {len(_propernoun_lower):,}"
               f"  (from {propernoun_sidecar})")
@@ -910,10 +1032,30 @@ def find_corpus_wordforms(
     custom_dic_lowers: Set[str] = {w.lower() for w in dic_words_all}
     print(f"  Custom dic entries (lowercase) : {len(custom_dic_lowers):,}")
 
-    # Standard Hunspell dic -- full AFF expansion (all inflected forms, cached per session)
-    std_dic_lowers = build_std_dic_forms(lang)
+    _std_mode = str(std_dic_mode or 'expanded').strip().lower()
+    if _std_mode not in {'expanded', 'headwords', 'off'}:
+        raise ValueError("std_dic_mode must be one of: 'expanded', 'headwords', 'off'")
 
-    corpus_map = load_i18n_corpus(lang, games, source_type)
+    if _std_mode == 'expanded':
+        # Full AFF expansion: most accurate known-word filtering, highest memory usage.
+        std_dic_lowers = build_std_dic_forms(lang)
+    elif _std_mode == 'headwords':
+        # Headwords only: lower memory, slight over-reporting in new_found_forms.
+        std_dic_lowers = build_std_dic_headwords(lang)
+    else:
+        std_dic_lowers = set()
+        print(f"  Standard dic filtering disabled ({lang}) [std_dic_mode=off]")
+
+    corpus_map = load_i18n_corpus(
+        lang,
+        games,
+        source_type,
+        compact_case_map=compact_corpus_map,
+    )
+    if compact_corpus_map:
+        print("  [corpus] Compact case map enabled (lower memory, one true-case form/token)")
+    if not retain_known_forms:
+        print("  [memory] retain_known_forms=False (ultra-low-memory mode)")
 
     all_results: List[dict] = []
     if not corpus_map:
@@ -928,13 +1070,21 @@ def find_corpus_wordforms(
                 pool.submit(_wordform_match_worker, b, affixes, corpus_map,
                             all_flags, _propernoun_lower, lang,
                             _candidate_flags_list, quorum,
-                            _collect_flag_evidence): i
+                            _collect_flag_evidence,
+                            retain_known_forms,
+                            custom_dic_lowers,
+                            std_dic_lowers): i
                 for i, b in enumerate(batches)
             }
             for fut in as_completed(future_to_idx):
                 batch_res = fut.result()
                 all_results.extend(batch_res)
                 done_count += 1
+                if clear_wordform_cache_every_batches and done_count % clear_wordform_cache_every_batches == 0:
+                    try:
+                        _filtering._word_form_cache.clear()
+                    except Exception:
+                        pass
                 if done_count % 5 == 0 or done_count == len(batches):
                     print(
                         f"  {done_count:>4}/{len(batches)} batches done   ({len(all_results)} words with hits so far)",
@@ -945,23 +1095,24 @@ def find_corpus_wordforms(
     print()
 
     # ── Enrich results with new_found_forms and new_ghost_forms ─────────────
-    for r in all_results:
-        new_forms = [
-            f for f in r['found_forms']
-            if f.lower() not in custom_dic_lowers
-            and f.lower() not in std_dic_lowers
-        ]
-        r['new_found_forms'] = new_forms
-        r['new_count']       = len(new_forms)
+    if retain_known_forms:
+        for r in all_results:
+            new_forms = [
+                f for f in r['found_forms']
+                if f.lower() not in custom_dic_lowers
+                and f.lower() not in std_dic_lowers
+            ]
+            r['new_found_forms'] = new_forms
+            r['new_count']       = len(new_forms)
 
-        # Ghost forms enrichment
-        new_ghosts = [
-            f for f in r.get('ghost_forms', [])
-            if f.lower() not in custom_dic_lowers
-            and f.lower() not in std_dic_lowers
-        ]
-        r['new_ghost_forms'] = new_ghosts
-        r['new_ghost_count'] = len(new_ghosts)
+            # Ghost forms enrichment
+            new_ghosts = [
+                f for f in r.get('ghost_forms', [])
+                if f.lower() not in custom_dic_lowers
+                and f.lower() not in std_dic_lowers
+            ]
+            r['new_ghost_forms'] = new_ghosts
+            r['new_ghost_count'] = len(new_ghosts)
 
     # ── Sort + summarise ──────────────────────────────────────────────────────
     all_results.sort(key=lambda r: r['base_word'].lower())

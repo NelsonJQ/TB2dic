@@ -1135,6 +1135,8 @@ def load_and_tokenize_terminology_base(excel_file_path: str, language_code: str,
     # ── Proper-noun tracking ──────────────────────────────────────────────────
     # propernoun_map: key_type -> set of lowercased tokens from that category
     propernoun_map: Dict[str, Set[str]] = {}
+    # token_tb_keys_map: token_lower -> set of TB key strings where token appears
+    token_tb_keys_map: Dict[str, Set[str]] = {}
     _key_series = df[key_col].astype(str) if key_col else None
 
     # Spanish-only fast index for default lowercasing of item/monster first tokens.
@@ -1160,12 +1162,16 @@ def load_and_tokenize_terminology_base(excel_file_path: str, language_code: str,
             # ── Track proper-noun tokens by key-type ──────────────────────
             if _key_series is not None:
                 raw_key = _key_series.iloc[idx]
+                raw_key_text = str(raw_key).strip()
+                if raw_key_text:
+                    for tok in tokens:
+                        token_tb_keys_map.setdefault(tok.lower(), set()).add(raw_key_text)
                 # TB keys are comma-separated groups of dot-notation keys
                 # e.g. "monster.123.name, NPC.456.name"
                 # Each part is matched against PROPER_NOUN_KEY_PATTERNS using
                 # re.search() so we can distinguish .name from .reply etc.
                 matched_categories: Set[str] = set()
-                for key_part in raw_key.split(','):
+                for key_part in raw_key_text.split(','):
                     key_part_s = key_part.strip()
                     for category, compiled_pats in _COMPILED_PROPER_NOUN_PATTERNS.items():
                         if any(p.search(key_part_s) for p in compiled_pats):
@@ -1268,8 +1274,10 @@ def load_and_tokenize_terminology_base(excel_file_path: str, language_code: str,
         base_name = Path(excel_file_path).stem
         default_output = f"{base_name}_{language_code}_tokenized.txt"
 
-    # ── Save proper-noun sidecar JSON ─────────────────────────────────────────
-    if save_propernoun_sidecar and propernoun_map:
+    # ── Save proper-noun/TB-lineage sidecar JSON ─────────────────────────────
+    # Keep writing sidecar when token→TB lineage exists, even if no proper-noun
+    # categories matched, so downstream filter-audit/provenance can resolve tb_key.
+    if save_propernoun_sidecar and (propernoun_map or token_tb_keys_map):
         import json as _json
         lang_prefix = normalize_language_code(language_code)
         _game = game_tag or Path(excel_file_path).stem.split('_')[0]
@@ -1277,15 +1285,21 @@ def load_and_tokenize_terminology_base(excel_file_path: str, language_code: str,
         _sidecar_path = os.path.join(
             INTERMEDIARY_DIR, f"{_game}_{lang_prefix}_propernoun_tokens.json"
         )
-        # Convert sets to sorted lists for JSON serialisation
-        _sidecar_data = {
+        # Keep backward compatibility with consumers expecting category->tokens,
+        # while adding by_token TB-key lineage for downstream provenance joins.
+        _sidecar_categories = {
             kt: sorted(tokens_set) for kt, tokens_set in propernoun_map.items()
+        }
+        _sidecar_data = {
+            'by_category': _sidecar_categories,
+            'by_token': {tok: sorted(keys) for tok, keys in token_tb_keys_map.items()},
         }
         with open(_sidecar_path, 'w', encoding='utf-8') as _fh:
             _json.dump(_sidecar_data, _fh, ensure_ascii=False, indent=2)
-        _total_pn = sum(len(v) for v in _sidecar_data.values())
-        print(f"\n🔖 Proper-noun sidecar saved → {_sidecar_path}")
-        print(f"   Key-types: {list(_sidecar_data.keys())}  |  Tokens: {_total_pn:,}")
+        _total_pn = sum(len(v) for v in _sidecar_categories.values())
+        print(f"\n🔖 Proper-noun/TB-lineage sidecar saved → {_sidecar_path}")
+        print(f"   Key-types: {list(_sidecar_categories.keys())}  |  Tokens: {_total_pn:,}")
+        print(f"   Token→TB keys tracked: {len(token_tb_keys_map):,}")
 
     elif save_propernoun_sidecar:
         print(f"\n🔖 No proper-noun tokens found for key patterns ({list(PROPER_NOUN_KEY_PATTERNS.keys())})")

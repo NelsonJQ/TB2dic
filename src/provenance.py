@@ -37,7 +37,7 @@ _LIST_FIELDS = {
 _BASE_REPORT_FIELDNAMES = [
     'game', 'language', 'token', 'token_lower',
     'origin_class', 'lineage_tags',
-    'in_tb_tokens', 'in_filtered_dic_base',
+    'in_tb_tokens', 'tb_key', 'tb_source_entity', 'in_filtered_dic_base',
     'is_corpus_form', 'is_ghost_form', 'is_casing_inferred',
     'source_base_words',
     'assigned_flags', 'mandatory_flags_assigned', 'validated_flags_assigned', 'validated_flags_candidates',
@@ -98,6 +98,60 @@ def _read_filtered_dic(path: str) -> Set[str]:
     return out
 
 
+def _split_tb_keys(value: Any) -> List[str]:
+    if isinstance(value, list):
+        out: List[str] = []
+        for item in value:
+            out.extend(_split_tb_keys(item))
+        return out
+    text = str(value or '').strip()
+    if not text:
+        return []
+    return [part.strip() for part in text.split('|') if part.strip()]
+
+
+def _unique_preserve_order(values: List[str]) -> List[str]:
+    seen: Set[str] = set()
+    out: List[str] = []
+    for value in values:
+        item = str(value or '').strip()
+        if not item or item in seen:
+            continue
+        seen.add(item)
+        out.append(item)
+    return out
+
+
+def _merge_filter_audit_info(existing: Dict[str, str], incoming: Dict[str, str]) -> Dict[str, str]:
+    if not existing:
+        return dict(incoming)
+
+    existing_status = str(existing.get('status', '')).strip()
+    incoming_status = str(incoming.get('status', '')).strip()
+    status = existing_status
+    if incoming_status == 'kept_neologism' or not status:
+        status = incoming_status
+
+    match_type = str(existing.get('match_type', '')).strip() or str(incoming.get('match_type', '')).strip()
+    merged_tb_keys = _unique_preserve_order(
+        _split_tb_keys(existing.get('tb_key', '')) + _split_tb_keys(incoming.get('tb_key', ''))
+    )
+
+    return {
+        'status': status,
+        'match_type': match_type,
+        'tb_key': ' | '.join(merged_tb_keys),
+    }
+
+
+def _tb_keys_from_filter_info(info: Dict[str, str]) -> List[str]:
+    if not info:
+        return []
+    if str(info.get('status', '')).strip() != 'kept_neologism':
+        return []
+    return _unique_preserve_order(_split_tb_keys(info.get('tb_key', '')))
+
+
 def _read_filter_audit(path: str) -> Dict[str, Dict[str, str]]:
     if not path or not os.path.isfile(path):
         return {}
@@ -107,11 +161,26 @@ def _read_filter_audit(path: str) -> Dict[str, Dict[str, str]]:
         for row in reader:
             token = (row.get('token') or '').strip()
             if token:
-                out[token] = {
+                row_info = {
                     'status': (row.get('status') or '').strip(),
                     'match_type': (row.get('match_type') or '').strip(),
+                    'tb_key': (row.get('tb_key') or '').strip(),
                 }
+                if token in out:
+                    out[token] = _merge_filter_audit_info(out[token], row_info)
+                else:
+                    out[token] = row_info
     return out
+
+
+def _extract_tb_source_entity(tb_key: str) -> str:
+    if not tb_key:
+        return ''
+    first_key = str(tb_key).split('|', 1)[0].strip()
+    parts = [part.strip() for part in first_key.split('.') if part.strip()]
+    if len(parts) >= 2:
+        return f"{parts[0]}:{parts[1]}"
+    return first_key
 
 
 def _split_pipe_list(value: Any) -> List[str]:
@@ -279,6 +348,8 @@ def _row_to_csv_record(row: Dict[str, Any]) -> Dict[str, Any]:
         'origin_class': row.get('origin_class', ''),
         'lineage_tags': ' | '.join(_normalize_list(row.get('lineage_tags', []))),
         'in_tb_tokens': bool(row.get('in_tb_tokens', False)),
+        'tb_key': row.get('tb_key', ''),
+        'tb_source_entity': row.get('tb_source_entity', ''),
         'in_filtered_dic_base': bool(row.get('in_filtered_dic_base', False)),
         'is_corpus_form': bool(row.get('is_corpus_form', False)),
         'is_ghost_form': bool(row.get('is_ghost_form', False)),
@@ -370,9 +441,10 @@ def build_consolidated_provenance_report(
                 step4_form_to_bases.setdefault(key, set()).add(bw)
 
     filter_audit = _read_filter_audit(filter_audit_csv_path)
-    filter_audit_lower: Dict[str, Dict[str, str]] = {}
+    filter_audit_lower: Dict[str, List[Dict[str, str]]] = {}
     for token, info in filter_audit.items():
-        filter_audit_lower[token.lower()] = info
+        token_lower = token.lower()
+        filter_audit_lower.setdefault(token_lower, []).append(info)
 
     munch_rows = _read_jsonl_records(munch_provenance_jsonl_path)
     final_rows: List[Dict[str, Any]] = []
@@ -397,7 +469,30 @@ def build_consolidated_provenance_report(
                 item['base_word'] = base
                 flag_evidence.append(item)
 
-        filter_info = filter_audit.get(token) or filter_audit_lower.get(token_lower) or {}
+        token_filter_candidates: List[Dict[str, str]] = []
+        direct_filter_info = filter_audit.get(token)
+        if direct_filter_info:
+            token_filter_candidates.append(direct_filter_info)
+        token_filter_candidates.extend(filter_audit_lower.get(token_lower, []))
+
+        filter_info = token_filter_candidates[0] if token_filter_candidates else {}
+
+        resolved_tb_keys: List[str] = []
+        for info in token_filter_candidates:
+            resolved_tb_keys.extend(_tb_keys_from_filter_info(info))
+
+        # Propagate TB lineage from kept Step-2 base tokens into generated/corpus forms.
+        for base in source_bases:
+            base_candidates: List[Dict[str, str]] = []
+            base_direct_info = filter_audit.get(base)
+            if base_direct_info:
+                base_candidates.append(base_direct_info)
+            base_candidates.extend(filter_audit_lower.get(base.lower(), []))
+            for info in base_candidates:
+                resolved_tb_keys.extend(_tb_keys_from_filter_info(info))
+
+        tb_keys = _unique_preserve_order(resolved_tb_keys)
+        tb_key_value = ' | '.join(tb_keys)
 
         row_out = {
             'game': game,
@@ -407,6 +502,8 @@ def build_consolidated_provenance_report(
             'origin_class': row.get('origin_class', 'generated_unknown'),
             'lineage_tags': row.get('lineage_tags', []),
             'in_tb_tokens': token in tb_tokens or token_lower in tb_tokens_lower,
+            'tb_key': tb_key_value,
+            'tb_source_entity': _extract_tb_source_entity(tb_key_value),
             'in_filtered_dic_base': token in filtered_bases or token_lower in filtered_bases_lower,
             'is_corpus_form': bool(row.get('is_corpus_form', False)),
             'is_ghost_form': bool(row.get('is_ghost_form', False)),

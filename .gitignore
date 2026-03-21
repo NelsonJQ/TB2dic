@@ -10,13 +10,21 @@ ANK_dic/
 i18n/
 processing_dics/
 others/
-output_dics/Full_dics/
 output_dics/output_dics.7z
 output_dics/Tuto*
-output_dics/Compressed_dics/*_ANKANIMATION/
-output_dics/Compressed_dics/*_ONE_MORE_GATE/
-output_dics/Compressed_dics/*_WAVEN/
-testings/smoke*
+output_dics/*/*ANKANIMATION*
+output_dics/*/*ONE_MORE_GATE*
+output_dics/*/*WAVEN*
+output_dics/*/*/*ANKANIMATION*
+output_dics/*/*/*ONE_MORE_GATE*
+output_dics/*/*/*WAVEN*
+testings/smoke_wak*
+testings/full_allgames_alllangs_dualrun/final_exports
+output_dics/Full_dics
+output_dics/*/Full_dics
+testings/full_allgames_alllangs_dualrun/*/*ONE_MORE_GATE*
+testings/full_allgames_alllangs_dualrun/*/*ANKANIMATION*
+testings/full_allgames_alllangs_dualrun/*/*WAVEN*
 
 # Ignore Python cache files
 __pycache__/

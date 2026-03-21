@@ -1,5 +1,6 @@
 import concurrent.futures
 import csv
+import json
 import os
 import re
 import time
@@ -757,7 +758,8 @@ def is_valid_compound(token: str,
 def filter_tokens_by_dictionary_with_affixes(txt_file_path: str, dic_file_path: str,
                                              aff_file_path: str, output_dic_path: str,
                                              num_threads: Optional[int] = None,
-                                             audit_csv_path: Optional[str] = None) -> Dict[str, int]:
+                                             audit_csv_path: Optional[str] = None,
+                                             propernoun_sidecar_path: Optional[str] = None) -> Dict[str, int]:
     """
     Filter tokens by removing those found in the Hunspell dictionary.
 
@@ -1070,6 +1072,27 @@ def filter_tokens_by_dictionary_with_affixes(txt_file_path: str, dic_file_path: 
                 original_txt_tokens.append(token)
     print(f"Loaded {len(original_txt_tokens):,} tokens to check")
 
+    tb_key_by_token_lower: Dict[str, str] = {}
+    if propernoun_sidecar_path and os.path.isfile(propernoun_sidecar_path):
+        try:
+            with open(propernoun_sidecar_path, 'r', encoding='utf-8') as fh:
+                sidecar_data = json.load(fh)
+            token_map = sidecar_data.get('by_token', {}) if isinstance(sidecar_data, dict) else {}
+            if isinstance(token_map, dict):
+                for token_lower, raw_keys in token_map.items():
+                    token_key = str(token_lower or '').strip().lower()
+                    if not token_key:
+                        continue
+                    if isinstance(raw_keys, list):
+                        keys = [str(k).strip() for k in raw_keys if str(k).strip()]
+                        tb_key_by_token_lower[token_key] = ' | '.join(keys)
+                    else:
+                        key_text = str(raw_keys or '').strip()
+                        if key_text:
+                            tb_key_by_token_lower[token_key] = key_text
+        except Exception as sidecar_err:
+            print(f"Warning: unable to load sidecar TB key mapping ({sidecar_err})")
+
     # Filter
     _use_compound = bool(_any_compound)
     filtered_tokens: List[str] = []
@@ -1101,6 +1124,7 @@ def filter_tokens_by_dictionary_with_affixes(txt_file_path: str, dic_file_path: 
                 token_audit_rows.append({
                     'token': original_token,
                     'token_lower': tok_lower,
+                    'tb_key': '',
                     'status': 'removed_known_word',
                     'match_type': 'compound_word' if (not (tok_lower in all_dictionary_forms)) else 'dictionary_form',
                 })
@@ -1110,6 +1134,7 @@ def filter_tokens_by_dictionary_with_affixes(txt_file_path: str, dic_file_path: 
                 token_audit_rows.append({
                     'token': original_token,
                     'token_lower': tok_lower,
+                    'tb_key': tb_key_by_token_lower.get(tok_lower, ''),
                     'status': 'kept_neologism',
                     'match_type': '',
                 })
@@ -1139,7 +1164,7 @@ def filter_tokens_by_dictionary_with_affixes(txt_file_path: str, dic_file_path: 
         with open(audit_csv_path, 'w', newline='', encoding='utf-8-sig') as fh:
             writer = csv.DictWriter(
                 fh,
-                fieldnames=['token', 'token_lower', 'status', 'match_type']
+                fieldnames=['token', 'token_lower', 'tb_key', 'status', 'match_type']
             )
             writer.writeheader()
             writer.writerows(token_audit_rows)

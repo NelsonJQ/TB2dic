@@ -96,9 +96,10 @@ def resolve_hunspell_paths(lang_code: str, dic_folder: str = "dics") -> Dict[str
     }
 
 
-def batch_filter_tokens_by_dictionary(input_folder: str, target_languages: List[str], 
-                                     dic_folder: str = "dics", 
-                                     output_folder: Optional[str] = None) -> List[Dict]:
+def batch_filter_tokens_by_dictionary(input_folder: str, target_languages: List[str],
+                                     dic_folder: str = "dics",
+                                     output_folder: Optional[str] = None,
+                                     propernoun_sidecar_path: Optional[str] = None) -> List[Dict]:
     """
     Batch process all token files in a folder using dictionary filtering with affix rules.
     
@@ -230,6 +231,7 @@ def batch_filter_tokens_by_dictionary(input_folder: str, target_languages: List[
                     aff_file_path,   # Affix file
                     output_path,     # Output file
                     audit_csv_path=audit_path,
+                    propernoun_sidecar_path=propernoun_sidecar_path,
                 )
                 end_time = time.time()
                 

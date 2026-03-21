@@ -1,0 +1,1330 @@
+﻿token,token_lower,tb_key,status,match_type
+A139E,a139e,object.19352.name,kept_neologism,
+ADC,adc,object.12534.name | object.12535.name | object.12536.name | object.12537.name | object.12539.name,kept_neologism,
+ANNONCE,annonce,,removed_known_word,dictionary_form
+ASCENSION,ascension,,removed_known_word,dictionary_form
+ATF,atf,document.479.title,kept_neologism,
+Aazimar,aazimar,npc.1967.name | quest.1247.name,kept_neologism,
+Abattage,abattage,,removed_known_word,dictionary_form
+Abattement,abattement,,removed_known_word,dictionary_form
+Abdhoul,abdhoul,npc.1259.name,kept_neologism,
+Abdomen-pact,abdomen-pact,spell.7470.name,kept_neologism,
+Abdominable,abdominable,object.12775.name,kept_neologism,
+Abdomination,abdomination,spell.3492.name,kept_neologism,
+Abebeh,abebeh,object.3744.name,kept_neologism,
+Abefun,abefun,object.4017.name,kept_neologism,
+Abely,abely,npc.63.name,kept_neologism,
+Abewolu,abewolu,object.5329.name,kept_neologism,
+Abilité,abilité,object.775.name,kept_neologism,
+Abipaca,abipaca,object.5828.name,kept_neologism,
+Abir,abir,npc.464.name,kept_neologism,
+Ablaru,ablaru,npc.964.name,kept_neologism,
+Ablation,ablation,,removed_known_word,dictionary_form
+Abnégation,abnégation,,removed_known_word,dictionary_form
+Aboiement,aboiement,,removed_known_word,dictionary_form
+Abolissement,abolissement,,removed_known_word,dictionary_form
+Abolition,abolition,,removed_known_word,dictionary_form
+Abominable,abominable,,removed_known_word,dictionary_form
+Abomination,abomination,,removed_known_word,dictionary_form
+Abominioble,abominioble,object.21907.name,kept_neologism,
+Abomirol,abomirol,object.3561.name,kept_neologism,
+Abondance,abondance,,removed_known_word,dictionary_form
+Abordage,abordage,,removed_known_word,dictionary_form
+Aboub,aboub,monster.384.name,kept_neologism,
+Aboudbra,aboudbra,monster.2384.name,kept_neologism,
+Aboum,aboum,"achievement.objective.4071.name | achievement.objective.4423.name, achievement.1379.name, npc.4327.name, achievement.objective.4267.name | npc.1422.name | object.20201.name",kept_neologism,
+Abra,abra,document.136.title | monster.817.name | npc.794.name | object.14693.name | object.14701.name | object.8153.name | object.8165.name | object.8171.name | object.8175.name | object.8187.name | object.8318.name | object.8988.name,kept_neologism,
+Abrabottes,abrabottes,object.2423.name,kept_neologism,
+Abrabranche,abrabranche,spell.485.name,kept_neologism,
+Abracapa,abracapa,object.2413.name | object.8464.name,kept_neologism,
+Abracape,abracape,object.948.name,kept_neologism,
+Abracaska,abracaska,object.2410.name | object.8463.name,kept_neologism,
+Abragland,abragland,object.10664.name,kept_neologism,
+Abrakadabra,abrakadabra,achievement.794.name | achievement.objective.2166.name,kept_neologism,
+Abrakadnuzar,abrakadnuzar,monster.2385.name,kept_neologism,
+Abrakanette,abrakanette,monster.2388.name,kept_neologism,
+Abrakildas,abrakildas,monster.2389.name,kept_neologism,
+Abrakine,abrakine,monster.2544.name,kept_neologism,
+Abraklette,abraklette,monster.2386.name,kept_neologism,
+Abrakleur,abrakleur,"achievement.objective.441.name, monster.1077.name | monster.1047.name, monster.4593.name, achievement.objective.431.name | object.8784.name | object.8797.name | object.8822.name | object.8823.name | object.8834.name | object.8835.name | object.8869.name | object.8870.name | object.8871.name",kept_neologism,
+Abraknassion,abraknassion,spell.482.name,kept_neologism,
+Abrakne,abrakne,"achievement.objective.504.name, monster.651.name | monster.4525.name, monster.650.name, achievement.objective.503.name | monster.992.name, achievement.objective.505.name | object.20003.name",kept_neologism,
+Abraknettoyage,abraknettoyage,spell.5098.name,kept_neologism,
+Abraknyde,abraknyde,"achievement.509.name, challenge.101.name, achievement.objective.2145.name | achievement.697.name, achievement.objective.2144.name, challenge.172.name | achievement.objective.1249.name, achievement.objective.225.name, achievement.objective.1826.name, achievement.objective.1824.name, monster.173.name | challenge.171.name, achievement.696.name, achievement.objective.2143.name | monster.254.name, achievement.objective.510.name | monster.2771.name | monster.4538.name | monster.4585.name, monster.253.name, achievement.objective.508.name | monster.47.name, achievement.objective.506.name, npc.3622.name, ride.family.4.name, rank.11.pattern | monster.4705.name | monster.919.name | monster.989.name | monster.991.name, achievement.objective.509.name | object.10259.name | object.10489.name | object.13528.name | object.14010.name | object.15565.name | object.1610.name | object.1611.name | object.1612.name | object.16151.name | object.1722.name | object.434.name | object.435.name | object.436.name | object.437.name | object.462.name | object.469.name | object.501.name | object.6496.name | object.7086.name | object.792.name | object.8449.name | object.8494.name | object.8495.name | object.8496.name | object.923.name | object.927.name | object.set.3.name | quest.79.name | spell.9115.name, spell.8102.name",kept_neologism,
+Abraknydes,abraknydes,"achievement.283.name | achievement.284.name, spelltype.132.title | achievement.285.name | achievement.objective.2332.name, world.area.6.name | achievement.objective.2333.name, world.subarea.168.name | achievement.objective.2554.name, world.subarea.175.name, achievement.35.name, dungeon.9.name, hint.2964.name | document.23.title | map.name.41157632.name | map.name.42468097.name | map.name.42468099.name | map.name.42469121.name | map.name.42470145.name | map.name.42599169.name | map.name.42600193.name | object.1567.name | object.7557.name | world.subarea.169.name, achievement.objective.2331.name | world.subarea.33.name",kept_neologism,
+Abraknydi,abraknydi,object.791.name,kept_neologism,
+Abraknydien,abraknydien,spell.5102.name,kept_neologism,
+Abraknydienne,abraknydienne,spell.5104.name,kept_neologism,
+Abraknydiens,abraknydiens,"achievement.174.name, achievement.objective.846.name | monster.race.22.name",kept_neologism,
+Abrakroc,abrakroc,monster.2309.name,kept_neologism,
+Abramu,abramu,object.1619.name,kept_neologism,
+Abranneau,abranneau,object.1559.name | object.1602.name | object.17518.name | object.836.name,kept_neologism,
+Abrarc,abrarc,object.1620.name,kept_neologism,
+Abraton,abraton,object.2417.name | object.6454.name,kept_neologism,
+Abrature,abrature,object.2429.name | object.8468.name,kept_neologism,
+Abrazelon,abrazelon,npc.497.name,kept_neologism,
+Abrazif,abrazif,"monster.2898.name, achievement.objective.383.name | object.11891.name",kept_neologism,
+Abreuvoir,abreuvoir,,removed_known_word,dictionary_form
+Abri,abri,,removed_known_word,dictionary_form
+Abrinos,abrinos,monster.2381.name,kept_neologism,
+Abrutissantes,abrutissantes,,removed_known_word,dictionary_form
+Abrutissement,abrutissement,,removed_known_word,dictionary_form
+Absinthe,absinthe,,removed_known_word,dictionary_form
+Absolue,absolue,,removed_known_word,dictionary_form
+Absolution,absolution,,removed_known_word,dictionary_form
+Absorbante,absorbante,,removed_known_word,dictionary_form
+Absorption,absorption,,removed_known_word,dictionary_form
+Abul,abul,taxcollector.firstname.65.value,kept_neologism,
+Abyssal,abyssal,,removed_known_word,dictionary_form
+Abyssale,abyssale,,removed_known_word,dictionary_form
+Abysses,abysses,,removed_known_word,dictionary_form
+Abîmes,abîmes,,removed_known_word,dictionary_form
+Accablant,accablant,,removed_known_word,dictionary_form
+Accio,accio,"object.12474.name | skill.action.290.name, skill.action.277.name, skill.action.283.name",kept_neologism,
+Accord,accord,,removed_known_word,dictionary_form
+Accouchement,accouchement,,removed_known_word,dictionary_form
+Accoucheur,accoucheur,,removed_known_word,dictionary_form
+Accoucheuse,accoucheuse,,removed_known_word,dictionary_form
+Accru,accru,,removed_known_word,dictionary_form
+Accès,accès,,removed_known_word,dictionary_form
+Accéder,accéder,,removed_known_word,dictionary_form
+Accélération,accélération,,removed_known_word,dictionary_form
+Ace,ace,,removed_known_word,dictionary_form
+Acebavec,acebavec,object.6109.name,kept_neologism,
+Acebugu,acebugu,object.6234.name,kept_neologism,
+Acehofa,acehofa,object.3675.name,kept_neologism,
+Acerbes,acerbes,,removed_known_word,dictionary_form
+Acero,acero,object.4952.name,kept_neologism,
+Acharnement,acharnement,,removed_known_word,dictionary_form
+Achesse,achesse,spell.1627.name,kept_neologism,
+Acheter,acheter,,removed_known_word,dictionary_form
+Achille,achille,,removed_known_word,dictionary_form
+Achinecride,achinecride,object.11760.name,kept_neologism,
+Achneutre,achneutre,taxcollector.lastname.153.value,kept_neologism,
+Acide,acide,,removed_known_word,dictionary_form
+Acidrik,acidrik,"achievement.objective.1474.name | document.105.author, document.275.author, document.103.author, document.113.author, document.104.author, document.108.author, document.107.author, document.106.author, document.110.author, document.276.author, document.90.author, document.109.author, document.102.author, document.125.author | npc.729.name",kept_neologism,
+Acidulé,acidulé,,removed_known_word,dictionary_form
+Aclou,aclou,object.1399.name | object.766.name | object.8669.name,kept_neologism,
+Acoca,acoca,object.5910.name,kept_neologism,
+Acolyte,acolyte,,removed_known_word,dictionary_form
+Acoseude,acoseude,object.3854.name,kept_neologism,
+Acrobate,acrobate,,removed_known_word,dictionary_form
+Acrobatie,acrobatie,,removed_known_word,dictionary_form
+Acte,acte,,removed_known_word,dictionary_form
+Actionner,actionner,,removed_known_word,dictionary_form
+Activante,activante,spell.3773.name,kept_neologism,
+Activation,activation,,removed_known_word,dictionary_form
+Activités,activités,,removed_known_word,dictionary_form
+Acudob,acudob,object.5609.name,kept_neologism,
+Acugrau,acugrau,object.5372.name,kept_neologism,
+Acuité,acuité,,removed_known_word,dictionary_form
+Aculepa,aculepa,object.3885.name,kept_neologism,
+Acéré,acéré,,removed_known_word,dictionary_form
+Ada,ada,,removed_known_word,dictionary_form
+Adaga,adaga,object.4962.name,kept_neologism,
+Adageola,adageola,object.6151.name,kept_neologism,
+Adam,adam,,removed_known_word,dictionary_form
+Adamantin,adamantin,,removed_known_word,dictionary_form
+Adamu,adamu,object.3867.name,kept_neologism,
+Adaumu,adaumu,object.2941.name,kept_neologism,
+Addikt,addikt,"spell.11039.name, spell.11037.name",kept_neologism,
+Adeline,adeline,,removed_known_word,dictionary_form
+Adelus,adelus,object.1487.name,kept_neologism,
+Adepouille,adepouille,object.2742.name,kept_neologism,
+Adepte,adepte,,removed_known_word,dictionary_form
+Adhamhan,adhamhan,taxcollector.firstname.74.value,kept_neologism,
+Adili,adili,object.3275.name,kept_neologism,
+Adin,adin,object.7218.name,kept_neologism,
+Administrateurs,administrateurs,,removed_known_word,dictionary_form
+Admins,admins,,removed_known_word,dictionary_form
+Admirateur,admirateur,,removed_known_word,dictionary_form
+Admiratrice,admiratrice,,removed_known_word,dictionary_form
+Adode,adode,object.2933.name,kept_neologism,
+Adonop,adonop,object.3622.name,kept_neologism,
+Adoptif,adoptif,,removed_known_word,dictionary_form
+Adoption,adoption,,removed_known_word,dictionary_form
+Adoptive,adoptive,,removed_known_word,dictionary_form
+Adou,adou,object.8926.name,kept_neologism,
+Adresse,adresse,,removed_known_word,dictionary_form
+Adrian,adrian,,removed_known_word,dictionary_form
+Adrienne,adrienne,,removed_known_word,dictionary_form
+Adrénaline,adrénaline,,removed_known_word,dictionary_form
+Adulte,adulte,,removed_known_word,dictionary_form
+Adversité,adversité,,removed_known_word,dictionary_form
+Adydele,adydele,object.5475.name,kept_neologism,
+Adéhédé,adéhédé,spell.2707.name,kept_neologism,
+Adélaïde,adélaïde,,removed_known_word,dictionary_form
+Aegefauc,aegefauc,object.4946.name,kept_neologism,
+Aekawaul,aekawaul,object.5758.name,kept_neologism,
+Ael,ael,taxcollector.firstname.1.value,kept_neologism,
+Aelab,aelab,object.3166.name,kept_neologism,
+Aeladague,aeladague,object.3835.name,kept_neologism,
+Aelefoma,aelefoma,object.3717.name,kept_neologism,
+Aelelae,aelelae,object.3592.name,kept_neologism,
+Aelelydae,aelelydae,object.6340.name,kept_neologism,
+Aelewawac,aelewawac,object.3177.name,kept_neologism,
+Aelilotte,aelilotte,object.5287.name,kept_neologism,
+Aelomul,aelomul,object.4897.name,kept_neologism,
+Aelowawe,aelowawe,object.3189.name,kept_neologism,
+Aelowiw,aelowiw,object.5579.name,kept_neologism,
+Aeloworau,aeloworau,object.5304.name,kept_neologism,
+Aelulae,aelulae,object.5777.name,kept_neologism,
+Aelusato,aelusato,object.5674.name,kept_neologism,
+Aelyake,aelyake,object.3122.name,kept_neologism,
+Aerafal,aerafal,object.22807.name | title.471.female | title.471.male,kept_neologism,
+Aerdala,aerdala,"achievement.objective.3365.name, world.subarea.833.name, achievement.1107.name | hint.3384.name, hint.3402.name, hint.3404.name | map.name.10016.name | npc.642.name | npc.643.name | object.16155.name | object.16251.name | object.7229.name | object.7233.name | object.7241.name | object.7245.name | object.7249.name | object.7253.name | object.7256.name | object.7344.name | object.7427.name | object.set.35.name | quest.1722.name | spell.3042.name | spell.3047.name | world.subarea.120.name",kept_neologism,
+Aerien,aerien,object.18778.name,kept_neologism,
+Aermyne,aermyne,"achievement.objective.1444.name | document.100.title | monster.446.name, object.7350.name | npc.686.name | object.13647.name | object.13648.name | object.13649.name | object.set.262.name | quest.119.name",kept_neologism,
+Aerohouctor,aerohouctor,"achievement.objective.553.name, monster.894.name | object.8371.name",kept_neologism,
+Aerotrugobur,aerotrugobur,achievement.objective.554.name | monster.904.name | object.8376.name,kept_neologism,
+Afapisu,afapisu,object.6089.name,kept_neologism,
+Afelezu,afelezu,object.3389.name,kept_neologism,
+Afelolap,afelolap,object.4143.name,kept_neologism,
+Afesifru,afesifru,object.5057.name,kept_neologism,
+Affaibli,affaibli,,removed_known_word,dictionary_form
+Affaiblie,affaiblie,,removed_known_word,dictionary_form
+Affaiblissant,affaiblissant,,removed_known_word,dictionary_form
+Affaiblissante,affaiblissante,,removed_known_word,dictionary_form
+Affaiblissants,affaiblissants,,removed_known_word,dictionary_form
+Affaiblissement,affaiblissement,,removed_known_word,dictionary_form
+Affaire,affaire,,removed_known_word,dictionary_form
+Affamé,affamé,,removed_known_word,dictionary_form
+Affamée,affamée,,removed_known_word,dictionary_form
+Affamées,affamées,,removed_known_word,dictionary_form
+Affection,affection,,removed_known_word,dictionary_form
+Affermage,affermage,,removed_known_word,dictionary_form
+Affeulante,affeulante,object.1739.name,kept_neologism,
+Affiche,affiche,,removed_known_word,dictionary_form
+Affliction,affliction,,removed_known_word,dictionary_form
+Afflux,afflux,,removed_known_word,dictionary_form
+Affrontement,affrontement,,removed_known_word,dictionary_form
+Affrontements,affrontements,,removed_known_word,dictionary_form
+Affûtage,affûtage,,removed_known_word,dictionary_form
+Afidpur,afidpur,object.5586.name,kept_neologism,
+Afilu,afilu,object.3767.name,kept_neologism,
+Afirufel,afirufel,object.4752.name,kept_neologism,
+Afogosak,afogosak,object.4710.name,kept_neologism,
+Afoluse,afoluse,object.5473.name,kept_neologism,
+Afriolu,afriolu,object.3832.name,kept_neologism,
+Afryr,afryr,npc.4663.name,kept_neologism,
+Afucoma,afucoma,object.5752.name,kept_neologism,
+Afutfrit,afutfrit,object.4176.name,kept_neologism,
+Ag'Heuze,ag'heuze,object.9726.name | object.9850.name,kept_neologism,
+Aga,aga,npc.115.name | object.6442.name,kept_neologism,
+Agaboo,agaboo,object.2922.name,kept_neologism,
+Agacement,agacement,,removed_known_word,dictionary_form
+Agaceto,agaceto,object.2731.name,kept_neologism,
+Agaeb,agaeb,object.5877.name,kept_neologism,
+Agaglou,agaglou,object.5353.name,kept_neologism,
+Agakur,agakur,object.3621.name,kept_neologism,
+Agalomo,agalomo,object.3354.name,kept_neologism,
+Agathe,agathe,,removed_known_word,dictionary_form
+Agayne,agayne,object.11165.name,kept_neologism,
+Age,age,,removed_known_word,dictionary_form
+Agele,agele,object.3994.name,kept_neologism,
+Agence,agence,,removed_known_word,dictionary_form
+Agent,agent,,removed_known_word,dictionary_form
+Aggressif,aggressif,object.1188.name,kept_neologism,
+Agile,agile,,removed_known_word,dictionary_form
+Agilesque,agilesque,object.260.name | object.261.name | object.262.name | object.850.name,kept_neologism,
+Agilesques,agilesques,object.863.name,kept_neologism,
+Agilité,agilité,,removed_known_word,dictionary_form
+Agimnef,agimnef,object.5118.name,kept_neologism,
+Agino,agino,object.2951.name,kept_neologism,
+Agitateur,agitateur,,removed_known_word,dictionary_form
+Agitation,agitation,,removed_known_word,dictionary_form
+Agitatrice,agitatrice,,removed_known_word,dictionary_form
+Agiter,agiter,,removed_known_word,dictionary_form
+Aglagland,aglagland,object.17208.name,kept_neologism,
+Agnou,agnou,monster.4231.name,kept_neologism,
+Agnès,agnès,,removed_known_word,dictionary_form
+Agoconaw,agoconaw,object.4020.name,kept_neologism,
+Agonie,agonie,,removed_known_word,dictionary_form
+Agra,agra,npc.3102.name,kept_neologism,
+Agresseur,agresseur,,removed_known_word,dictionary_form
+Agressif,agressif,,removed_known_word,dictionary_form
+Agressive,agressive,,removed_known_word,dictionary_form
+Agressives,agressives,,removed_known_word,dictionary_form
+Agriculture,agriculture,,removed_known_word,dictionary_form
+Agrid,agrid,npc.59.name,kept_neologism,
+Agride,agride,object.782.name,kept_neologism,
+Agrur,agrur,object.3175.name,kept_neologism,
+Agrégat,agrégat,,removed_known_word,dictionary_form
+Aguabrial,aguabrial,object.22809.name | title.473.female | title.473.male,kept_neologism,
+Agunadlo,agunadlo,object.3226.name,kept_neologism,
+Agunelig,agunelig,object.6062.name,kept_neologism,
+Agymo,agymo,object.5511.name,kept_neologism,
+Ahaxitof,ahaxitof,object.4133.name,kept_neologism,
+Ahehi,ahehi,object.5512.name,kept_neologism,
+Ahique,ahique,object.11756.name,kept_neologism,
+Ahukit,ahukit,object.5213.name,kept_neologism,
+Ahuri,ahuri,,removed_known_word,dictionary_form
+Aiblber,aiblber,object.5216.name,kept_neologism,
+Aibre,aibre,object.12393.name,kept_neologism,
+Aida,aida,,removed_known_word,dictionary_form
+Aidesani,aidesani,object.6236.name,kept_neologism,
+Aigante,aigante,object.8937.name,kept_neologism,
+Aigri,aigri,,removed_known_word,dictionary_form
+Aigrie,aigrie,,removed_known_word,dictionary_form
+Aigriffure,aigriffure,spell.10219.name,kept_neologism,
+Aigue,aigue,object.3652.name,kept_neologism,
+Aigue-Marine,aigue-marine,,removed_known_word,dictionary_form
+Aiguille,aiguille,,removed_known_word,dictionary_form
+Aiguilles,aiguilles,,removed_known_word,dictionary_form
+Aiguillon,aiguillon,,removed_known_word,dictionary_form
+Aiguiser,aiguiser,,removed_known_word,dictionary_form
+Aiguisé,aiguisé,,removed_known_word,dictionary_form
+Aiguisée,aiguisée,,removed_known_word,dictionary_form
+Aigurraf,aigurraf,npc.308.name | object.2110.name,kept_neologism,
+Aile,aile,,removed_known_word,dictionary_form
+Ailelal,ailelal,object.5268.name,kept_neologism,
+Ailes,ailes,,removed_known_word,dictionary_form
+Aillé,aillé,,removed_known_word,dictionary_form
+Ailobottes,ailobottes,object.14625.name,kept_neologism,
+Ailocape,ailocape,object.14623.name,kept_neologism,
+Ailoclier,ailoclier,object.14624.name,kept_neologism,
+Ailuya,ailuya,object.7219.name,kept_neologism,
+Ailé,ailé,,removed_known_word,dictionary_form
+Aimantation,aimantation,,removed_known_word,dictionary_form
+Aimgéroks,aimgéroks,object.11738.name,kept_neologism,
+Aimé,aimé,,removed_known_word,dictionary_form
+Aimée,aimée,,removed_known_word,dictionary_form
+Ainer,ainer,npc.1340.name,kept_neologism,
+Ainsi,ainsi,,removed_known_word,dictionary_form
+Ainte,ainte,object.12385.name | object.18963.name,kept_neologism,
+Air,air,,removed_known_word,dictionary_form
+Aircussion,aircussion,"object.18995.name, object.12388.name",kept_neologism,
+Airvoyant,airvoyant,object.14286.name,kept_neologism,
+Airwouik,airwouik,spell.3846.name,kept_neologism,
+Aise,aise,,removed_known_word,dictionary_form
+Aisk,aisk,npc.1732.name | quest.1056.name,kept_neologism,
+Aisselles,aisselles,,removed_known_word,dictionary_form
+Aj'Deh'Là,aj'deh'là,object.1372.name,kept_neologism,
+Ajara,ajara,object.2718.name,kept_neologism,
+Ajout,ajout,,removed_known_word,dictionary_form
+Ajouter,ajouter,,removed_known_word,dictionary_form
+Ajuje,ajuje,object.5535.name,kept_neologism,
+Akafaut,akafaut,object.5130.name,kept_neologism,
+Akakwa,akakwa,"monster.4008.name | npc.3424.name, achievement.objective.3367.name, monster.3936.name, npc.3528.name, spelltype.157.title | object.17568.name",kept_neologism,
+Akalorth,akalorth,object.5846.name,kept_neologism,
+Akare,akare,object.5540.name,kept_neologism,
+Akaslip,akaslip,object.17568.name,kept_neologism,
+Akehpur,akehpur,object.3912.name,kept_neologism,
+Akeloth,akeloth,object.4097.name,kept_neologism,
+Akess,akess,npc.814.name,kept_neologism,
+Aki,aki,,removed_known_word,dictionary_form
+Akifum,akifum,object.6405.name,kept_neologism,
+Akiko,akiko,npc.4215.name,kept_neologism,
+Akilas,akilas,npc.4457.name,kept_neologism,
+Akim,akim,npc.1336.name,kept_neologism,
+Akimipo,akimipo,object.3993.name,kept_neologism,
+Akiri,akiri,monster.3169.name | npc.1472.name,kept_neologism,
+Akitber,akitber,object.5359.name,kept_neologism,
+Akiteudo,akiteudo,object.3228.name,kept_neologism,
+Akohonop,akohonop,object.3914.name,kept_neologism,
+Akolla,akolla,taxcollector.firstname.152.value,kept_neologism,
+Akor,akor,npc.1475.name,kept_neologism,
+Akota,akota,object.5324.name,kept_neologism,
+Akouda,akouda,"map.name.76289546.name, interactive.169.name, hint.3173.name",kept_neologism,
+Akuduk,akuduk,object.6315.name,kept_neologism,
+Akugeku,akugeku,object.5687.name,kept_neologism,
+Akurobig,akurobig,object.3669.name,kept_neologism,
+Akurosr,akurosr,object.4033.name,kept_neologism,
+Akust,akust,object.3473.name,kept_neologism,
+Akutogop,akutogop,object.4119.name,kept_neologism,
+Akwadala,akwadala,"achievement.1101.name, world.subarea.832.name, achievement.objective.3359.name | map.name.11034.name | map.name.44042240.name | npc.3428.name, spelltype.207.title, npc.3430.name, monster.4010.name, npc.3514.name | object.7226.name | object.7230.name | object.7238.name | object.7242.name | object.7246.name | object.7250.name | object.7254.name | object.7347.name | object.9004.name | object.set.34.name | quest.1652.name, achievement.objective.3519.name | quest.1682.name | spell.3272.name | spell.5418.name",kept_neologism,
+Akwanokima,akwanokima,npc.3046.name,kept_neologism,
+Ala,ala,npc.306.name | object.19485.name,kept_neologism,
+Alain,alain,,removed_known_word,dictionary_form
+Alakarte,alakarte,"interactive.183.name, hint.2938.name | npc.293.name | object.2086.name",kept_neologism,
+Alako,alako,achievement.objective.782.name | monster.747.name | object.8075.name,kept_neologism,
+Alakrass,alakrass,spell.7899.name,kept_neologism,
+Alalag,alalag,object.3240.name,kept_neologism,
+Alalev,alalev,object.3645.name,kept_neologism,
+Alaly,alaly,object.3131.name,kept_neologism,
+Alambic,alambic,,removed_known_word,dictionary_form
+Alamice,alamice,object.3403.name,kept_neologism,
+Alan,alan,,removed_known_word,dictionary_form
+Alanaj,alanaj,object.5436.name,kept_neologism,
+Alanavel,alanavel,object.5926.name,kept_neologism,
+Alaokit,alaokit,npc.2076.name | quest.1361.name,kept_neologism,
+Alarach,alarach,taxcollector.firstname.2.value,kept_neologism,
+Alarme,alarme,,removed_known_word,dictionary_form
+Alawae,alawae,object.5818.name,kept_neologism,
+Alawavae,alawavae,object.5164.name,kept_neologism,
+Albert,albert,,removed_known_word,dictionary_form
+Albino,albino,taxcollector.firstname.4.value,kept_neologism,
+Albuera,albuera,"achievement.1252.name, achievement.objective.3776.name | achievement.1274.name | achievement.category.76.name | achievement.objective.3778.name, achievement.1250.name | achievement.objective.3790.name, quest.4262.name | hint.3428.name | hint.3459.name, hint.2963.name | monster.race.198.name | monster.superrace.38.name | object.18844.name | object.18862.name, object.18912.name, object.18908.name, object.18910.name | object.18864.name, object.18906.name, object.18904.name, object.18902.name | object.18866.name, object.18852.name, object.18868.name, object.18870.name | object.18876.name, object.18872.name, object.18850.name, object.18874.name | object.18880.name, object.18882.name, object.18878.name, object.18856.name | object.18888.name, object.18884.name, object.18860.name, object.18886.name | object.18890.name, object.18894.name, object.18854.name, object.18892.name | object.18896.name, object.18898.name, object.18900.name, object.18858.name | object.18976.name | object.18988.name | object.19018.name | object.set.430.name | object.set.438.name, object.set.432.name, object.set.434.name, object.set.436.name | object.type.210.name, achievement.category.74.name, achievement.category.72.name | quest.4258.name | quest.4264.name | quest.category.740.name | spelltype.378.title | title.300.female | title.300.male | world.area.56.name | world.subarea.850.name | world.subarea.851.name | world.subarea.852.name",kept_neologism,
+Albueran,albueran,object.19231.name | object.21625.name,kept_neologism,
+Album,album,,removed_known_word,dictionary_form
+Albâtre,albâtre,,removed_known_word,dictionary_form
+Alcane,alcane,,removed_known_word,dictionary_form
+Alchemist,alchemist,server.355.name,kept_neologism,
+Alchide,alchide,spell.3567.name,kept_neologism,
+Alchillusion,alchillusion,object.14100.name | object.14110.name | object.14120.name | object.14174.name,kept_neologism,
+Alchillusions,alchillusions,"monster.race.107.name, achievement.911.name, spelltype.151.title, achievement.objective.2722.name",kept_neologism,
+Alchimie,alchimie,,removed_known_word,dictionary_form
+Alchimiste,alchimiste,,removed_known_word,dictionary_form
+Alchimistes,alchimistes,,removed_known_word,dictionary_form
+Alchymne,alchymne,spell.3568.name,kept_neologism,
+Alcoolisé,alcoolisé,,removed_known_word,dictionary_form
+Aldir,aldir,npc.328.name,kept_neologism,
+Ale,ale,,removed_known_word,dictionary_form
+Aleb,aleb,npc.2101.name | quest.1386.name,kept_neologism,
+Aleba,aleba,object.3430.name,kept_neologism,
+Alebaul,alebaul,object.5808.name,kept_neologism,
+Alebove,alebove,object.5401.name,kept_neologism,
+Alehael,alehael,object.5702.name,kept_neologism,
+Aleheule,aleheule,object.5660.name,kept_neologism,
+Aleksandr,aleksandr,document.20.author,kept_neologism,
+Alela,alela,object.5807.name,kept_neologism,
+Alelae,alelae,object.3444.name,kept_neologism,
+Alelaew,alelaew,object.5936.name,kept_neologism,
+Aleloni,aleloni,object.6424.name,kept_neologism,
+Alembic,alembic,interactive.62.name,kept_neologism,
+Alene,alene,taxcollector.firstname.3.value,kept_neologism,
+Alepu,alepu,object.5943.name,kept_neologism,
+Aleril,aleril,object.3503.name,kept_neologism,
+Alerte,alerte,,removed_known_word,dictionary_form
+Alesulit,alesulit,object.5785.name,kept_neologism,
+Aleteha,aleteha,object.5222.name,kept_neologism,
+Aletelu,aletelu,object.3769.name,kept_neologism,
+Alethylo,alethylo,object.4879.name,kept_neologism,
+Alevin,alevin,,removed_known_word,dictionary_form
+Alewae,alewae,object.5735.name,kept_neologism,
+Alewepl,alewepl,object.6004.name,kept_neologism,
+Alfonse,alfonse,npc.2832.name,kept_neologism,
+Alfred,alfred,,removed_known_word,dictionary_form
+Algue,algue,,removed_known_word,dictionary_form
+Alhera,alhera,npc.2092.name | quest.1377.name,kept_neologism,
+Alhyène,alhyène,"achievement.objective.3318.name, monster.3786.name | object.16238.name",kept_neologism,
+Ali,ali,,removed_known_word,dictionary_form
+Alibi,alibi,,removed_known_word,dictionary_form
+Alicatyp,alicatyp,object.6262.name,kept_neologism,
+Alie,alie,"achievement.objective.4055.name | achievement.objective.4259.name, achievement.1371.name, npc.4321.name, achievement.objective.4445.name | object.20113.name",kept_neologism,
+Alifufuf,alifufuf,object.5539.name,kept_neologism,
+Aligatito,aligatito,object.3601.name,kept_neologism,
+Aligif,aligif,object.4523.name,kept_neologism,
+Alignement,alignement,,removed_known_word,dictionary_form
+Alikim,alikim,object.6243.name,kept_neologism,
+Alikindoy,alikindoy,npc.1954.name | quest.1234.name,kept_neologism,
+Aliment,aliment,,removed_known_word,dictionary_form
+Alimentaire,alimentaire,,removed_known_word,dictionary_form
+Alimentation,alimentation,,removed_known_word,dictionary_form
+Alimuva,alimuva,object.4108.name,kept_neologism,
+Alisice,alisice,object.6163.name,kept_neologism,
+Alit,alit,npc.467.name,kept_neologism,
+Alitose,alitose,object.3484.name,kept_neologism,
+Alizé,alizé,,removed_known_word,dictionary_form
+Alka,alka,monster.776.name,kept_neologism,
+Alkatraz,alkatraz,world.subarea.318.name,kept_neologism,
+Alkolo,alkolo,object.2917.name,kept_neologism,
+Alle,alle,object.53.name,kept_neologism,
+Allen,allen,npc.262.name | npc.95.name | object.2053.name,kept_neologism,
+Allez,allez,,removed_known_word,dictionary_form
+Alliage,alliage,,removed_known_word,dictionary_form
+Alliance,alliance,,removed_known_word,dictionary_form
+Alliogemme,alliogemme,object.14290.name,kept_neologism,
+Allister,allister,"achievement.objective.1379.name | achievement.objective.1380.name | achievement.objective.1381.name | achievement.objective.1382.name | achievement.objective.1383.name | achievement.objective.1384.name | achievement.objective.1472.name | achievement.objective.1531.name | document.364.author | monster.3233.name, npc.1567.name | monster.race.215.name | npc.1523.name, npc.4443.name | npc.3794.name, npc.3790.name, npc.3788.name, npc.3792.name | npc.916.name | object.13055.name | object.13123.name | object.13124.name | object.13125.name | object.16035.name | object.set.243.name | quest.132.name | quest.139.name | quest.category.20.name | quest.category.767.name",kept_neologism,
+Allisteria,allisteria,"monster.471.name, npc.1551.name, npc.4118.name",kept_neologism,
+Alliés,alliés,,removed_known_word,dictionary_form
+Alloene,alloene,object.5438.name,kept_neologism,
+Allumage,allumage,,removed_known_word,dictionary_form
+Allumeuse,allumeuse,,removed_known_word,dictionary_form
+Alma,alma,,removed_known_word,dictionary_form
+Almanax,almanax,"achievement.category.26.name, object.type.156.name, quest.category.31.name | hint.3218.name | quest.953.name",kept_neologism,
+Almaton,almaton,object.13330.name,kept_neologism,
+Alnie,alnie,npc.2429.name,kept_neologism,
+Alofe,alofe,object.4758.name | object.5727.name,kept_neologism,
+Alognef,alognef,object.3468.name,kept_neologism,
+Aloin,aloin,npc.1591.name,kept_neologism,
+Alomihe,alomihe,object.5121.name,kept_neologism,
+Alors,alors,,removed_known_word,dictionary_form
+Aloua,aloua,taxcollector.firstname.56.value,kept_neologism,
+Alpha,alpha,,removed_known_word,dictionary_form
+Alpiniste,alpiniste,,removed_known_word,dictionary_form
+Alrok,alrok,npc.215.name,kept_neologism,
+Alter,alter,,removed_known_word,dictionary_form
+Alternance,alternance,,removed_known_word,dictionary_form
+Altruisme,altruisme,,removed_known_word,dictionary_form
+Altruiste,altruiste,,removed_known_word,dictionary_form
+Altération,altération,,removed_known_word,dictionary_form
+Alucard,alucard,npc.2090.name | quest.1375.name,kept_neologism,
+Alumin,alumin,object.3821.name,kept_neologism,
+Aluminite,aluminite,object.747.name,kept_neologism,
+Alunavim,alunavim,object.3244.name,kept_neologism,
+Aluneok,aluneok,object.4050.name,kept_neologism,
+Alvélole,alvélole,spell.2512.name,kept_neologism,
+Alvéole,alvéole,,removed_known_word,dictionary_form
+Alygac,alygac,object.5332.name,kept_neologism,
+Alyssum,alyssum,object.12274.name,kept_neologism,
+Aléamouth,aléamouth,spell.2355.name,kept_neologism,
+Aléatoile,aléatoile,spell.4379.name,kept_neologism,
+Aléatoire,aléatoire,,removed_known_word,dictionary_form
+Aléïcar,aléïcar,npc.87.name | object.818.name,kept_neologism,
+Amadouer,amadouer,,removed_known_word,dictionary_form
+Amafevu,amafevu,object.6204.name,kept_neologism,
+Amafobug,amafobug,object.5508.name,kept_neologism,
+Amahimi,amahimi,object.5363.name,kept_neologism,
+Amaire,amaire,npc.2356.name,kept_neologism,
+Amakna,amakna,"achievement.242.name | achievement.250.name | achievement.266.name | achievement.category.17.name | achievement.category.57.name | achievement.objective.2319.name, achievement.343.name, achievement.objective.3973.name | achievement.objective.2328.name | achievement.objective.2349.name, world.subarea.180.name | achievement.objective.2355.name, world.subarea.181.name | achievement.objective.4075.name | achievement.objective.4269.name, achievement.1381.name, npc.4407.name | document.378.title | document.504.author | dungeon.171.name | dungeon.173.name | dungeon.175.name | hint.2939.name | hint.3132.name | hint.3332.name | house.model.283.name | house.model.284.name, house.model.285.name, house.model.286.name, house.model.287.name | house.model.288.name, house.model.289.name | house.model.292.name | house.model.293.name, house.model.291.name | house.model.297.name, house.model.296.name | house.model.305.name, house.model.306.name, house.model.303.name, house.model.304.name | house.model.310.name, house.model.307.name, house.model.308.name, house.model.309.name | house.model.313.name, house.model.311.name, house.model.312.name | house.model.316.name | house.model.9436.name | map.name.102760961.name, map.name.27525120.name | map.name.102760963.name | map.name.102761987.name | map.name.102763009.name, map.name.27525122.name | map.name.102764033.name | map.name.129499142.name, map.name.129631240.name | map.name.129633286.name, map.name.129632262.name, map.name.129631238.name | map.name.27525124.name | map.name.27526148.name | map.name.27528192.name, map.name.102761985.name | map.name.27528194.name | map.name.3933696.name, map.name.99094023.name | map.name.95685125.name, map.name.43518982.name | npc.2143.name, npc.2167.name, object.20215.name | npc.4711.name | object.12351.name | object.12528.name | object.12529.name | object.13271.name | object.13272.name | object.13515.name | object.16189.name | object.17422.name | object.19528.name | object.20667.name | object.20669.name | object.20671.name | object.20673.name | object.20699.name | object.351.name | object.468.name | object.type.146.name | quest.1424.name | quest.category.15.name, achievement.category.49.name, object.type.138.name, hint.3547.name | quest.category.8.name | skill.action.308.name, skill.213.name | spelltype.149.title | title.71.male, title.71.female | title.72.female, title.72.male | title.96.female, title.96.male | title.97.female | title.97.male | world.area.0.name, achievement.category.32.name | world.subarea.278.name | world.subarea.339.name, dungeon.44.name, hint.2973.name, achievement.objective.2576.name, achievement.47.name | world.subarea.4.name | world.subarea.864.name, hint.3545.name, map.name.155975680.name",kept_neologism,
+Amaknien,amaknien,world.superarea.0.name,kept_neologism,
+Amalia,amalia,"achievement.1373.name, achievement.objective.4377.name, achievement.objective.4261.name, npc.4323.name | achievement.objective.4059.name | object.20207.name",kept_neologism,
+Amande,amande,,removed_known_word,dictionary_form
+Amanie,amanie,npc.3446.name,kept_neologism,
+Amanite,amanite,,removed_known_word,dictionary_form
+Amant,amant,,removed_known_word,dictionary_form
+Amants,amants,,removed_known_word,dictionary_form
+Amarh,amarh,npc.211.name,kept_neologism,
+Amarrage,amarrage,,removed_known_word,dictionary_form
+Amas,amas,,removed_known_word,dictionary_form
+Amasseur,amasseur,,removed_known_word,dictionary_form
+Amasseuse,amasseuse,,removed_known_word,dictionary_form
+Amateur,amateur,,removed_known_word,dictionary_form
+Amateurs,amateurs,,removed_known_word,dictionary_form
+Amauk,amauk,object.2746.name,kept_neologism,
+Amayiro,amayiro,"npc.4148.name, npc.180.name | object.9074.name | object.9076.name | object.9099.name | quest.60.name | quest.73.name | quest.81.name",kept_neologism,
+Ambassadeur,ambassadeur,,removed_known_word,dictionary_form
+Ambassadrice,ambassadrice,,removed_known_word,dictionary_form
+Ambidextrie,ambidextrie,,removed_known_word,dictionary_form
+Ambition,ambition,,removed_known_word,dictionary_form
+Amboat,amboat,monster.2532.name,kept_neologism,
+Ambramulette,ambramulette,object.1661.name | object.1662.name,kept_neologism,
+Ambre,ambre,,removed_known_word,dictionary_form
+Ambrume,ambrume,npc.2680.name,kept_neologism,
+Ame,ame,object.9720.name,kept_neologism,
+Amehatos,amehatos,object.6374.name,kept_neologism,
+Amelate,amelate,object.5119.name,kept_neologism,
+Amende,amende,,removed_known_word,dictionary_form
+Amer,amer,,removed_known_word,dictionary_form
+Amertume,amertume,,removed_known_word,dictionary_form
+Ames,ames,alignment.rank.31.name,kept_neologism,
+Ameur,ameur,monster.2391.name,kept_neologism,
+Amhur,amhur,object.3806.name,kept_neologism,
+Ami,ami,,removed_known_word,dictionary_form
+Amicale,amicale,,removed_known_word,dictionary_form
+Amiche,amiche,"achievement.objective.4243.name | achievement.objective.4353.name, achievement.objective.4449.name, npc.4405.name, achievement.1465.name | object.20223.name",kept_neologism,
+Amie,amie,,removed_known_word,dictionary_form
+Amig-os,amig-os,spell.1720.name,kept_neologism,
+Amikibo,amikibo,object.2728.name,kept_neologism,
+Amimiru,amimiru,object.3916.name,kept_neologism,
+Amine,amine,,removed_known_word,dictionary_form
+Amirniana,amirniana,npc.1818.name | quest.1120.name,kept_neologism,
+Amis,amis,,removed_known_word,dictionary_form
+Amitié,amitié,,removed_known_word,dictionary_form
+Amlub,amlub,monster.385.name,kept_neologism,
+Amoor,amoor,object.4027.name,kept_neologism,
+Amorce,amorce,,removed_known_word,dictionary_form
+Amorepeu,amorepeu,object.5381.name,kept_neologism,
+Amorphe,amorphe,,removed_known_word,dictionary_form
+Amoual,amoual,taxcollector.firstname.124.value,kept_neologism,
+Amour,amour,,removed_known_word,dictionary_form
+Amoureuse,amoureuse,,removed_known_word,dictionary_form
+Amoureux,amoureux,,removed_known_word,dictionary_form
+Amourlette,amourlette,object.12237.name | object.12238.name,kept_neologism,
+Amphaemelo,amphaemelo,object.4779.name,kept_neologism,
+Amphafa,amphafa,object.5909.name,kept_neologism,
+Amphafovel,amphafovel,object.5952.name,kept_neologism,
+Amphamase,amphamase,object.3397.name,kept_neologism,
+Amphawou,amphawou,object.6067.name,kept_neologism,
+Amphelal,amphelal,object.5815.name,kept_neologism,
+Amphemem,amphemem,object.4816.name,kept_neologism,
+Amphemij,amphemij,object.6306.name,kept_neologism,
+Amphermite,amphermite,object.18825.name,kept_neologism,
+Amphibio,amphibio,object.5402.name,kept_neologism,
+Amphibrute,amphibrute,"monster.4398.name, achievement.1537.name, npc.4160.name, spelltype.584.title, companion.3.name, object.19682.name | quest.4770.name, achievement.objective.4585.name",kept_neologism,
+Amphibulle,amphibulle,"npc.4673.name, object.19847.name",kept_neologism,
+Amphibullette,amphibullette,"npc.4675.name, object.20691.name",kept_neologism,
+Amphitrident,amphitrident,object.18819.name | object.18821.name | object.18823.name,kept_neologism,
+Amphobie,amphobie,object.5434.name,kept_neologism,
+Ampholojae,ampholojae,object.5059.name,kept_neologism,
+Amphoplo,amphoplo,object.4971.name,kept_neologism,
+Amphoub,amphoub,object.5323.name,kept_neologism,
+Amphowy,amphowy,object.4705.name,kept_neologism,
+Amphubevap,amphubevap,object.5791.name,kept_neologism,
+Amphuwuco,amphuwuco,object.5611.name,kept_neologism,
+Amphyuwo,amphyuwo,object.3623.name,kept_neologism,
+Amplification,amplification,,removed_known_word,dictionary_form
+Amputation,amputation,,removed_known_word,dictionary_form
+Amrothiline,amrothiline,object.6518.name,kept_neologism,
+Amublop,amublop,object.9149.name | object.9150.name | object.9151.name | object.9152.name | object.9153.name | object.9154.name | object.9155.name | object.9156.name | object.9157.name,kept_neologism,
+Amufafah,amufafah,object.8880.name,kept_neologism,
+Amukwak,amukwak,object.2424.name | object.6731.name | object.6746.name | object.6747.name,kept_neologism,
+Amulette,amulette,,removed_known_word,dictionary_form
+Amulettong,amulettong,object.12754.name,kept_neologism,
+Amulophrène,amulophrène,object.19793.name,kept_neologism,
+Amuloumulette,amuloumulette,object.8129.name,kept_neologism,
+Amunite,amunite,object.9463.name,kept_neologism,
+Amupapier,amupapier,object.11374.name | object.11434.name,kept_neologism,
+Amuronce,amuronce,object.15623.name,kept_neologism,
+Amusonnier,amusonnier,object.11395.name | object.11446.name,kept_neologism,
+Amuspu,amuspu,object.2973.name,kept_neologism,
+Amy,amy,,removed_known_word,dictionary_form
+Amygale,amygale,"spell.9327.name, spell.7468.name",kept_neologism,
+Amygdale,amygdale,,removed_known_word,dictionary_form
+Amygdales,amygdales,,removed_known_word,dictionary_form
+Amère,amère,,removed_known_word,dictionary_form
+Amélia,amélia,,removed_known_word,dictionary_form
+Amélie,amélie,,removed_known_word,dictionary_form
+Amélioration,amélioration,,removed_known_word,dictionary_form
+Améliorer,améliorer,,removed_known_word,dictionary_form
+Améthyste,améthyste,,removed_known_word,dictionary_form
+Anachorète,anachorète,,removed_known_word,dictionary_form
+Anaglyphe,anaglyphe,,removed_known_word,dictionary_form
+Anaki,anaki,npc.3402.name | object.18076.name,kept_neologism,
+Analyse,analyse,,removed_known_word,dictionary_form
+Anatakwa,anatakwa,npc.3048.name,kept_neologism,
+Anatole,anatole,,removed_known_word,dictionary_form
+Anauffe-souris,anauffe-souris,object.11399.name | object.11450.name,kept_neologism,
+Ancestral,ancestral,,removed_known_word,dictionary_form
+Ancestrale,ancestrale,,removed_known_word,dictionary_form
+Ancestrales,ancestrales,,removed_known_word,dictionary_form
+Ancestraux,ancestraux,,removed_known_word,dictionary_form
+Ancestrotek,ancestrotek,npc.1737.name | quest.1341.name,kept_neologism,
+Ancien,ancien,,removed_known_word,dictionary_form
+Anciens,anciens,,removed_known_word,dictionary_form
+Ancrage,ancrage,,removed_known_word,dictionary_form
+Ancre,ancre,,removed_known_word,dictionary_form
+Ancrocodaille,ancrocodaille,"achievement.objective.3291.name, monster.3668.name | monster.3712.name",kept_neologism,
+Ancêtre,ancêtre,,removed_known_word,dictionary_form
+Ander,ander,object.11166.name,kept_neologism,
+Andeuk'Hou,andeuk'hou,"achievement.1029.name | achievement.1030.name, achievement.objective.3136.name | achievement.1031.name, challenge.298.name, achievement.objective.3139.name | achievement.objective.3126.name, achievement.objective.3134.name, achievement.objective.3132.name, monster.3553.name, achievement.objective.3128.name, monster.3650.name, achievement.objective.3130.name | achievement.objective.3137.name | challenge.295.name, achievement.1028.name, achievement.objective.3138.name | challenge.296.name | challenge.302.name | monster.4817.name | object.15081.name | object.15662.name",kept_neologism,
+André,andré,,removed_known_word,dictionary_form
+Andréas,andréas,npc.4120.name,kept_neologism,
+Andésite,andésite,,removed_known_word,dictionary_form
+Anefuda,anefuda,object.5371.name,kept_neologism,
+Anelalle,anelalle,object.3748.name,kept_neologism,
+Aneloby,aneloby,object.6053.name,kept_neologism,
+Anemo,anemo,npc.888.name,kept_neologism,
+Anerabul,anerabul,object.5146.name,kept_neologism,
+Anesela,anesela,object.5874.name,kept_neologism,
+Anesthésiante,anesthésiante,,removed_known_word,dictionary_form
+Ang,ang,"achievement.objective.591.name | monster.4549.name, monster.5115.name, monster.600.name | object.8392.name",kept_neologism,
+Ange,ange,,removed_known_word,dictionary_form
+Angel,angel,npc.3623.name,kept_neologism,
+Angelo,angelo,,removed_known_word,dictionary_form
+Angora,angora,,removed_known_word,dictionary_form
+Angulaire,angulaire,,removed_known_word,dictionary_form
+Angy,angy,npc.1693.name | quest.1044.name,kept_neologism,
+Ani,ani,npc.1951.name | quest.1231.name,kept_neologism,
+Anik,anik,npc.220.name,kept_neologism,
+Anim,anim,spell.2837.name | spell.2838.name | spell.2839.name,kept_neologism,
+Animal,animal,,removed_known_word,dictionary_form
+Animale,animale,,removed_known_word,dictionary_form
+Animales,animales,,removed_known_word,dictionary_form
+Animation,animation,,removed_known_word,dictionary_form
+Animations,animations,,removed_known_word,dictionary_form
+Animaux,animaux,,removed_known_word,dictionary_form
+Animorphose,animorphose,"emoticon.218.name, object.18702.name | emoticon.220.name",kept_neologism,
+Animulette,animulette,object.15669.name,kept_neologism,
+Animé,animé,,removed_known_word,dictionary_form
+Animée,animée,,removed_known_word,dictionary_form
+Ankadrak,ankadrak,object.22815.name,kept_neologism,
+Ankaffilié,ankaffilié,object.21105.name | title.457.male,kept_neologism,
+Ankaffiliée,ankaffiliée,title.457.female,kept_neologism,
+Ankamascotte,ankamascotte,"object.22813.name | title.477.male, title.477.female",kept_neologism,
+Ankanniversaire,ankanniversaire,object.18606.name,kept_neologism,
+Ankarogo,ankarogo,object.22817.name,kept_neologism,
+Ankegasa,ankegasa,object.22821.name,kept_neologism,
+Ankhape,ankhape,object.15389.name,kept_neologism,
+Ankimono,ankimono,object.22819.name,kept_neologism,
+Ankylosant,ankylosant,,removed_known_word,dictionary_form
+Anna,anna,,removed_known_word,dictionary_form
+Annabelle,annabelle,,removed_known_word,dictionary_form
+Annbonny,annbonny,npc.1688.name | quest.1041.name,kept_neologism,
+Anne,anne,,removed_known_word,dictionary_form
+Anneau,anneau,,removed_known_word,dictionary_form
+Anneauraeus,anneauraeus,object.16344.name,kept_neologism,
+Annette,annette,,removed_known_word,dictionary_form
+Annexe,annexe,,removed_known_word,dictionary_form
+Annihilateur,annihilateur,,removed_known_word,dictionary_form
+Anniversaire,anniversaire,,removed_known_word,dictionary_form
+Annokami,annokami,object.13320.name | object.13324.name,kept_neologism,
+Annolamour,annolamour,object.8991.name,kept_neologism,
+Annololens,annololens,object.19787.name,kept_neologism,
+Annonce,annonce,,removed_known_word,dictionary_form
+Annotée,annotée,,removed_known_word,dictionary_form
+Année,année,,removed_known_word,dictionary_form
+Anobe,anobe,object.6375.name,kept_neologism,
+Anobra,anobra,object.2420.name,kept_neologism,
+Anodindo,anodindo,object.7555.name,kept_neologism,
+Anogery,anogery,object.5154.name,kept_neologism,
+Anojeba,anojeba,object.3644.name,kept_neologism,
+Anokio,anokio,object.11417.name | object.11454.name,kept_neologism,
+Anomalie,anomalie,,removed_known_word,dictionary_form
+Anomalies,anomalies,,removed_known_word,dictionary_form
+Anomen,anomen,object.14593.name,kept_neologism,
+Anonyme,anonyme,,removed_known_word,dictionary_form
+Anoppinz,anoppinz,object.11384.name | object.11442.name,kept_neologism,
+Anshin,anshin,npc.3460.name,kept_neologism,
+Anshâ,anshâ,npc.2106.name | quest.1391.name,kept_neologism,
+Ansôh,ansôh,npc.1982.name | quest.1262.name,kept_neologism,
+Antenne,antenne,,removed_known_word,dictionary_form
+Antennes,antennes,,removed_known_word,dictionary_form
+Anthir,anthir,object.6846.name,kept_neologism,
+Anti-dépendant,anti-dépendant,object.10817.name,kept_neologism,
+Antichambre,antichambre,,removed_known_word,dictionary_form
+Anticipation,anticipation,,removed_known_word,dictionary_form
+Anticipée,anticipée,,removed_known_word,dictionary_form
+Antidote,antidote,,removed_known_word,dictionary_form
+Antigel,antigel,,removed_known_word,dictionary_form
+Antigelées,antigelées,"achievement.objective.2164.name, achievement.792.name",kept_neologism,
+Antihantise,antihantise,object.14037.name,kept_neologism,
+Antiroyaliste,antiroyaliste,achievement.objective.1367.name | quest.619.name,kept_neologism,
+Antouche,antouche,object.8727.name,kept_neologism,
+Antre,antre,,removed_known_word,dictionary_form
+Antrin,antrin,object.8663.name,kept_neologism,
+Antôme,antôme,object.15671.name,kept_neologism,
+Anufemi,anufemi,object.5192.name,kept_neologism,
+Anulideven,anulideven,npc.2096.name | quest.1381.name,kept_neologism,
+Anum,anum,object.7194.name,kept_neologism,
+Anumikuf,anumikuf,object.4172.name,kept_neologism,
+Anéantissement,anéantissement,,removed_known_word,dictionary_form
+Anémie,anémie,,removed_known_word,dictionary_form
+Aomebel,aomebel,object.3446.name,kept_neologism,
+Aomiel,aomiel,object.4950.name,kept_neologism,
+Aopeteze,aopeteze,object.5097.name,kept_neologism,
+Aotohet,aotohet,object.3273.name,kept_neologism,
+Aotuballe,aotuballe,object.5801.name,kept_neologism,
+Aouaire,aouaire,achievement.objective.1690.name | npc.846.name,kept_neologism,
+Aougos,aougos,npc.340.name,kept_neologism,
+Apaevew,apaevew,object.5233.name,kept_neologism,
+Apafo,apafo,object.5439.name,kept_neologism,
+Apaisant,apaisant,,removed_known_word,dictionary_form
+Apaisante,apaisante,,removed_known_word,dictionary_form
+Apaisement,apaisement,,removed_known_word,dictionary_form
+Apaisé,apaisé,,removed_known_word,dictionary_form
+Apanewa,apanewa,object.5692.name,kept_neologism,
+Apathie,apathie,,removed_known_word,dictionary_form
+Apathique,apathique,,removed_known_word,dictionary_form
+Apaujyl,apaujyl,object.3593.name,kept_neologism,
+Apelep,apelep,object.5782.name,kept_neologism,
+Apena,apena,object.5273.name,kept_neologism,
+Apenae,apenae,object.5953.name,kept_neologism,
+Apens,apens,"spell.9751.name, spell.9753.name",kept_neologism,
+Aperirel,aperirel,"map.name.127927808.name, map.name.127928066.name, map.name.127401986.name, map.name.127926784.name, map.name.127927042.name | npc.818.name, month.3.name | object.11115.name",kept_neologism,
+Apero,apero,achievement.objective.625.name | monster.932.name,kept_neologism,
+Apevapa,apevapa,object.5861.name,kept_neologism,
+Apin,apin,"object.18953.name, object.8634.name",kept_neologism,
+Apivyco,apivyco,object.5813.name,kept_neologism,
+Aplaning,aplaning,object.3941.name,kept_neologism,
+Aplatissage,aplatissage,,removed_known_word,dictionary_form
+Apleg,apleg,object.3242.name,kept_neologism,
+Aplilema,aplilema,object.5489.name,kept_neologism,
+Apocalypse,apocalypse,,removed_known_word,dictionary_form
+Apogée,apogée,,removed_known_word,dictionary_form
+Apothéotique,apothéotique,,removed_known_word,dictionary_form
+Apout,apout,npc.260.name | object.2054.name,kept_neologism,
+Apparition,apparition,,removed_known_word,dictionary_form
+Appeau,appeau,,removed_known_word,dictionary_form
+Appel,appel,,removed_known_word,dictionary_form
+Appelez-moi,appelez-moi,achievement.1010.name,kept_neologism,
+Appellation,appellation,,removed_known_word,dictionary_form
+Applaudir,applaudir,,removed_known_word,dictionary_form
+Appoint,appoint,,removed_known_word,dictionary_form
+Apport,apport,,removed_known_word,dictionary_form
+Appowt,appowt,spell.3822.name,kept_neologism,
+Apprenti,apprenti,,removed_known_word,dictionary_form
+Apprentie,apprentie,,removed_known_word,dictionary_form
+Apprentissage,apprentissage,,removed_known_word,dictionary_form
+Apprivoisement,apprivoisement,,removed_known_word,dictionary_form
+Apprivoisé,apprivoisé,,removed_known_word,dictionary_form
+Approche,approche,,removed_known_word,dictionary_form
+Approksimativ,approksimativ,spell.4870.name,kept_neologism,
+Appui,appui,,removed_known_word,dictionary_form
+Appât,appât,,removed_known_word,dictionary_form
+Appâts,appâts,,removed_known_word,dictionary_form
+Appétissant,appétissant,,removed_known_word,dictionary_form
+Aprae,aprae,object.5613.name,kept_neologism,
+Aprec,aprec,object.5716.name,kept_neologism,
+Apres,apres,object.4739.name,kept_neologism,
+Apukim,apukim,object.5084.name,kept_neologism,
+Apybae,apybae,object.5762.name,kept_neologism,
+Apériglours,apériglours,"achievement.objective.425.name, monster.2861.name | object.11934.name",kept_neologism,
+Apéwicube,apéwicube,object.11134.name,kept_neologism,
+Apéwicubes,apéwicubes,"achievement.933.name, achievement.objective.2822.name | achievement.objective.2812.name",kept_neologism,
+Aquaboulvar,aquaboulvar,spell.1936.name | spell.1937.name,kept_neologism,
+Aquabralak,aquabralak,"monster.895.name, achievement.objective.555.name | object.8372.name",kept_neologism,
+Aquaebu,aquaebu,object.3337.name,kept_neologism,
+Aquafanel,aquafanel,object.5850.name,kept_neologism,
+Aquage,aquage,npc.3896.name,kept_neologism,
+Aquaglyphe,aquaglyphe,"spell.1953.name | spell.6272.name, spell.1952.name",kept_neologism,
+Aqualaelu,aqualaelu,object.6087.name,kept_neologism,
+Aqualance,aqualance,spell.1799.name,kept_neologism,
+Aqualikros,aqualikros,"monster.877.name, achievement.objective.556.name | object.8374.name",kept_neologism,
+Aqualosepa,aqualosepa,object.5713.name,kept_neologism,
+Aqualoum,aqualoum,object.2714.name,kept_neologism,
+Aquanewul,aquanewul,object.3548.name,kept_neologism,
+Aquanolodu,aquanolodu,object.5482.name,kept_neologism,
+Aquapael,aquapael,object.4947.name,kept_neologism,
+Aquapago,aquapago,object.4212.name,kept_neologism,
+Aquapaul,aquapaul,object.6066.name,kept_neologism,
+Aquapawe,aquapawe,object.3402.name,kept_neologism,
+Aquapramem,aquapramem,object.4854.name,kept_neologism,
+Aquapul,aquapul,object.3910.name,kept_neologism,
+Aquarakne,aquarakne,object.16274.name,kept_neologism,
+Aquatamem,aquatamem,object.5093.name,kept_neologism,
+Aquatique,aquatique,,removed_known_word,dictionary_form
+Aquauli,aquauli,object.3786.name,kept_neologism,
+Aquavoum,aquavoum,object.5651.name,kept_neologism,
+Aquejineno,aquejineno,object.3269.name,kept_neologism,
+Aquelasut,aquelasut,object.5931.name,kept_neologism,
+Aquelelauc,aquelelauc,object.5997.name,kept_neologism,
+Aqueles,aqueles,object.3768.name,kept_neologism,
+Aquelime,aquelime,object.5590.name,kept_neologism,
+Aquemefi,aquemefi,object.5313.name,kept_neologism,
+Aquenabava,aquenabava,object.3338.name,kept_neologism,
+Aqueovavag,aqueovavag,object.3709.name,kept_neologism,
+Aquepapy,aquepapy,object.5212.name,kept_neologism,
+Aquepice,aquepice,object.6231.name,kept_neologism,
+Aqueputate,aqueputate,object.4858.name,kept_neologism,
+Aquesepeb,aquesepeb,object.5787.name,kept_neologism,
+Aqueuse,aqueuse,,removed_known_word,dictionary_form
+Aqueux,aqueux,,removed_known_word,dictionary_form
+Aquifag,aquifag,object.5616.name,kept_neologism,
+Aquilajuc,aquilajuc,object.5929.name,kept_neologism,
+Aquilar,aquilar,object.19083.name,kept_neologism,
+Aquilavepa,aquilavepa,object.6241.name,kept_neologism,
+Aquinupele,aquinupele,object.5644.name,kept_neologism,
+Aquivyfo,aquivyfo,object.4786.name,kept_neologism,
+Araborat,araborat,object.6111.name,kept_neologism,
+Arabord,arabord,monster.2311.name,kept_neologism,
+Arachitik,arachitik,monster.2312.name,kept_neologism,
+Arak,arak,,removed_known_word,dictionary_form
+Arak-Haï,arak-haï,"achievement.1372.name | monster.4643.name, monster.4685.name, monster.4344.name | monster.4645.name | monster.race.208.name | object.19576.name | object.19618.name | object.2355.name | object.set.462.name | spell.7482.name, spell.7484.name | spell.9341.name, spell.9359.name | spell.9349.name, state.1049.name, spell.9351.name | spell.9375.name | spell.9493.name | spelltype.527.title | spelltype.531.title | state.1050.name, spell.9247.name",kept_neologism,
+Arak-haï,arak-haï,"achievement.1372.name | monster.4643.name, monster.4685.name, monster.4344.name | monster.4645.name | monster.race.208.name | object.19576.name | object.19618.name | object.2355.name | object.set.462.name | spell.7482.name, spell.7484.name | spell.9341.name, spell.9359.name | spell.9349.name, state.1049.name, spell.9351.name | spell.9375.name | spell.9493.name | spelltype.527.title | spelltype.531.title | state.1050.name, spell.9247.name",kept_neologism,
+Araka,araka,monster.4677.name,kept_neologism,
+Arakawa,arakawa,monster.4689.name,kept_neologism,
+Arakazam,arakazam,monster.4346.name,kept_neologism,
+Arakaze,arakaze,monster.4687.name,kept_neologism,
+Arakmutée,arakmutée,"monster.4314.name, achievement.objective.4042.name | monster.4641.name, spelltype.521.title | object.19584.name",kept_neologism,
+Araknacoiffe,araknacoiffe,object.13480.name | object.6913.name,kept_neologism,
+Araknamu,araknamu,object.2426.name,kept_neologism,
+Araknas,araknas,"monster.3663.name, object.15975.name, npc.2430.name, monster.3681.name, npc.2390.name | npc.2395.name | npc.2445.name",kept_neologism,
+Araknay,araknay,monster.2393.name,kept_neologism,
+Arakne,arakne,"achievement.1287.name, achievement.objective.3893.name | achievement.objective.3089.name, monster.3533.name, npc.2185.name | achievement.objective.3821.name, achievement.objective.3813.name, achievement.objective.3817.name, monster.3534.name, npc.2186.name, achievement.objective.3090.name | achievement.objective.3891.name, achievement.1285.name | achievement.objective.3895.name, achievement.1289.name | achievement.objective.514.name | challenge.410.name | challenge.411.name | challenge.412.name | dungeon.82.name | hint.3259.name, achievement.objective.3889.name, achievement.1016.name | map.name.117183488.name, map.name.117182464.name, dungeon.77.name | map.name.117183746.name, map.name.117182722.name | monster.255.name | monster.259.name, monster.2630.name, achievement.objective.516.name | monster.432.name | monster.472.name | npc.2383.name | npc.3630.name, monster.246.name, monster.52.name, achievement.objective.515.name, npc.2397.name, npc.2398.name | object.14449.name | object.14451.name | object.14659.name | object.14660.name | object.14661.name | object.14662.name | object.14663.name | object.14664.name | object.14679.name, object.14735.name | object.14736.name, object.14680.name | object.15189.name | object.15465.name | object.15805.name | object.1652.name | object.1662.name | object.1673.name | object.17182.name | object.365.name | object.6448.name | object.6914.name | object.721.name | object.set.22.name | object.set.317.name | quest.1437.name | quest.1438.name | quest.1498.name, achievement.objective.3266.name | spell.10287.name, spell.10285.name, spell.10283.name | spell.214.name, spell.370.name | spell.316.name | spell.3778.name | spell.3984.name | spell.466.name | spell.6932.name | spell.975.name | spelltype.421.title, achievement.objective.517.name, monster.474.name | spelltype.50.title | spelltype.535.title | title.311.female | title.311.male",kept_neologism,
+Araknelle,araknelle,monster.157.name | object.973.name | spell.260.name,kept_neologism,
+Araknes,araknes,"achievement.1313.name | achievement.175.name, achievement.objective.852.name | monster.race.38.name | quest.197.name, achievement.objective.1697.name",kept_neologism,
+Araknoton,araknoton,object.6911.name,kept_neologism,
+Araknotron,araknotron,"achievement.objective.512.name, monster.990.name | monster.917.name, achievement.objective.511.name | object.13529.name",kept_neologism,
+Araknoture,araknoture,object.6912.name,kept_neologism,
+Araknéen,araknéen,"spell.3313.name, spell.9433.name | spell.7458.name",kept_neologism,
+Araknéenne,araknéenne,spell.7476.name,kept_neologism,
+Arakule,arakule,monster.2310.name,kept_neologism,
+Arakuris,arakuris,object.2985.name,kept_neologism,
+Arapex,arapex,"monster.4322.name, achievement.objective.4050.name, spelltype.515.title, monster.5107.name | monster.4635.name, spelltype.530.title | monster.4675.name | object.19580.name",kept_neologism,
+Arapliké,arapliké,monster.4354.name,kept_neologism,
+Arash,arash,object.6853.name,kept_neologism,
+Arbitrage,arbitrage,,removed_known_word,dictionary_form
+Arbitre,arbitre,,removed_known_word,dictionary_form
+Arboricole,arboricole,,removed_known_word,dictionary_form
+Arbre,arbre,,removed_known_word,dictionary_form
+Arbres,arbres,,removed_known_word,dictionary_form
+Arc,arc,,removed_known_word,dictionary_form
+Arche,arche,,removed_known_word,dictionary_form
+Archer,archer,,removed_known_word,dictionary_form
+Archerie,archerie,,removed_known_word,dictionary_form
+Archi-monstre,archi-monstre,object.10418.name,kept_neologism,
+Archi-monstres,archi-monstres,monster.race.78.name | monster.superrace.20.name,kept_neologism,
+Archibald,archibald,,removed_known_word,dictionary_form
+Archie,archie,"achievement.1331.name | achievement.objective.1351.name | document.476.title | npc.1502.name | npc.2800.name | npc.4108.name | npc.4152.name, object.19358.name, spelltype.508.title, monster.4509.name | object.19394.name",kept_neologism,
+Archillusion,archillusion,object.17052.name,kept_neologism,
+Archipel,archipel,,removed_known_word,dictionary_form
+Architecte,architecte,,removed_known_word,dictionary_form
+Architecture,architecture,,removed_known_word,dictionary_form
+Archive,archive,,removed_known_word,dictionary_form
+Archives,archives,,removed_known_word,dictionary_form
+Archiviste,archiviste,,removed_known_word,dictionary_form
+Archère,archère,,removed_known_word,dictionary_form
+Archéologue,archéologue,,removed_known_word,dictionary_form
+Arcie,arcie,map.name.57017863.name,kept_neologism,
+Arcox,arcox,object.16646.name,kept_neologism,
+Arcs,arcs,,removed_known_word,dictionary_form
+Arculotté,arculotté,object.14590.name,kept_neologism,
+Arde,arde,,removed_known_word,dictionary_form
+Ardent,ardent,,removed_known_word,dictionary_form
+Ardentées,ardentées,spell.7917.name,kept_neologism,
+Ardier,ardier,npc.1236.name | npc.2453.name,kept_neologism,
+Ardoiz,ardoiz,object.13206.name,kept_neologism,
+Ardonite,ardonite,object.12728.name,kept_neologism,
+Arecule,arecule,object.2962.name,kept_neologism,
+Aredarag,aredarag,object.4081.name,kept_neologism,
+Arefaka,arefaka,object.3976.name,kept_neologism,
+Aregeto,aregeto,object.4649.name,kept_neologism,
+Areji,areji,object.6110.name,kept_neologism,
+Aremofa,aremofa,object.2982.name,kept_neologism,
+Arene,arene,"map.name.117440512.name | map.name.117440514.name | map.name.117440516.name | map.name.117440770.name | map.name.117441536.name | map.name.117441538.name | map.name.117441540.name, map.name.117442052.name | map.name.117441794.name",kept_neologism,
+Arepo,arepo,monster.789.name,kept_neologism,
+Ares,ares,,removed_known_word,dictionary_form
+Argent,argent,,removed_known_word,dictionary_form
+Argento,argento,taxcollector.firstname.6.value,kept_neologism,
+Argenté,argenté,,removed_known_word,dictionary_form
+Argentés,argentés,,removed_known_word,dictionary_form
+Argie,argie,object.4381.name,kept_neologism,
+Aria,aria,,removed_known_word,dictionary_form
+Aricie,aricie,"document.444.author, object.17506.name, npc.2990.name",kept_neologism,
+Aride,aride,,removed_known_word,dictionary_form
+Arietta,arietta,npc.847.name,kept_neologism,
+Arirugu,arirugu,object.6404.name,kept_neologism,
+Aris,aris,npc.1960.name | quest.1240.name,kept_neologism,
+Aritem,aritem,object.5776.name,kept_neologism,
+Arkaillou,arkaillou,"object.15350.name | object.15351.name | object.15352.name | object.15492.name | object.15493.name | object.15510.name | object.15810.name, object.15478.name | object.16009.name | object.16010.name",kept_neologism,
+Arkamètre,arkamètre,object.15353.name,kept_neologism,
+Arkanneau,arkanneau,object.15383.name,kept_neologism,
+Arlecoquine,arlecoquine,document.126.author,kept_neologism,
+Arlecrocs,arlecrocs,spell.4375.name,kept_neologism,
+Arlette,arlette,,removed_known_word,dictionary_form
+Armando,armando,,removed_known_word,dictionary_form
+Arme,arme,,removed_known_word,dictionary_form
+Armel,armel,,removed_known_word,dictionary_form
+Armes,armes,,removed_known_word,dictionary_form
+Armistice,armistice,,removed_known_word,dictionary_form
+Armoise,armoise,,removed_known_word,dictionary_form
+Armure,armure,,removed_known_word,dictionary_form
+Armurino,armurino,object.17188.name,kept_neologism,
+Armurivante,armurivante,"object.19307.name | ride.model.101.name, object.19305.name",kept_neologism,
+Armurée,armurée,,removed_known_word,dictionary_form
+Armutin,armutin,object.13925.name | object.14102.name | object.14112.name | object.14122.name,kept_neologism,
+Armutins,armutins,"achievement.objective.2723.name, achievement.912.name | monster.race.106.name, spelltype.336.title | quest.1322.name, achievement.objective.2771.name",kept_neologism,
+Armécréante,armécréante,"spelltype.731.title, monster.4444.name",kept_neologism,
+Armée,armée,,removed_known_word,dictionary_form
+Arna,arna,npc.2357.name,kept_neologism,
+Arnaque,arnaque,,removed_known_word,dictionary_form
+Arnul,arnul,"npc.4311.name, object.20093.name",kept_neologism,
+Arodarh,arodarh,object.4109.name,kept_neologism,
+Aroid,aroid,npc.4637.name,kept_neologism,
+Aroinite,aroinite,object.3824.name,kept_neologism,
+Arouz,arouz,npc.1771.name | quest.1073.name,kept_neologism,
+Aroxem,aroxem,object.5492.name,kept_neologism,
+Arpone,arpone,object.12386.name | object.18965.name,kept_neologism,
+Arrache-tête,arrache-tête,spell.7889.name,kept_neologism,
+Arracheur,arracheur,,removed_known_word,dictionary_form
+Arrieta,arrieta,npc.3394.name,kept_neologism,
+Arrivée,arrivée,,removed_known_word,dictionary_form
+Arrière,arrière,,removed_known_word,dictionary_form
+Arriéré,arriéré,,removed_known_word,dictionary_form
+Arrêt,arrêt,,removed_known_word,dictionary_form
+Art,art,,removed_known_word,dictionary_form
+Artefact,artefact,,removed_known_word,dictionary_form
+Artempeth,artempeth,monster.482.name,kept_neologism,
+Arthur,arthur,,removed_known_word,dictionary_form
+Artifice,artifice,,removed_known_word,dictionary_form
+Artifoux,artifoux,spell.4809.name,kept_neologism,
+Artifouxier,artifouxier,document.454.author | npc.2571.name | npc.2577.name,kept_neologism,
+Artilleur,artilleur,,removed_known_word,dictionary_form
+Artisan,artisan,,removed_known_word,dictionary_form
+Artisans,artisans,,removed_known_word,dictionary_form
+Artok,artok,npc.278.name,kept_neologism,
+Arty,arty,npc.2166.name | npc.90.name | object.778.name,kept_neologism,
+Arucocu,arucocu,object.4211.name,kept_neologism,
+Aruhes,aruhes,object.3917.name,kept_neologism,
+Arumet,arumet,object.19599.name,kept_neologism,
+Arurev,arurev,object.3186.name,kept_neologism,
+Aruri,aruri,object.3714.name,kept_neologism,
+Aruta,aruta,object.2937.name,kept_neologism,
+Arzel,arzel,taxcollector.firstname.5.value,kept_neologism,
+Arzhael,arzhael,taxcollector.firstname.10.value,kept_neologism,
+Arzurith,arzurith,taxcollector.firstname.11.value,kept_neologism,
+Arène,arène,,removed_known_word,dictionary_form
+Asacare,asacare,object.5558.name,kept_neologism,
+Asatucos,asatucos,object.3802.name,kept_neologism,
+Ascension,ascension,,removed_known_word,dictionary_form
+Asehoca,asehoca,object.3318.name,kept_neologism,
+Asfog,asfog,npc.1286.name | npc.2049.name,kept_neologism,
+Ashi-magari,ashi-magari,monster.2976.name,kept_neologism,
+Ashvey,ashvey,npc.1780.name | quest.1082.name,kept_neologism,
+Asid,asid,npc.1669.name | npc.1768.name | quest.1028.name,kept_neologism,
+Aspir'nenfan,aspir'nenfan,spell.882.name,kept_neologism,
+Aspirant,aspirant,,removed_known_word,dictionary_form
+Aspirante,aspirante,,removed_known_word,dictionary_form
+Aspirateur,aspirateur,,removed_known_word,dictionary_form
+Aspiration,aspiration,,removed_known_word,dictionary_form
+Aspiwation,aspiwation,spell.3795.name,kept_neologism,
+Ass'Tik,ass'tik,object.9725.name | object.9849.name,kept_neologism,
+Assacre,assacre,object.9176.name,kept_neologism,
+Assaillant,assaillant,,removed_known_word,dictionary_form
+Assaisonnement,assaisonnement,,removed_known_word,dictionary_form
+Assassin,assassin,,removed_known_word,dictionary_form
+Assassinat,assassinat,,removed_known_word,dictionary_form
+Assassine,assassine,,removed_known_word,dictionary_form
+Assaut,assaut,,removed_known_word,dictionary_form
+Assbad,assbad,object.19545.name | object.19547.name | object.19549.name,kept_neologism,
+Asse,asse,,removed_known_word,dictionary_form
+Asselo,asselo,npc.1372.name | object.11906.name | object.12055.name | object.12056.name,kept_neologism,
+Assembler,assembler,,removed_known_word,dictionary_form
+Assembricolage,assembricolage,spell.10473.name,kept_neologism,
+Asservis,asservis,,removed_known_word,dictionary_form
+Asservissement,asservissement,,removed_known_word,dictionary_form
+Assimilation,assimilation,,removed_known_word,dictionary_form
+Assin,assin,npc.4120.name | object.7161.name,kept_neologism,
+Assistant,assistant,,removed_known_word,dictionary_form
+Assistante,assistante,,removed_known_word,dictionary_form
+Asslan,asslan,object.19551.name,kept_neologism,
+Assoiffé,assoiffé,,removed_known_word,dictionary_form
+Assommant,assommant,,removed_known_word,dictionary_form
+Assommante,assommante,,removed_known_word,dictionary_form
+Assommoir,assommoir,,removed_known_word,dictionary_form
+Assouplissant,assouplissant,,removed_known_word,dictionary_form
+Assutra,assutra,object.323.name,kept_neologism,
+Assèchement,assèchement,,removed_known_word,dictionary_form
+Astaroth,astaroth,taxcollector.firstname.12.value,kept_neologism,
+Astirite,astirite,"map.name.97258001.name, map.name.97259023.name, map.name.97259025.name, map.name.97256977.name, map.name.97256975.name, map.name.97257999.name, map.name.97260047.name, map.name.97255951.name, map.name.97261071.name, map.name.97255953.name | npc.4010.name | npc.4012.name",kept_neologism,
+Astirout,astirout,npc.1651.name | quest.1008.name,kept_neologism,
+Astokum,astokum,object.3412.name,kept_neologism,
+Astotul,astotul,object.5868.name,kept_neologism,
+Astragale,astragale,,removed_known_word,dictionary_form
+Astral,astral,,removed_known_word,dictionary_form
+Astrale,astrale,,removed_known_word,dictionary_form
+Astres,astres,,removed_known_word,dictionary_form
+Astrocoiffe,astrocoiffe,object.1090.name | object.8898.name,kept_neologism,
+Astromagique,astromagique,object.13332.name | object.13350.name | object.13351.name | object.13352.name | object.13353.name,kept_neologism,
+Astrub,astrub,"achievement.1330.name, achievement.objective.3953.name | achievement.1346.name, achievement.objective.3992.name, world.subarea.847.name | achievement.340.name, world.subarea.98.name, achievement.1342.name | achievement.359.name | achievement.360.name, achievement.objective.2325.name, world.subarea.100.name | achievement.587.name | achievement.588.name, achievement.objective.1512.name | achievement.589.name | achievement.category.45.name, map.name.155845639.name, world.area.18.name, achievement.category.37.name, object.type.133.name, achievement.category.80.name, document.273.title, quest.category.3.name | achievement.objective.1349.name | achievement.objective.1480.name | achievement.objective.1498.name | achievement.objective.1513.name | achievement.objective.1742.name | achievement.objective.2320.name, world.subarea.96.name, achievement.344.name | achievement.objective.2323.name | achievement.objective.2324.name | achievement.objective.3796.name, quest.4282.name | achievement.objective.3938.name, quest.4664.name | achievement.objective.3980.name, achievement.1340.name, achievement.339.name, achievement.objective.2315.name | achievement.objective.3982.name, achievement.objective.2316.name | achievement.objective.4605.name, achievement.objective.4603.name | document.184.title | document.361.title | document.380.title | document.489.title | hint.2827.name | hint.3330.name, hint.3467.name | hint.3418.name | hint.3497.name | hint.3509.name | hint.3525.name, hint.3521.name, hint.3519.name, hint.3529.name, hint.3531.name, hint.3527.name, hint.3523.name | house.model.11026.desc | house.model.11040.desc | house.model.11049.desc, house.model.11072.desc, house.model.11036.desc | house.model.271.name, house.model.364.name, house.model.270.name, house.model.272.name, house.model.362.name, house.model.363.name | house.model.275.name, house.model.368.name, house.model.367.name, house.model.366.name, house.model.276.name, house.model.274.name, house.model.365.name, house.model.273.name | house.model.278.name, house.model.277.name, house.model.370.name, house.model.369.name | house.model.279.name, house.model.280.name | map.name.129500162.name, map.name.129500164.name, map.name.129500166.name, map.name.129501188.name, map.name.129501190.name, map.name.129501186.name | map.name.148635652.name | map.name.150208512.name | map.name.150208770.name | map.name.150211584.name, hint.3457.name | map.name.150340608.name | map.name.150341636.name, map.name.150341634.name | map.name.150341638.name | map.name.83887104.name | monster.3739.name, spelltype.123.title | monster.race.115.name | monster.race.135.name | npc.1220.name | npc.1503.name | npc.2616.name | npc.2640.name, npc.2642.name, npc.2644.name, npc.2646.name, npc.2638.name | npc.2884.name | npc.4006.name | npc.4026.name | npc.547.name | npc.548.name | npc.552.name | npc.553.name | npc.554.name | npc.555.name | npc.557.name | npc.560.name | npc.561.name | npc.562.name | npc.563.name | npc.603.name, npc.527.name, npc.525.name, npc.528.name, npc.526.name | object.16868.name | object.16870.name | object.16872.name | object.17498.name | object.19370.name | object.19755.name | object.19759.name | object.6857.name | object.6863.name | object.6886.name | object.type.229.name | quest.4644.name, achievement.objective.3933.name | quest.4674.name, achievement.objective.3950.name | quest.4680.name, achievement.objective.3937.name | quest.category.757.name | spelltype.122.title | spelltype.134.title | spelltype.141.title, achievement.objective.2318.name, achievement.342.name | spelltype.201.title | spelltype.418.title | title.343.female | title.343.male | world.subarea.335.name, spelltype.135.title | world.subarea.854.name, map.name.146016001.name, achievement.objective.2317.name, achievement.1344.name, world.subarea.95.name, achievement.objective.3984.name, world.area.58.name, achievement.341.name | world.subarea.97.name, achievement.1348.name, achievement.345.name, achievement.objective.3988.name, achievement.objective.2321.name | world.subarea.99.name, achievement.objective.3994.name, spelltype.417.title, achievement.1354.name",kept_neologism,
+Astrubien,astrubien,object.19340.name,kept_neologism,
+Astrubienne,astrubienne,object.19843.name | spell.2438.name,kept_neologism,
+Astrubiennes,astrubiennes,achievement.objective.1354.name | object.19879.name | object.19881.name | object.19883.name,kept_neologism,
+Astrubiens,astrubiens,achievement.objective.1471.name,kept_neologism,
+Astucieux,astucieux,,removed_known_word,dictionary_form
+Asuo,asuo,npc.3246.name,kept_neologism,
+Ataibarra,ataibarra,spell.8835.name,kept_neologism,
+Ataje,ataje,object.5706.name,kept_neologism,
+Atake,atake,object.2990.name,kept_neologism,
+Atameratsu,atameratsu,npc.3374.name,kept_neologism,
+Ataraxie,ataraxie,,removed_known_word,dictionary_form
+Atatimos,atatimos,object.3631.name,kept_neologism,
+Atecuci,atecuci,object.3911.name,kept_neologism,
+Ateketo,ateketo,object.5285.name,kept_neologism,
+Atelier,atelier,,removed_known_word,dictionary_form
+Ateliers,ateliers,,removed_known_word,dictionary_form
+Atemelel,atemelel,object.4815.name,kept_neologism,
+Athanor,athanor,,removed_known_word,dictionary_form
+Athit,athit,object.4928.name,kept_neologism,
+Aticus,aticus,npc.188.name | object.2081.name,kept_neologism,
+Atijome,atijome,object.5650.name,kept_neologism,
+Atik,atik,npc.4163.name,kept_neologism,
+Atikutup,atikutup,object.5132.name,kept_neologism,
+Atiredel,atiredel,object.22793.name,kept_neologism,
+Atog,atog,npc.1820.name | quest.1122.name,kept_neologism,
+Atolepo,atolepo,object.5005.name,kept_neologism,
+Atolmond,atolmond,"hint.2937.name, interactive.184.name | npc.328.name",kept_neologism,
+Atomes,atomes,,removed_known_word,dictionary_form
+Atomisation,atomisation,,removed_known_word,dictionary_form
+Atomystique,atomystique,"achievement.objective.408.name | monster.2977.name | monster.4589.name, monster.2866.name | object.11323.name | object.11461.name",kept_neologism,
+Atouin,atouin,object.10716.name | object.10750.name | object.7714.name | object.8020.name | object.8042.name | object.8708.name,kept_neologism,
+Atout,atout,,removed_known_word,dictionary_form
+Atreid,atreid,npc.4665.name,kept_neologism,
+Atroskulda,atroskulda,npc.2020.name,kept_neologism,
+Atross,atross,spell.4874.name,kept_neologism,
+Atsu,atsu,npc.1976.name | quest.1256.name,kept_neologism,
+Attabler,attabler,,removed_known_word,dictionary_form
+Attaque,attaque,,removed_known_word,dictionary_form
+Attaques,attaques,,removed_known_word,dictionary_form
+Attentif,attentif,,removed_known_word,dictionary_form
+Attention,attention,,removed_known_word,dictionary_form
+Atterré,atterré,,removed_known_word,dictionary_form
+Atterrée,atterrée,,removed_known_word,dictionary_form
+Attestation,attestation,,removed_known_word,dictionary_form
+Attila,attila,,removed_known_word,dictionary_form
+Attirance,attirance,,removed_known_word,dictionary_form
+Attirer,attirer,,removed_known_word,dictionary_form
+Attitude,attitude,,removed_known_word,dictionary_form
+Attraction,attraction,,removed_known_word,dictionary_form
+Attrap'nenfan,attrap'nenfan,spell.884.name,kept_neologism,
+Attrape-Gentils,attrape-gentils,spell.3132.name,kept_neologism,
+Attrape-Vilains,attrape-vilains,spell.3130.name,kept_neologism,
+Attrape-coups,attrape-coups,object.18831.name,kept_neologism,
+Atténuation,atténuation,,removed_known_word,dictionary_form
+Atufe,atufe,npc.596.name,kept_neologism,
+Atufest,atufest,object.3499.name,kept_neologism,
+Aturej,aturej,object.5114.name,kept_neologism,
+Aturerun,aturerun,object.3143.name,kept_neologism,
+Aturul,aturul,object.3256.name,kept_neologism,
+Atuxe,atuxe,taxcollector.firstname.131.value,kept_neologism,
+Au-delà,au-delà,,removed_known_word,dictionary_form
+Aubaine,aubaine,,removed_known_word,dictionary_form
+Aube,aube,,removed_known_word,dictionary_form
+Auberge,auberge,,removed_known_word,dictionary_form
+Aubergine,aubergine,,removed_known_word,dictionary_form
+Aubrey,aubrey,,removed_known_word,dictionary_form
+Auchon,auchon,npc.4627.name,kept_neologism,
+Aucun,aucun,,removed_known_word,dictionary_form
+Aucune,aucune,,removed_known_word,dictionary_form
+Audace,audace,,removed_known_word,dictionary_form
+Audacieux,audacieux,,removed_known_word,dictionary_form
+Audaseve,audaseve,object.5571.name,kept_neologism,
+Audej,audej,object.5547.name,kept_neologism,
+Auderie,auderie,"map.name.97256973.name, map.name.97257997.name, map.name.97255949.name, map.name.97260045.name, map.name.97259021.name, map.name.97261069.name",kept_neologism,
+Audition,audition,,removed_known_word,dictionary_form
+Aufemir,aufemir,object.2959.name,kept_neologism,
+Augilol,augilol,object.14001.name,kept_neologism,
+Auplepru,auplepru,object.3313.name,kept_neologism,
+Auprune,auprune,npc.104.name,kept_neologism,
+Aura,aura,,removed_known_word,dictionary_form
+Aurale,aurale,object.18969.name | object.8639.name,kept_neologism,
+Aurifère,aurifère,,removed_known_word,dictionary_form
+Aurore,aurore,,removed_known_word,dictionary_form
+Ausili,ausili,object.3898.name,kept_neologism,
+Austère,austère,,removed_known_word,dictionary_form
+Autel,autel,,removed_known_word,dictionary_form
+Auteur,auteur,,removed_known_word,dictionary_form
+Auto-défense,auto-défense,spell.7896.name,kept_neologism,
+Automatik,automatik,spell.9591.name | spell.9593.name | spell.9595.name,kept_neologism,
+Automnal,automnal,,removed_known_word,dictionary_form
+Automnale,automnale,,removed_known_word,dictionary_form
+Automne,automne,,removed_known_word,dictionary_form
+Autorisation,autorisation,,removed_known_word,dictionary_form
+Autorité,autorité,,removed_known_word,dictionary_form
+Autre,autre,,removed_known_word,dictionary_form
+Autrui,autrui,,removed_known_word,dictionary_form
+Auviel,auviel,object.6255.name,kept_neologism,
+Aux,aux,,removed_known_word,dictionary_form
+Ava,ava,,removed_known_word,dictionary_form
+Avaelo,avaelo,object.4046.name,kept_neologism,
+Avagawe,avagawe,object.3391.name,kept_neologism,
+Avalelum,avalelum,object.5922.name,kept_neologism,
+Avalement,avalement,,removed_known_word,dictionary_form
+Avaleuh,avaleuh,taxcollector.firstname.14.value,kept_neologism,
+Avancée,avancée,,removed_known_word,dictionary_form
+Avant-poste,avant-poste,,removed_known_word,dictionary_form
+Avec,avec,,removed_known_word,dictionary_form
+Aveline,aveline,,removed_known_word,dictionary_form
+Avenir,avenir,,removed_known_word,dictionary_form
+Avent,avent,,removed_known_word,dictionary_form
+Aventure,aventure,,removed_known_word,dictionary_form
+Aventurier,aventurier,,removed_known_word,dictionary_form
+Aventurière,aventurière,,removed_known_word,dictionary_form
+Aventurothèque,aventurothèque,map.name.116130305.name,kept_neologism,
+Averse,averse,,removed_known_word,dictionary_form
+Avese,avese,object.5049.name,kept_neologism,
+Aveuglant,aveuglant,,removed_known_word,dictionary_form
+Aveuglante,aveuglante,,removed_known_word,dictionary_form
+Aveugle,aveugle,,removed_known_word,dictionary_form
+Aveuglement,aveuglement,,removed_known_word,dictionary_form
+Aveux,aveux,,removed_known_word,dictionary_form
+Avidité,avidité,,removed_known_word,dictionary_form
+Avis,avis,,removed_known_word,dictionary_form
+Avoelule,avoelule,object.5756.name,kept_neologism,
+Avogocop,avogocop,object.3234.name,kept_neologism,
+Avoine,avoine,,removed_known_word,dictionary_form
+Avoir,avoir,,removed_known_word,dictionary_form
+Avona,avona,object.5100.name,kept_neologism,
+Avotte,avotte,npc.1462.name,kept_neologism,
+Avout,avout,npc.213.name,kept_neologism,
+Avovael,avovael,object.4859.name,kept_neologism,
+Avurout,avurout,object.6048.name,kept_neologism,
+Avènement,avènement,,removed_known_word,dictionary_form
+Awamice,awamice,object.5255.name,kept_neologism,
+Aweir,aweir,taxcollector.firstname.138.value,kept_neologism,
+Awmuwe,awmuwe,spell.3780.name,kept_neologism,
+Awocata,awocata,object.5767.name,kept_neologism,
+Awthwitique,awthwitique,spell.2636.name,kept_neologism,
+Ayassalama,ayassalama,object.8095.name,kept_neologism,
+Aybou,aybou,npc.350.name,kept_neologism,
+Aycetroy,aycetroy,monster.2961.name,kept_neologism,
+Aychwesh,aychwesh,"monster.3203.name | npc.1905.name, monster.3355.name | object.13686.name",kept_neologism,
+Aygo,aygo,npc.1244.name,kept_neologism,
+Ayiri,ayiri,npc.1896.name,kept_neologism,
+Ayuto,ayuto,npc.389.name,kept_neologism,
+Az'Hassdeu,az'hassdeu,object.17854.name,kept_neologism,
+Az'Hassin,az'hassin,"object.16554.name | object.16596.name | object.16598.name | object.16600.name | object.16602.name | object.17496.name, ornament.102.name | title.212.male",kept_neologism,
+Az'hassin,az'hassin,"object.16554.name | object.16596.name | object.16598.name | object.16600.name | object.16602.name | object.17496.name, ornament.102.name | title.212.male",kept_neologism,
+Az'hassine,az'hassine,title.212.female,kept_neologism,
+Az'tech,az'tech,object.8931.name,kept_neologism,
+Azaraille,azaraille,npc.1260.name | object.11593.name | object.11905.name,kept_neologism,
+Azaw,azaw,"monster.3223.name | npc.1419.name | spell.3109.name, spell.3108.name",kept_neologism,
+Azepl,azepl,object.4973.name,kept_neologism,
+Azin,azin,npc.2394.name,kept_neologism,
+Azkatraz,azkatraz,npc.1929.name | quest.1209.name,kept_neologism,
+Azra,azra,"monster.2830.name | monster.402.name, npc.52.name | npc.1863.name | quest.1165.name | skill.action.313.name, skill.216.name",kept_neologism,
+Azrael,azrael,taxcollector.firstname.7.value,kept_neologism,
+Azrou,azrou,npc.1979.name | quest.1259.name,kept_neologism,
+Azur,azur,,removed_known_word,dictionary_form
+Azuré,azuré,,removed_known_word,dictionary_form
+Azza,azza,npc.1358.name,kept_neologism,
+Açantes,açantes,object.11752.name,kept_neologism,
+Aérien,aérien,,removed_known_word,dictionary_form
+Aérotractage,aérotractage,spell.6633.name,kept_neologism,
+Aérottaque,aérottaque,spell.3144.name,kept_neologism,
+Aïdala,aïdala,"state.457.name, spell.4707.name",kept_neologism,
+BACKUP,backup,spell.6857.name,kept_neologism,
+BOUM,boum,,removed_known_word,dictionary_form
+Baal,baal,,removed_known_word,dictionary_form
+Baba,baba,,removed_known_word,dictionary_form
+Babine,babine,,removed_known_word,dictionary_form
+Babines,babines,,removed_known_word,dictionary_form
+Babuga,babuga,object.6359.name,kept_neologism,
+Bacber,bacber,object.3116.name,kept_neologism,
+Backups,backups,spelltype.75.title,kept_neologism,
+Bactériologique,bactériologique,,removed_known_word,dictionary_form
+Bad,bad,,removed_known_word,dictionary_form
+Badaboum,badaboum,,removed_known_word,dictionary_form
+Badamael,badamael,object.4955.name,kept_neologism,
+Badaud,badaud,,removed_known_word,dictionary_form
+Badge,badge,,removed_known_word,dictionary_form
+Badges,badges,,removed_known_word,dictionary_form
+Badgul,badgul,object.2956.name,kept_neologism,
+Badmorva,badmorva,npc.2017.name,kept_neologism,
+Badob,badob,object.4762.name,kept_neologism,
+Badoul,badoul,object.2389.name | object.276.name | object.66.name,kept_neologism,
+Badufron,badufron,npc.727.name,kept_neologism,
+Baelbar,baelbar,"npc.2297.name, object.15381.name",kept_neologism,
+Baffe,baffe,,removed_known_word,dictionary_form
+Baffeur,baffeur,object.11291.name | object.11295.name | object.7625.name | object.7626.name | object.7627.name | object.7629.name | object.7755.name | object.7756.name | object.7757.name | object.7758.name | object.7759.name | object.7760.name | object.7761.name | object.7762.name | object.7763.name | object.7764.name | object.7765.name | object.7766.name | object.7767.name | object.7768.name | object.7769.name | object.7770.name | object.7771.name | object.7772.name,kept_neologism,
+Bag,bag,npc.1477.name,kept_neologism,
+Bagarre,bagarre,,removed_known_word,dictionary_form
+Bagarreur,bagarreur,,removed_known_word,dictionary_form
+Bagarreuse,bagarreuse,,removed_known_word,dictionary_form
+Bagdette,bagdette,object.8611.name,kept_neologism,
+Bagouze,bagouze,object.9543.name | object.9618.name,kept_neologism,
+Bagrutte,bagrutte,hint.2940.name | interactive.187.name | monster.2631.name | npc.292.name | object.2087.name | object.9932.name,kept_neologism,
+Bague,bague,,removed_known_word,dictionary_form
+Baguette,baguette,,removed_known_word,dictionary_form
+Baguetterelle,baguetterelle,object.9135.name,kept_neologism,
+Baguettes,baguettes,,removed_known_word,dictionary_form
+Bagueur,bagueur,object.1494.name,kept_neologism,
+Bah,bah,,removed_known_word,dictionary_form
+Bah'Pik,bah'pik,object.9755.name | object.9823.name,kept_neologism,
+Baie,baie,,removed_known_word,dictionary_form
+Baies,baies,,removed_known_word,dictionary_form
+Bain,bain,,removed_known_word,dictionary_form
+Bainkuite,bainkuite,object.17778.name,kept_neologism,
+Baiser,baiser,,removed_known_word,dictionary_form
+Baisse,baisse,,removed_known_word,dictionary_form
+Baisser,baisser,,removed_known_word,dictionary_form
+Bajadita,bajadita,npc.1559.name,kept_neologism,
+Bajoie,bajoie,achievement.objective.764.name | monster.941.name,kept_neologism,
+Baka,baka,"npc.1281.name | npc.1921.name, npc.1916.name, monster.3357.name | object.11904.name | object.13656.name, achievement.objective.2266.name",kept_neologism,
+Bakara,bakara,object.15408.name | object.15409.name,kept_neologism,
+Bakélélite,bakélélite,object.749.name,kept_neologism,
+Bakénaki,bakénaki,object.18598.name,kept_neologism,
+Bal,bal,,removed_known_word,dictionary_form
+Baladeur,baladeur,,removed_known_word,dictionary_form
+Balafreux,balafreux,object.13603.name | object.13604.name | object.13605.name | object.13606.name | object.13607.name,kept_neologism,
+Balafrousse,balafrousse,"monster.5139.name, monster.4524.name, monster.4949.name, spelltype.715.title",kept_neologism,
+Balafré,balafré,,removed_known_word,dictionary_form
+Balai,balai,,removed_known_word,dictionary_form
+Balance,balance,,removed_known_word,dictionary_form
+Balance-Fléau,balance-fléau,spell.10483.name,kept_neologism,
+Balançoire,balançoire,,removed_known_word,dictionary_form
+Balayette,balayette,,removed_known_word,dictionary_form
+Balcon,balcon,,removed_known_word,dictionary_form
+Baleinabottes,baleinabottes,object.16370.name,kept_neologism,
+Balelen,balelen,object.2802.name,kept_neologism,
+Balgourde,balgourde,object.6497.name,kept_neologism,
+Balisage,balisage,,removed_known_word,dictionary_form
+Balise,balise,,removed_known_word,dictionary_form
+Balistouille,balistouille,object.19553.name,kept_neologism,
+Ballade,ballade,,removed_known_word,dictionary_form
+Balle,balle,,removed_known_word,dictionary_form
+Ballerines,ballerines,,removed_known_word,dictionary_form
+Ballistique,ballistique,emoticon.144.name | object.16574.name,kept_neologism,
+Ballon,ballon,,removed_known_word,dictionary_form
+Ballonné,ballonné,,removed_known_word,dictionary_form
+Ballontin,ballontin,npc.1423.name,kept_neologism,
+Ballot,ballot,,removed_known_word,dictionary_form
+Ballotin,ballotin,,removed_known_word,dictionary_form
+Ballotine,ballotine,"title.65.male, title.65.female",kept_neologism,
+Balofeau,balofeau,object.3271.name,kept_neologism,
+Balours,balours,"spelltype.379.title, monster.4211.name",kept_neologism,
+Balt,balt,"monster.3223.name | npc.1419.name | spell.3109.name, spell.3108.name",kept_neologism,
+Balthazar,balthazar,,removed_known_word,dictionary_form
+Bam,bam,"spell.5406.name, spell.9925.name | spell.5408.name, spell.9927.name",kept_neologism,
+Bambamulette,bambamulette,object.7000.name,kept_neologism,
+Bambard,bambard,npc.1591.name,kept_neologism,
+Bambelle,bambelle,achievement.objective.1584.name | npc.1297.name | quest.617.name,kept_neologism,
+Bambou,bambou,,removed_known_word,dictionary_form
+Bambouclier,bambouclier,"spell.5508.name, object.17856.name, spell.5510.name",kept_neologism,
+Bambouge,bambouge,spell.4881.name,kept_neologism,
+Bamboum,bamboum,"spell.5504.name, spell.5506.name | spell.5538.name",kept_neologism,
+Bambouquet,bambouquet,"spell.4893.name, spell.4899.name",kept_neologism,
+Bambouto,bambouto,"monster.4044.name | object.17582.name | object.19309.name | object.7286.name | object.7290.name | spelltype.232.title, monster.3964.name, monster.3771.name, achievement.objective.3679.name | spelltype.237.title | state.548.name | state.562.name",kept_neologism,
+Bambusaie,bambusaie,"hint.3376.name, dungeon.126.name, achievement.1238.name, world.subarea.837.name | map.name.139984896.name | map.name.140116992.name | map.name.140118016.name | map.name.140119040.name | object.17638.name",kept_neologism,
+Bamegel,bamegel,object.3417.name,kept_neologism,
+Banal,banal,,removed_known_word,dictionary_form
+Banale,banale,,removed_known_word,dictionary_form
+Banana,banana,,removed_known_word,dictionary_form
+Bananagrume,bananagrume,object.10831.name | object.16251.name,kept_neologism,
+Banane,banane,,removed_known_word,dictionary_form
+Bancontre,bancontre,npc.4038.name,kept_neologism,
+Bandana,bandana,,removed_known_word,dictionary_form
+Bandanarchie,bandanarchie,quest.302.name,kept_neologism,
+Bandapar,bandapar,monster.2313.name,kept_neologism,
+Bande,bande,,removed_known_word,dictionary_form
+Bandeau,bandeau,,removed_known_word,dictionary_form
+Bandelette,bandelette,,removed_known_word,dictionary_form
+Bandelettes,bandelettes,,removed_known_word,dictionary_form
+Bandit,bandit,,removed_known_word,dictionary_form
+Bandits,bandits,,removed_known_word,dictionary_form
+Bandoulière,bandoulière,,removed_known_word,dictionary_form
+Bandson,bandson,monster.2314.name,kept_neologism,
+Banisation,banisation,object.2689.name | object.2710.name,kept_neologism,
+Banke,banke,npc.218.name,kept_neologism,
+Bankizou,bankizou,spell.847.name,kept_neologism,
+Banque,banque,,removed_known_word,dictionary_form
+Banquet,banquet,,removed_known_word,dictionary_form
+Banquier,banquier,,removed_known_word,dictionary_form
+Banquise,banquise,,removed_known_word,dictionary_form
+Banwana,banwana,npc.668.name,kept_neologism,
+Banzai,banzai,spell.5240.name,kept_neologism,
+Bapapa,bapapa,"monster.4288.name, spelltype.465.title | npc.1411.name | object.19444.name",kept_neologism,
+Bappé,bappé,object.19487.name,kept_neologism,
+Baqueraule,baqueraule,spell.2698.name,kept_neologism,
+Baques,baques,,removed_known_word,dictionary_form
+Bar,bar,,removed_known_word,dictionary_form
+Barabas,barabas,object.236.name,kept_neologism,
+Baraka,baraka,,removed_known_word,dictionary_form
+Baramine,baramine,npc.1228.name,kept_neologism,
+Baraqué,baraqué,,removed_known_word,dictionary_form
+Barbacapa,barbacapa,object.15387.name,kept_neologism,
+Barbare,barbare,,removed_known_word,dictionary_form
+Barbarie,barbarie,,removed_known_word,dictionary_form
+Barbe,barbe,,removed_known_word,dictionary_form
+Barbebouse,barbebouse,map.name.121767432.name | npc.2283.name | npc.2320.name,kept_neologism,
+Barbecue,barbecue,,removed_known_word,dictionary_form
+Barbelée,barbelée,,removed_known_word,dictionary_form
+Barbeuk,barbeuk,npc.1495.name,kept_neologism,
+Barbi,barbi,"emoticon.249.name, object.19295.name",kept_neologism,
+Barbier,barbier,,removed_known_word,dictionary_form
+Barbroussa,barbroussa,"achievement.objective.436.name, monster.1049.name, monster.4559.name | object.8757.name | object.8829.name",kept_neologism,
+Barbu,barbu,,removed_known_word,dictionary_form
+Barbéryl,barbéryl,object.19187.name | object.19189.name | object.19191.name | object.19193.name | object.set.435.name,kept_neologism,
+Barchan,barchan,spell.10487.name,kept_neologism,
+Barchwork,barchwork,monster.2417.name,kept_neologism,
+Barde,barde,,removed_known_word,dictionary_form
+Bardes,bardes,,removed_known_word,dictionary_form
+Bardiche,bardiche,object.2604.name,kept_neologism,
+Barebourd,barebourd,monster.2545.name,kept_neologism,
+Baril,baril,,removed_known_word,dictionary_form
+Barin,barin,npc.1321.name,kept_neologism,
+Barjo,barjo,,removed_known_word,dictionary_form
+Barnabé,barnabé,,removed_known_word,dictionary_form
+Baron,baron,,removed_known_word,dictionary_form
+Baroubworks,baroubworks,"achievement.objective.3438.name, monster.race.136.name, achievement.1110.name, spelltype.105.title",kept_neologism,
+Baroudeur,baroudeur,,removed_known_word,dictionary_form
+Barrage,barrage,,removed_known_word,dictionary_form
+Barram,barram,npc.2292.name | object.15496.name,kept_neologism,
+Barre,barre,,removed_known_word,dictionary_form
+Barricade,barricade,,removed_known_word,dictionary_form
+Barrière,barrière,,removed_known_word,dictionary_form
+Barrow,barrow,"npc.2474.name, npc.1252.name",kept_neologism,
+Barry,barry,,removed_known_word,dictionary_form
+Bars,bars,,removed_known_word,dictionary_form
+Bartoz,bartoz,taxcollector.firstname.16.value,kept_neologism,
+Barve,barve,taxcollector.firstname.24.value,kept_neologism,
+Bas,bas,,removed_known_word,dictionary_form
+Basalte,basalte,,removed_known_word,dictionary_form
+Base,base,,removed_known_word,dictionary_form
+Basher,basher,achievement.objective.765.name | monster.938.name,kept_neologism,
+Bashers,bashers,object.218.name,kept_neologism,
+Basquaise,basquaise,,removed_known_word,dictionary_form
+Basse,basse,,removed_known_word,dictionary_form
+Basse-Forge,basse-forge,"map.name.121766400.name | map.name.126095627.name | map.name.132646150.name, map.name.132646152.name, map.name.132646148.name, map.name.132645126.name, map.name.132645128.name | object.16010.name | object.20841.name | object.20843.name | object.20845.name | world.subarea.876.name",kept_neologism,
+Bastion,bastion,,removed_known_word,dictionary_form
+Baston,baston,,removed_known_word,dictionary_form
+Bastonneuze,bastonneuze,object.8608.name,kept_neologism,
+Bataille,bataille,,removed_known_word,dictionary_form
+Batailleur,batailleur,,removed_known_word,dictionary_form
+Batailleuse,batailleuse,,removed_known_word,dictionary_form
+Bataillon,bataillon,,removed_known_word,dictionary_form
+Bateau,bateau,,removed_known_word,dictionary_form
+Batelier,batelier,,removed_known_word,dictionary_form
+Batofu,batofu,"achievement.662.name, challenge.125.name | achievement.objective.1737.name | achievement.objective.2072.name | achievement.objective.2073.name, challenge.126.name, achievement.663.name | challenge.106.name, achievement.objective.2074.name, achievement.492.name | monster.800.name, achievement.objective.1735.name, npc.4099.name, spelltype.433.title, achievement.objective.1182.name, achievement.objective.207.name | object.15568.name | object.17036.name | object.8557.name | spell.7681.name",kept_neologism,

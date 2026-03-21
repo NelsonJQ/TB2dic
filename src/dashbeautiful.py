@@ -122,6 +122,27 @@ def build_dashboard_html(title: str, source_path: str, payload_json: str) -> str
     th, td {{ border-bottom: 1px solid #e4ecdf; padding: 6px 6px; text-align: left; vertical-align: top; }}
     th {{ position: sticky; top: 0; background: #f9fcf7; z-index: 1; white-space: nowrap; }}
     .pill {{ display: inline-block; padding: 1px 7px; border-radius: 999px; background: var(--chip); border: 1px solid #c9e6de; font-size: 0.74rem; margin: 0 4px 4px 0; }}
+    .col-tb_key {{ width: 240px; min-width: 660px; max-width: 660px; }}
+    .cell-inline {{ display: inline-flex; align-items: center; gap: 6px; max-width: 100%; }}
+    .cell-clip {{
+      display: inline-block;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      vertical-align: top;
+    }}
+    .cell-more {{
+      border: 1px solid #9dbdb3;
+      background: #f3faf8;
+      color: #0f5f52;
+      border-radius: 7px;
+      font-size: 0.72rem;
+      padding: 2px 7px;
+      line-height: 1.25;
+      flex: 0 0 auto;
+      cursor: pointer;
+    }}
 
     .pager {{ margin-top: 8px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }}
     .page-buttons {{ display: inline-flex; gap: 4px; align-items: center; flex-wrap: wrap; }}
@@ -232,6 +253,40 @@ def build_dashboard_html(title: str, source_path: str, payload_json: str) -> str
       pointer-events: none;
     }}
     .col-tip b {{ display: block; margin-bottom: 4px; }}
+    .cell-modal {{
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 21, 17, 0.42);
+      z-index: 80;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+    }}
+    .cell-modal.open {{ display: flex; }}
+    .cell-modal-card {{
+      width: min(860px, 96vw);
+      max-height: 82vh;
+      overflow: auto;
+      border-radius: 12px;
+      border: 1px solid #cfe2d8;
+      background: #fff;
+      box-shadow: 0 16px 38px rgba(11, 30, 23, 0.28);
+      padding: 12px;
+      display: grid;
+      gap: 8px;
+    }}
+    .cell-modal-head {{ display: flex; justify-content: space-between; align-items: center; gap: 8px; }}
+    .cell-modal-title {{ font-weight: 700; color: #173126; }}
+    .cell-modal-text {{
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: Consolas, Menlo, monospace;
+      font-size: 0.8rem;
+      line-height: 1.4;
+      color: #153126;
+    }}
 
     @media (max-width: 980px) {{
       .top-grid {{ grid-template-columns: 1fr; }}
@@ -379,6 +434,15 @@ def build_dashboard_html(title: str, source_path: str, payload_json: str) -> str
       </div>
     </div>
   </aside>
+  <div id=\"cellModal\" class=\"cell-modal\" aria-hidden=\"true\">
+    <div class=\"cell-modal-card\" role=\"dialog\" aria-modal=\"true\" aria-label=\"Cell full content\">
+      <div class=\"cell-modal-head\">
+        <span class=\"cell-modal-title\">Full Cell Value</span>
+        <button id=\"cellModalClose\" type=\"button\">Close</button>
+      </div>
+      <pre id=\"cellModalText\" class=\"cell-modal-text\"></pre>
+    </div>
+  </div>
   <div id=\"colTip\" class=\"col-tip\"></div>
 
   <script>
@@ -400,6 +464,8 @@ def build_dashboard_html(title: str, source_path: str, payload_json: str) -> str
       {{ key: 'origin_class', label: 'origin_class', title: 'High-level lineage class.', help: '<b>origin_class</b>Lineage bucket for quick triage.<br><br><b>Values</b><br><span class="mono">tb_and_corpus</span>, <span class="mono">tb_only</span>, <span class="mono">corpus_only</span>, <span class="mono">generated_casing_inference</span>, <span class="mono">generated_unknown</span>' }},
       {{ key: 'lineage_tags', label: 'lineage_tags', title: 'Detailed lineage tags.', help: '<b>lineage_tags</b>Path tags explaining how token entered output.<br><br><b>Example</b><br><span class="mono">tb_filtered_base | corpus_aff_form</span>' }},
       {{ key: 'in_tb_tokens', label: 'in_tb_tokens', title: 'Token appears in TB token list.', help: '<b>in_tb_tokens</b><span class="mono">true</span> when token appears in Step 1 extraction.' }},
+      {{ key: 'tb_key', label: 'tb_key', title: 'Original TB key(s) for kept neologism token.', help: '<b>tb_key</b>Source TB key lineage for Step 2-3 kept neologisms. Multiple keys are joined with <span class="mono">|</span>.' }},
+      {{ key: 'tb_source_entity', label: 'tb_source_entity', title: 'Primary entity derived from TB key.', help: '<b>tb_source_entity</b>Primary entity extracted from the first TB key.<br><br><b>Example</b><br><span class="mono">monster:123</span>' }},
       {{ key: 'in_filtered_dic_base', label: 'in_filtered_dic_base', title: 'Token appears as filtered base.', help: '<b>in_filtered_dic_base</b><span class="mono">true</span> when token appears as filtered neologism base entry.' }},
       {{ key: 'is_corpus_form', label: 'is_corpus_form', title: 'Corpus-attested AFF-derived form.', help: '<b>is_corpus_form</b>AFF-derived form confirmed in corpus.<br><br><b>Example</b><br><span class="mono">Goblin + S -&gt; Goblins</span>' }},
       {{ key: 'is_ghost_form', label: 'is_ghost_form', title: 'Corpus-attested ghost form.', help: '<b>is_ghost_form</b>Proper-noun fallback derivation confirmed in corpus.<br><br><b>Example</b><br><span class="mono">Xelor -&gt; Xelorian</span>' }},
@@ -414,6 +480,7 @@ def build_dashboard_html(title: str, source_path: str, payload_json: str) -> str
       {{ key: 'filter_match_type', label: 'filter_match_type', title: 'Step 2-3 match class.', help: '<b>filter_match_type</b>Filter match type.<br><br><b>Values</b><br><span class="mono">dictionary_form</span>, <span class="mono">compound_word</span>, or empty.' }},
       {{ key: 'dropped_generated_by', label: 'dropped_generated_by', title: 'Generated entries that subsume form.', help: '<b>dropped_generated_by</b>Flagged entries that cover this explicit form during pruning.<br><br><b>Example</b><br><span class="mono">xelor/S</span>' }},
       {{ key: 'flag_evidence_count', label: 'flag_evidence_count', title: 'Number of detailed evidence entries.', help: '<b>flag_evidence_count</b>Count of detailed <span class="mono">flag_evidence</span> entries for this row.' }},
+      {{ key: 'flag_evidence_trail', label: 'flag_evidence_trail', title: 'Detailed flag evidence trail.', help: '<b>flag_evidence_trail</b>Per-flag trace including base word, hit ratio and quorum pass/fail.' }},
       {{ key: 'step4_related_bases', label: 'step4_related_bases', title: 'Related Step 4 bases.', help: '<b>step4_related_bases</b>Bases whose found/ghost forms include this token.<br><br><b>Example</b><br><span class="mono">Xelor | Xelorian</span>' }},
       {{ key: 'source_games', label: 'source_game', title: 'Source game lineage list.', help: '<b>source_game</b>Source game lineage retained in ANK merge rows.<br><br><b>Example</b><br><span class="mono">WAKFU | DOFUS</span>' }},
       {{ key: 'source_rows_merged', label: 'source_rows_merged', title: 'Merged source row count.', help: '<b>source_rows_merged</b>How many source rows merged into this output row.' }},
@@ -439,10 +506,66 @@ def build_dashboard_html(title: str, source_path: str, payload_json: str) -> str
         ? '<span class="bool-badge bool-true">true</span>'
         : '<span class="bool-badge bool-false">false</span>';
     }}
+    function escapeHtml(value) {{
+      return String(value || '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+    }}
+    function expandableText(value, threshold = 70) {{
+      const raw = String(value || '').trim();
+      if (!raw) return '<span class="muted">(empty)</span>';
+      const shortRaw = raw.length > threshold ? raw.slice(0, threshold) + '...' : raw;
+      const shortHtml = escapeHtml(shortRaw);
+      if (raw.length <= threshold) {{
+        return `<span class="cell-clip" title="${{escapeHtml(raw)}}">${{shortHtml}}</span>`;
+      }}
+      return `
+        <span class="cell-inline" title="${{escapeHtml(raw)}}">
+          <span class="cell-clip">${{shortHtml}}</span>
+          <button type="button" class="cell-more" data-full="${{encodeURIComponent(raw)}}">View</button>
+        </span>
+      `;
+    }}
     function listCell(value) {{ return toList(value).map(v => `<span class="pill">${{v}}</span>`).join(''); }}
+    function flagTrailCell(row) {{
+      const evidence = Array.isArray(row.flag_evidence) ? row.flag_evidence : [];
+      if (!evidence.length) return '<span class="muted">(empty)</span>';
+      return evidence.map((ev) => {{
+        const base = String(ev.base_word || '').trim() || '?';
+        const flag = String(ev.flag || '').trim() || '?';
+        const hits = Number(ev.hit_count || 0);
+        const derived = Number(ev.derived_count || 0);
+        const passed = !!ev.passed;
+        const ratio = Number(ev.hit_ratio || 0);
+        const ratioPct = Number.isFinite(ratio) ? `${{(ratio * 100).toFixed(1)}}%` : '0.0%';
+        return `<span class="pill" title="base=${{base}} | flag=${{flag}} | passed=${{passed}}">${{base}}:${{flag}} ${{hits}}/${{derived}} (${{ratioPct}}) ${{passed ? 'OK' : 'NO'}}</span>`;
+      }}).join('');
+    }}
+
+    function tbKeyCell(value) {{
+      return expandableText(value, 210);
+    }}
+
+    function openCellModal(text) {{
+      $('cellModalText').textContent = String(text || '');
+      $('cellModal').classList.add('open');
+      $('cellModal').setAttribute('aria-hidden', 'false');
+    }}
+    function closeCellModal() {{
+      $('cellModal').classList.remove('open');
+      $('cellModal').setAttribute('aria-hidden', 'true');
+      $('cellModalText').textContent = '';
+    }}
 
     function rowValue(row, key) {{
       if (key === 'flag_evidence_count') return Array.isArray(row.flag_evidence) ? row.flag_evidence.length : 0;
+      if (key === 'flag_evidence_trail') {{
+        const evidence = Array.isArray(row.flag_evidence) ? row.flag_evidence : [];
+        return evidence.map((ev) => `${{ev.base_word || ''}}:${{ev.flag || ''}}:${{ev.hit_count || 0}}/${{ev.derived_count || 0}}`).join(' | ');
+      }}
       if (key === 'game') {{
         if (toList(row.source_games).length) return 'ANK';
         return String(row.game || '').trim();
@@ -736,6 +859,7 @@ def build_dashboard_html(title: str, source_path: str, payload_json: str) -> str
         const hay = [
           row.token, row.game, row.language, row.token_lower, row.origin_class,
           row.filter_status, row.filter_match_type,
+          row.tb_key, row.tb_source_entity,
           ...toList(row.lineage_tags),
           ...toList(row.source_base_words),
           ...toList(row.assigned_flags),
@@ -755,13 +879,18 @@ def build_dashboard_html(title: str, source_path: str, payload_json: str) -> str
 
       const listKeys = new Set(['lineage_tags','source_base_words','assigned_flags','mandatory_flags_assigned','validated_flags_assigned','validated_flags_candidates','flag_generated_forms','dropped_generated_by','step4_related_bases','source_games']);
       const boolKeys = new Set(['in_tb_tokens','in_filtered_dic_base','is_corpus_form','is_ghost_form','is_casing_inferred']);
+      const specialKeys = new Set(['flag_evidence_trail']);
 
       $('tbody').innerHTML = pageRows.map(row => {{
         const cells = COLS.map(col => {{
           const key = col.key;
           const value = rowValue(row, key);
           let cell = '';
-          if (listKeys.has(key)) {{
+          if (specialKeys.has(key)) {{
+            cell = flagTrailCell(row);
+          }} else if (key === 'tb_key') {{
+            cell = tbKeyCell(value);
+          }} else if (listKeys.has(key)) {{
             cell = listCell(value);
           }} else if (boolKeys.has(key)) {{
             cell = boolCell(value);
@@ -805,6 +934,19 @@ def build_dashboard_html(title: str, source_path: str, payload_json: str) -> str
 
     $('prev').addEventListener('click', () => {{ if (currentPage > 1) currentPage -= 1; renderTable(); }});
     $('next').addEventListener('click', () => {{ const effectivePageSize = pageSize === 0 ? Math.max(1, filteredRows.length) : Math.max(1, pageSize); const totalPages = Math.max(1, Math.ceil(filteredRows.length / effectivePageSize)); if (currentPage < totalPages) currentPage += 1; renderTable(); }});
+    $('tbody').addEventListener('click', (event) => {{
+      const btn = event.target.closest('.cell-more');
+      if (!btn) return;
+      const encoded = btn.getAttribute('data-full') || '';
+      openCellModal(decodeURIComponent(encoded));
+    }});
+    $('cellModalClose').addEventListener('click', closeCellModal);
+    $('cellModal').addEventListener('click', (event) => {{
+      if (event.target.id === 'cellModal') closeCellModal();
+    }});
+    document.addEventListener('keydown', (event) => {{
+      if (event.key === 'Escape') closeCellModal();
+    }});
 
     const open = () => {{ $('sidebar').classList.add('open'); $('overlay').classList.add('open'); }};
     const close = () => {{ $('sidebar').classList.remove('open'); $('overlay').classList.remove('open'); }};
